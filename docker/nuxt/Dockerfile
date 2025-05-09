@@ -16,5 +16,5 @@ RUN apk update \
 EXPOSE 3000
 
 # Nuxtアプリを起動
-# CMD ["npm", "run", "dev"]
-CMD ["tail", "-f", "/dev/null"]
+CMD ["npm", "run", "dev"]
+# CMD ["tail", "-f", "/dev/null"]
