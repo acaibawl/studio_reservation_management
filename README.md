@@ -17,3 +17,11 @@ docker/nginx/certs/studio_reservation_management.local.crt
 
 ブラウザを立ち上げ直す
 
+# laravelの.envファイル用意
+
+backend/.env.example をコピーして.envファイルを作成  
+APP_KEY変数の生成
+
+```
+php artisan key:generate
+```
