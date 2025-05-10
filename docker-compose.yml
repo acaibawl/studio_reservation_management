@@ -11,8 +11,8 @@ services:
       - ./docker/nginx/logs:/logs
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
       - ./docker/nginx/certs:/etc/nginx/certs
-      - ./frontend:/var/www/frontend
-      - ./backend:/var/www/backend
+      - ./frontend:/var/www/frontend:cached
+      - ./backend:/var/www/backend:cached
     depends_on:
       - php
       - nuxt
@@ -22,16 +22,14 @@ services:
       context: ./docker/php
     container_name: php
     volumes:
-      - ./backend:/var/www/backend
-    working_dir: /var/www/backend
+      - ./backend:/var/www/backend:cached
 
   nuxt:
     build:
       context: ./docker/nuxt
     container_name: nuxt
     volumes:
-      - ./frontend:/app
-    working_dir: /app
+      - ./frontend:/app:cached
     ports:
       - "3000:3000"
     environment:
