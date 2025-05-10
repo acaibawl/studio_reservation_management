@@ -10,6 +10,7 @@ services:
     volumes:
       - ./docker/nginx/logs:/logs
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/nginx/certs:/etc/nginx/certs
       - ./frontend:/var/www/frontend
       - ./backend:/var/www/backend
     depends_on:
