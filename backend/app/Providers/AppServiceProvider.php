@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
 use Illuminate\Database\Eloquent\Model;
@@ -21,6 +23,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // 本番環境以外ではN+1検知で例外にする
-        Model::shouldBeStrict(!$this->app->isProduction());
+        Model::shouldBeStrict(! $this->app->isProduction());
     }
 }
