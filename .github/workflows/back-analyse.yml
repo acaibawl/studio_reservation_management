@@ -1,4 +1,4 @@
-name: Back Analyse
+name: Backend Analyse
 on:
   pull_request:
     paths:
