@@ -75,10 +75,6 @@ jobs:
         run: cp .env.testing .env
         working-directory: ./backend
 
-      - name: Generate key
-        run: php artisan key:generate && php artisan config:clear
-        working-directory: ./backend
-
       - name: Run Migration & Seed for Test database
         run: |
           echo "migrate test databases..."
