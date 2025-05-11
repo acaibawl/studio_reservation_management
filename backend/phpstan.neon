@@ -1,0 +1,9 @@
+includes:
+  - ./vendor/nunomaduro/larastan/extension.neon
+  - phar://phpstan.phar/conf/bleedingEdge.neon
+parameters:
+  paths:
+    - app
+    - tests
+  level: 7
+  reportMaybes: false
