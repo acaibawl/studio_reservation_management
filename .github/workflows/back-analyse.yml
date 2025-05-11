@@ -1,4 +1,4 @@
-name: Back Analyse
+name: Backend Analyse
 on:
   pull_request:
     paths:
@@ -12,6 +12,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Shutdown Ubuntu MySQL
+        run: sudo service mysql stop
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
