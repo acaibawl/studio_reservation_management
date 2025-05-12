@@ -1,0 +1,15 @@
+[mysqld]
+max_connections = 1000
+max_allowed_packet = 32M
+character-set-server=utf8mb4
+log_bin_trust_function_creators=1
+
+# Log
+log_output=FILE
+general_log=1
+general_log_file=/dev/stdout
+innodb_log_writer_threads=OFF
+skip-log-bin
+
+[client]
+default-character-set=utf8mb4
