@@ -79,8 +79,8 @@ jobs:
         run: |
           echo "migrate test databases..."
           php artisan migrate --env=testing
-          echo "seed data to test databases,..."
-          php artisan db:seed --env=testing
+          # echo "seed data to test databases,..."
+          # php artisan db:seed --env=testing
         working-directory: ./backend
 
       - name: Cache route
