@@ -2,7 +2,7 @@ name: Backend Integration
 on:
   pull_request:
     paths:
-      - ./backend/**
+      - backend/**
       - .github/workflows/back-integration.yml
   push:
     branches:
