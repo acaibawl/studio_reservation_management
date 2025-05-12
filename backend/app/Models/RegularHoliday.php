@@ -32,5 +32,6 @@ class RegularHoliday extends Model
 
     protected $casts = [
         'code' => WeekDay::class,
+        'created_at' => 'datetime',
     ];
 }

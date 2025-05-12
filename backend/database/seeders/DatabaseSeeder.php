@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             TemporaryClosingDaySeeder::class,
             BusinessTimeSeeder::class,
             RegularHolidaySeeder::class,
+            ReservationSeeder::class,
         ]);
     }
 }

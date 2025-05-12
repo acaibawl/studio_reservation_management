@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id ID
- * @property string $date 日付
+ * @property \Illuminate\Support\Carbon $date 日付
  * @property \Illuminate\Support\Carbon $created_at
  * @method static \Database\Factories\TemporaryClosingDayFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TemporaryClosingDay newModelQuery()
@@ -33,5 +33,6 @@ class TemporaryClosingDay extends Model
 
     protected $casts = [
         'date' => 'datetime:Y-m-d',
+        'created_at' => 'datetime',
     ];
 }

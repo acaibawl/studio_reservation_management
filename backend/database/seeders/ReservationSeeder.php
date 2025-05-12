@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
-use App\Models\TemporaryClosingDay;
+use App\Models\Reservation;
 use Illuminate\Database\Seeder;
 
-class TemporaryClosingDaySeeder extends Seeder
+class ReservationSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        TemporaryClosingDay::factory()->count(4)->create();
+        Reservation::factory()->count(1)->create();
     }
 }
