@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             MemberSeeder::class,
             OwnerSeeder::class,
             StudioSeeder::class,
+            TemporaryClosingDaySeeder::class,
         ]);
     }
 }
