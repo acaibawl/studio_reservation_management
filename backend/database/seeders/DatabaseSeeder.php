@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             StudioSeeder::class,
             TemporaryClosingDaySeeder::class,
             BusinessTimeSeeder::class,
+            RegularHolidaySeeder::class,
         ]);
     }
 }
