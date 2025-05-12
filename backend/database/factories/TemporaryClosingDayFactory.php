@@ -20,7 +20,7 @@ class TemporaryClosingDayFactory extends Factory
     {
         // 1週間前から2ヶ月後までの臨時休業日を作成
         return [
-            'date' => fake()->dateTimeBetween('-1 week', '+2 month'),
+            'date' => fake()->unique()->dateTimeBetween('-1 week', '+2 month'),
         ];
     }
 }
