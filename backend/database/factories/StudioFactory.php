@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Enums\Studio\StartAt;
 use Arr;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -21,7 +22,7 @@ class StudioFactory extends Factory
     {
         return [
             'name' => fake()->unique()->name().'スタジオ',
-            'start_at' => Arr::random([0, 30]),
+            'start_at' => Arr::random(StartAt::cases()),
         ];
     }
 }

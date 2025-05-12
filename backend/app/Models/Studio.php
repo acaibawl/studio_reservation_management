@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\Studio\StartAt;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,4 +29,8 @@ class Studio extends Model
 {
     /** @use HasFactory<\Database\Factories\StudioFactory> */
     use HasFactory;
+
+    protected $casts = [
+        'start_at' => StartAt::class,
+    ];
 }
