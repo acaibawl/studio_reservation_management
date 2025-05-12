@@ -13,7 +13,7 @@ class HealthCheckControllerTest extends TestCase
      */
     public function test_index(): void
     {
-        $response = $this->get('/health');
+        $response = $this->get('/');
 
         $response->assertStatus(200);
     }
