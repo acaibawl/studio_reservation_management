@@ -30,6 +30,11 @@ class Studio extends Model
     /** @use HasFactory<\Database\Factories\StudioFactory> */
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'start_at',
+    ];
+
     protected $casts = [
         'start_at' => StartAt::class,
     ];

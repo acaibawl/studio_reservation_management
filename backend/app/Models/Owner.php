@@ -28,4 +28,13 @@ class Owner extends Model
 {
     /** @use HasFactory<\Database\Factories\OwnerFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'email',
+        'password',
+    ];
+
+    protected $hidden = [
+        'password',
+    ];
 }
