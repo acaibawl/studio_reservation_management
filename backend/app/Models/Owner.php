@@ -44,6 +44,9 @@ class Owner extends Authenticatable implements JWTSubject
         return $this->getKey();
     }
 
+    /**
+     * @return array<int, mixed>
+     */
     public function getJWTCustomClaims(): array
     {
         return [];

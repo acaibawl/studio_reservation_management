@@ -6,4 +6,8 @@ parameters:
     - app
     - tests
   level: 7
+  ignoreErrors:
+    -
+        identifier: missingType.iterableValue
+        path: tests
   reportMaybes: false

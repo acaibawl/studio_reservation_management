@@ -14,7 +14,9 @@ class OwnerAuthController extends Controller
     {
         $credentials = $request->validated();
         // email・password（自動でハッシュする）で検索をかけて、一致するownerがいればtokenを設定。なければfalseが入る
-        if (! $token = auth()->guard('api_owner')->attempt($credentials)) {
+        /** @var mixed $token */
+        $token = auth()->guard('api_owner')->attempt($credentials);
+        if (! $token) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -37,10 +39,11 @@ class OwnerAuthController extends Controller
 
     public function refresh(): JsonResponse
     {
+        // @phpstan-ignore method.notFound
         return $this->respondWithToken(auth()->refresh());
     }
 
-    protected function respondWithToken($token): JsonResponse
+    protected function respondWithToken(string $token): JsonResponse
     {
         return response()->json([
             'owner_access_token' => $token,

@@ -52,11 +52,17 @@ class Reservation extends Model
         'finish_at' => 'datetime',
     ];
 
+    /**
+     * @return BelongsTo<Member, $this>
+     */
     public function member(): BelongsTo
     {
         return $this->belongsTo(Member::class);
     }
 
+    /**
+     * @return BelongsTo<Studio, $this>
+     */
     public function studio(): BelongsTo
     {
         return $this->belongsTo(Studio::class);
