@@ -145,4 +145,53 @@ class OwnerAuthControllerTest extends TestCase
             ],
         ];
     }
+
+    /**
+     * ログインしていればmeにアクセスできることのテスト
+     */
+    public function test_me_can_access_logged_in(): void
+    {
+        $owner = Owner::factory()->create();
+        $this->actingAs($owner, 'api_owner');
+        $response = $this->getJson('/owner-auth/me');
+        $response->assertOk();
+    }
+
+    /**
+     * ログインしていない場合meにアクセスできないことのテスト
+     */
+    public function test_me_cant_access_not_logged_in(): void
+    {
+        $owner = Owner::factory()->create();
+        $response = $this->getJson('/owner-auth/me');
+        $response->assertUnauthorized();
+    }
+
+    /**
+     * ログアウトしてからmeにアクセスできないことのテスト
+     */
+    public function test_logout_and_me_cant_access(): void
+    {
+        $owner = Owner::factory()->create();
+
+        // ログイン処理
+        $loginRequestBody = [
+            'email' => $owner->email,
+            'password' => 'password',
+        ];
+        $loginResponse = $this->postJson('/owner-auth/login', $loginRequestBody);
+        $authHeader = 'Bearer ' . $loginResponse->json()['owner_access_token'];
+
+        // ログアウト処理
+        $logoutResponse = $this->postJson('/owner-auth/logout', [], [
+            'Authorization' => $authHeader,
+        ]);
+        $logoutResponse->assertOk();
+
+        // ログアウト後のmeアクセス
+        $meResponse = $this->getJson('/owner-auth/me', [
+            'Authorization' => $authHeader,
+        ]);
+        $meResponse->assertUnauthorized();
+    }
 }
