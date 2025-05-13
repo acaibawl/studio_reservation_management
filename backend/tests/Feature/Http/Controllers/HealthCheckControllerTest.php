@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Feature\App\Http\Controllers;
+namespace Tests\Feature\Http\Controllers;
 
 use Tests\TestCase;
 
@@ -13,7 +13,7 @@ class HealthCheckControllerTest extends TestCase
      */
     public function test_index(): void
     {
-        $response = $this->get('/health');
+        $response = $this->getJson('/health');
 
         $response->assertStatus(200);
     }
