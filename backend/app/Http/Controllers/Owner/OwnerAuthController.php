@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\OwnerAuth\LoginPost;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class OwnerAuthController extends Controller
 {
-    public function login(Request $request): JsonResponse
+    public function login(LoginPost $request): JsonResponse
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->validated();
         // email・password（自動でハッシュする）で検索をかけて、一致するownerがいればtokenを設定。なければfalseが入る
         if (! $token = auth()->guard('api_owner')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
