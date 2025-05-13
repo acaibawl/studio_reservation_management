@@ -42,6 +42,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api_owner' => [
+            'driver' => 'jwt',
+            'provider' => 'owners',
+        ],
     ],
 
     /*
@@ -71,6 +75,11 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+
+        'owners' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Owner::class,
+        ],
     ],
 
     /*
