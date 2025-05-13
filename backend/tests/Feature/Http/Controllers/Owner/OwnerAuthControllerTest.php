@@ -11,13 +11,15 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
+/**
+ * オーナー認証周りのテスト
+ */
 class OwnerAuthControllerTest extends TestCase
 {
     use DatabaseTransactions;
 
     /**
      * ログイン成功のテスト
-     * @return void
      */
     #[Test]
     public function test_login_success(): void
@@ -33,8 +35,7 @@ class OwnerAuthControllerTest extends TestCase
         $response = $this->postJson('/owner-auth/login', $requestBody);
 
         $response->assertStatus(200);
-        $response->assertJson(fn (AssertableJson $json) =>
-            $json->hasAll(
+        $response->assertJson(fn (AssertableJson $json) => $json->hasAll(
             [
                 'owner_access_token',
                 'token_type',
@@ -46,9 +47,6 @@ class OwnerAuthControllerTest extends TestCase
 
     /**
      * ログインリクエストのパラメータバリデーションエラーのテスト
-     * @param array $requestBody
-     * @param string $errorMessage
-     * @return void
      */
     #[Test]
     #[DataProvider('dataProviderLoginInvalidParameter')]
@@ -56,9 +54,8 @@ class OwnerAuthControllerTest extends TestCase
     {
         $response = $this->postJson('/owner-auth/login', $requestBody);
         $response->assertUnprocessable();
-        $response->assertJson(fn (AssertableJson $json) =>
-            $json->where('message', $errorMessage)
-                ->etc()
+        $response->assertJson(fn (AssertableJson $json) => $json->where('message', $errorMessage)
+            ->etc()
         );
     }
 
@@ -115,11 +112,10 @@ class OwnerAuthControllerTest extends TestCase
 
     /**
      * 認証情報誤りによるログイン失敗のテスト
-     * @return void
      */
     #[Test]
     #[DataProvider('dataProviderLoginMismatch')]
-    public function test_login_failed_by_mismatch_of_authentication_information(array $requestBody)
+    public function test_login_failed_by_mismatch_of_authentication_information(array $requestBody): void
     {
         Owner::factory()->create([
             'email' => 'acai@example.com',
@@ -145,8 +141,8 @@ class OwnerAuthControllerTest extends TestCase
                 'requestBody' => [
                     'email' => 'acai@example.com',
                     'password' => 'mismatch',
-                ]
-            ]
+                ],
+            ],
         ];
     }
 }
