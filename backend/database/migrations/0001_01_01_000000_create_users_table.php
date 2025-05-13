@@ -8,6 +8,7 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     * TODO: 不要なら削除する
      */
     public function up(): void
     {

@@ -23,6 +23,8 @@ services:
     container_name: php
     volumes:
       - ./backend:/var/www/backend:cached
+    depends_on:
+      - mysql
 
   nuxt:
     build:
@@ -45,6 +47,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
+      - ./docker/mysql/custom.cnf:/etc/mysql/conf.d/custom.cnf
       - ./docker/mysql/sql:/docker-entrypoint-initdb.d
       - db_data:/var/lib/mysql
 
