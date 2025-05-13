@@ -50,6 +50,9 @@ class Member extends Model
         'password',
     ];
 
+    /**
+     * @return HasMany<Reservation, $this>
+     */
     public function reservations(): HasMany
     {
         return $this->hasMany(Reservation::class);

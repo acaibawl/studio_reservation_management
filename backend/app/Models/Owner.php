@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
  * @property int $id
@@ -24,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Owner whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Owner extends Model
+class Owner extends Authenticatable implements JWTSubject
 {
     /** @use HasFactory<\Database\Factories\OwnerFactory> */
     use HasFactory;
@@ -37,4 +38,17 @@ class Owner extends Model
     protected $hidden = [
         'password',
     ];
+
+    public function getJWTIdentifier(): mixed
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * @return array<int, mixed>
+     */
+    public function getJWTCustomClaims(): array
+    {
+        return [];
+    }
 }

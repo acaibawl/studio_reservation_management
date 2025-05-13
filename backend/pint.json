@@ -12,7 +12,7 @@
         "lang/ja/validation.php"
     ],
     "rules": {
-        "concat_space": true,
+        "concat_space": false,
         "date_time_immutable": true,
         "declare_parentheses": true,
         "declare_strict_types": true,
