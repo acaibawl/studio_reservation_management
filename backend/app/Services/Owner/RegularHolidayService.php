@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 class RegularHolidayService
 {
     /**
-     * @return Collection<RegularHoliday>
+     * @return Collection<int, RegularHoliday>
      */
     public function getAll(): Collection
     {
