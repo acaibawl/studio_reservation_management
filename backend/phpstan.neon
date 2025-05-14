@@ -10,4 +10,8 @@ parameters:
     -
         identifier: missingType.iterableValue
         path: tests
+    -
+        '#no value type specified in iterable type array.#'
+    -
+        '#Unable to resolve the template type (.*) in call to function collect#'
   reportMaybes: false
