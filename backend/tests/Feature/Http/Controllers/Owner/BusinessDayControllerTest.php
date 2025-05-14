@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace Tests\Feature\Http\Controllers\Owner;
 
 use App\Models\BusinessTime;
-use App\Models\Owner;
 use App\Models\RegularHoliday;
 use Carbon\WeekDay;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Arr;
 use Illuminate\Testing\Fluent\AssertableJson;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -17,8 +15,6 @@ use Tests\TestCase;
 
 class BusinessDayControllerTest extends TestCase
 {
-    use DatabaseTransactions;
-
     private const array VALID_PUT_ATTRIBUTE = [
         'regular_holidays' => [
             WeekDay::Sunday,
@@ -41,8 +37,7 @@ class BusinessDayControllerTest extends TestCase
             ['code' => WeekDay::Sunday],
         ]);
         $businessTime = BusinessTime::factory()->create();
-        $owner = Owner::factory()->create();
-        $this->actingAs($owner, 'api_owner');
+        $this->loginOwner();
 
         $response = $this->getJson('/owner/business-day');
 
@@ -78,8 +73,7 @@ class BusinessDayControllerTest extends TestCase
             ['code' => WeekDay::Sunday],
         ]);
         BusinessTime::factory()->create();
-        $owner = Owner::factory()->create();
-        $this->actingAs($owner, 'api_owner');
+        $this->loginOwner();
 
         $response = $this->putJson('/owner/business-day', self::VALID_PUT_ATTRIBUTE);
 
@@ -108,8 +102,7 @@ class BusinessDayControllerTest extends TestCase
             ['code' => WeekDay::Sunday],
         ]);
         BusinessTime::factory()->create();
-        $owner = Owner::factory()->create();
-        $this->actingAs($owner, 'api_owner');
+        $this->loginOwner();
 
         $response = $this->putJson('/owner/business-day', $requestBody);
         $response->assertUnprocessable();

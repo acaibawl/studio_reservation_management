@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Feature\Http\Controllers\Owner;
 
 use App\Models\Owner;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Testing\Fluent\AssertableJson;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -16,8 +15,6 @@ use Tests\TestCase;
  */
 class OwnerAuthControllerTest extends TestCase
 {
-    use DatabaseTransactions;
-
     /**
      * ログイン成功のテスト
      */
@@ -151,8 +148,7 @@ class OwnerAuthControllerTest extends TestCase
      */
     public function test_me_can_access_logged_in(): void
     {
-        $owner = Owner::factory()->create();
-        $this->actingAs($owner, 'api_owner');
+        $this->loginOwner();
         $response = $this->getJson('/owner-auth/me');
         $response->assertOk();
     }
@@ -162,7 +158,7 @@ class OwnerAuthControllerTest extends TestCase
      */
     public function test_me_cant_access_not_logged_in(): void
     {
-        $owner = Owner::factory()->create();
+        Owner::factory()->create();
         $response = $this->getJson('/owner-auth/me');
         $response->assertUnauthorized();
     }
@@ -172,7 +168,7 @@ class OwnerAuthControllerTest extends TestCase
      */
     public function test_logout_and_me_cant_access(): void
     {
-        $owner = Owner::factory()->create();
+        $owner = $this->loginOwner();
 
         // ログイン処理
         $loginRequestBody = [
