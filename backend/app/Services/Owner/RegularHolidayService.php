@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Owner;
 
 use App\Models\RegularHoliday;
@@ -17,13 +19,12 @@ class RegularHolidayService
 
     /**
      * 引数の内容でテーブルの内容をまるっと置き換える
-     * @param array $attribute
-     * @return int
      */
     public function update(array $attribute): int
     {
         $regularHolidayCodes = $attribute['regular_holidays'];
         RegularHoliday::whereNotIn('code', $regularHolidayCodes)->delete();
+
         return RegularHoliday::upsert(
             collect($regularHolidayCodes)->map(fn (int $code) => [
                 'code' => $code,

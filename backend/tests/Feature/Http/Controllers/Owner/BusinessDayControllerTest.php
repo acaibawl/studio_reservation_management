@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Http\Controllers\Owner;
 
 use App\Models\BusinessTime;
 use App\Models\Owner;
 use App\Models\RegularHoliday;
 use Carbon\WeekDay;
-use DateTime;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
 use Illuminate\Testing\Fluent\AssertableJson;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -27,7 +27,7 @@ class BusinessDayControllerTest extends TestCase
         'business_time' => [
             'open_time' => '09:00',
             'close_time' => '18:00',
-        ]
+        ],
     ];
 
     /**
@@ -47,11 +47,10 @@ class BusinessDayControllerTest extends TestCase
         $response = $this->getJson('/owner/business-day');
 
         $response->assertOk();
-        $response->assertJson(fn (AssertableJson $json) =>
-            $json->hasAll([
-                'regular_holidays',
-                'business_time',
-            ])->where('regular_holidays.0.code', WeekDay::Sunday)
+        $response->assertJson(fn (AssertableJson $json) => $json->hasAll([
+            'regular_holidays',
+            'business_time',
+        ])->where('regular_holidays.0.code', WeekDay::Sunday)
             ->where('regular_holidays.1.code', WeekDay::Saturday)
             ->where('business_time.open_time', $businessTime->open_time->toTimeString())
             ->where('business_time.close_time', $businessTime->close_time->toTimeString())
@@ -104,8 +103,6 @@ class BusinessDayControllerTest extends TestCase
     #[DataProvider('dataProviderUpdateInvalidParameter')]
     public function test_update_failed_by_validation_error(array $requestBody, array $expectedError): void
     {
-//        dd(DateTime::createFromFormat(format: 'H:i', datetime: '9999'));
-
         RegularHoliday::factory()->createMany([
             ['code' => WeekDay::Saturday],
             ['code' => WeekDay::Sunday],
@@ -128,79 +125,79 @@ class BusinessDayControllerTest extends TestCase
             '定休日は必須' => [
                 'requestBody' => Arr::except(self::VALID_PUT_ATTRIBUTE, ['regular_holidays']),
                 'expectedError' => [
-                    'regular_holidays' => '定休日は必須項目です。'
-                ]
+                    'regular_holidays' => '定休日は必須項目です。',
+                ],
             ],
             '定休日に無効な値' => [
                 'requestBody' => [
                     ...self::VALID_PUT_ATTRIBUTE,
-                    'regular_holidays' => [7]
+                    'regular_holidays' => [7],
                 ],
                 'expectedError' => [
-                    'regular_holidays.0' => '選択した 定休日は 無効です。'
-                ]
+                    'regular_holidays.0' => '選択した 定休日は 無効です。',
+                ],
             ],
             '営業時間は必須' => [
                 'requestBody' => Arr::except(self::VALID_PUT_ATTRIBUTE, ['business_time']),
                 'expectedError' => [
-                    'business_time' => '営業時間は必須項目です。'
-                ]
+                    'business_time' => '営業時間は必須項目です。',
+                ],
             ],
             '営業開始時間は必須' => [
                 'requestBody' => Arr::except(self::VALID_PUT_ATTRIBUTE, ['business_time.open_time']),
                 'expectedError' => [
-                    'business_time.open_time' => '営業開始時間は必須項目です。'
-                ]
+                    'business_time.open_time' => '営業開始時間は必須項目です。',
+                ],
             ],
             '営業開始時間が時間になってない' => [
                 'requestBody' => [
                     ...self::VALID_PUT_ATTRIBUTE,
                     'business_time' => [
                         'open_time' => 'あああああ',
-                    ]
+                    ],
                 ],
                 'expectedError' => [
-                    'business_time.open_time' => "営業開始時間の形式が'H:i'と一致しません。"
-                ]
+                    'business_time.open_time' => "営業開始時間の形式が'H:i'と一致しません。",
+                ],
             ],
             '営業開始時間が無効な時間' => [
                 'requestBody' => [
                     ...self::VALID_PUT_ATTRIBUTE,
                     'business_time' => [
                         'open_time' => '99:99',
-                    ]
+                    ],
                 ],
                 'expectedError' => [
-                    'business_time.open_time' => "営業開始時間の形式が'H:i'と一致しません。"
-                ]
+                    'business_time.open_time' => "営業開始時間の形式が'H:i'と一致しません。",
+                ],
             ],
             '営業終了時間は必須' => [
                 'requestBody' => Arr::except(self::VALID_PUT_ATTRIBUTE, ['business_time.close_time']),
                 'expectedError' => [
-                    'business_time.close_time' => '営業終了時間は必須項目です。'
-                ]
+                    'business_time.close_time' => '営業終了時間は必須項目です。',
+                ],
             ],
             '営業終了時間が時間になってない' => [
                 'requestBody' => [
                     ...self::VALID_PUT_ATTRIBUTE,
                     'business_time' => [
                         'close_time' => 'あああああ',
-                    ]
+                    ],
                 ],
                 'expectedError' => [
-                    'business_time.close_time' => "営業終了時間の形式が'H:i'と一致しません。"
-                ]
+                    'business_time.close_time' => "営業終了時間の形式が'H:i'と一致しません。",
+                ],
             ],
             '営業終了時間が無効な時間' => [
                 'requestBody' => [
                     ...self::VALID_PUT_ATTRIBUTE,
                     'business_time' => [
                         'close_time' => '99:99',
-                    ]
+                    ],
                 ],
                 'expectedError' => [
-                    'business_time.close_time' => "営業終了時間の形式が'H:i'と一致しません。"
-                ]
+                    'business_time.close_time' => "営業終了時間の形式が'H:i'と一致しません。",
+                ],
             ],
         ];
     }
