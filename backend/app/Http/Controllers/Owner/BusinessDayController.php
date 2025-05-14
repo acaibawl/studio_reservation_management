@@ -50,6 +50,7 @@ class BusinessDayController extends Controller
             $this->businessTimeService->update($request->validated());
             DB::commit();
         } catch (\Exception $e) {
+            \Log::error($e->getMessage(), $e->getTrace());
             DB::rollBack();
             throw $e;
         }
