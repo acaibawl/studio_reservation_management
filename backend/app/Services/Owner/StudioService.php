@@ -29,7 +29,7 @@ class StudioService
      */
     public function update(Studio $studio, array $attributes): bool
     {
-        if ($studio->hasFutureReservation() && $attributes['start_at'] !== $studio->start_at) {
+        if ($studio->hasFutureReservation() && $attributes['start_at'] !== $studio->start_at->value) {
             throw new ReservedStudioCantUpdateStartAtException();
         }
 

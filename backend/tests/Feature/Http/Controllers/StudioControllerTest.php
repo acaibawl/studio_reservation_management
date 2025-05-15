@@ -250,6 +250,34 @@ class StudioControllerTest extends TestCase
         ]);
     }
 
+    #[Test]
+    public function test_update_name_success_with_reservation(): void
+    {
+        $studio = Studio::factory()->create([
+            'name' => 'Aスタ',
+            'start_at' => StartAt::Thirty,
+        ]);
+        $member = Member::factory()->create();
+        $studio->reservations()->create([
+            'member_id' => $member->id,
+            'start_at' => now(),
+            'finish_at' => now()->addHours(6),
+            'memo' => 'memoです。',
+        ]);
+        $this->loginAsOwner();
+
+        $response = $this->putJson("/owner/studios/{$studio->id}", [
+            'name' => '変更後スタジオ名',
+            'start_at' => StartAt::Thirty,
+        ]);
+
+        $response->assertOk();
+        $this->assertDatabaseHas('studios', [
+            'name' => '変更後スタジオ名',
+            'start_at' => StartAt::Thirty,
+        ]);
+    }
+
     /**
      * スタジオ更新の成功テスト（名前を変更しない場合にuniqueルールに引っかからないことの確認）
      */
