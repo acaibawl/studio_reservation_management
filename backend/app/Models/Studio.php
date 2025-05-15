@@ -49,4 +49,12 @@ class Studio extends Model
     {
         return $this->hasMany(Reservation::class);
     }
+
+    /**
+     * 終了日時が未来の予約を持っている場合trueを返す
+     */
+    public function hasFutureReservation(): bool
+    {
+        return $this->reservations()->where('finish_at', '>=', now())->exists();
+    }
 }
