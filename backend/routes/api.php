@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Http\Controllers\HealthCheckController;
 use App\Http\Controllers\Owner\BusinessDayController;
 use App\Http\Controllers\Owner\OwnerAuthController;
+use App\Http\Controllers\StudioController;
 use App\Http\Controllers\TemporaryClosingDayController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,16 @@ Route::middleware('auth:api_owner')->group(function () {
                     Route::get('/', [TemporaryClosingDayController::class, 'index'])->name('index');
                     Route::post('/', [TemporaryClosingDayController::class, 'store'])->name('store');
                     Route::delete('/{date:date}', [TemporaryClosingDayController::class, 'destroy'])->name('destroy');
+                });
+
+            Route::prefix('studios')
+                ->name('studios.')
+                ->group(function () {
+                    Route::get('/', [StudioController::class, 'index'])->name('index');
+                    Route::post('/', [StudioController::class, 'store'])->name('store');
+                    Route::get('/{studio}', [StudioController::class, 'show'])->name('show');
+                    Route::put('/{studio}', [StudioController::class, 'update'])->name('update');
+                    Route::delete('/{studio}', [StudioController::class, 'destroy'])->name('destroy');
                 });
         });
 });
