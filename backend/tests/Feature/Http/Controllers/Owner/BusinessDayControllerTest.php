@@ -37,7 +37,7 @@ class BusinessDayControllerTest extends TestCase
             ['code' => WeekDay::Sunday],
         ]);
         $businessTime = BusinessTime::factory()->create();
-        $this->loginOwner();
+        $this->loginAsOwner();
 
         $response = $this->getJson('/owner/business-day');
 
@@ -73,7 +73,7 @@ class BusinessDayControllerTest extends TestCase
             ['code' => WeekDay::Sunday],
         ]);
         BusinessTime::factory()->create();
-        $this->loginOwner();
+        $this->loginAsOwner();
 
         $response = $this->putJson('/owner/business-day', self::VALID_PUT_ATTRIBUTE);
 
@@ -102,7 +102,7 @@ class BusinessDayControllerTest extends TestCase
             ['code' => WeekDay::Sunday],
         ]);
         BusinessTime::factory()->create();
-        $this->loginOwner();
+        $this->loginAsOwner();
 
         $response = $this->putJson('/owner/business-day', $requestBody);
         $response->assertUnprocessable();

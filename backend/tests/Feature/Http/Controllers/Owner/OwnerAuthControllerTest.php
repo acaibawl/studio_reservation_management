@@ -148,7 +148,7 @@ class OwnerAuthControllerTest extends TestCase
      */
     public function test_me_can_access_logged_in(): void
     {
-        $this->loginOwner();
+        $this->loginAsOwner();
         $response = $this->getJson('/owner-auth/me');
         $response->assertOk();
     }
@@ -168,7 +168,7 @@ class OwnerAuthControllerTest extends TestCase
      */
     public function test_logout_and_me_cant_access(): void
     {
-        $owner = $this->loginOwner();
+        $owner = $this->loginAsOwner();
 
         // ログイン処理
         $loginRequestBody = [

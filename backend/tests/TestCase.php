@@ -68,7 +68,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * 共通のログイン処理
      */
-    protected function loginOwner(?Owner $owner = null): Owner
+    protected function loginAsOwner(?Owner $owner = null): Owner
     {
         $owner ??= Owner::factory()->create();
         $this->actingAs($owner, 'api_owner');

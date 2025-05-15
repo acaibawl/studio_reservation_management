@@ -23,9 +23,8 @@ class TemporaryClosingDayControllerTest extends TestCase
             ['date' => '2025-05-14'],
             ['date' => '2025-06-02'],
             ['date' => '2025-05-29'],
-        ]);
-        $days = $days->sortBy('date')->values();
-        $this->loginOwner();
+        ])->sortBy('date')->values();
+        $this->loginAsOwner();
 
         $response = $this->getJson('/owner/temporary-closing-days');
         $response->assertOk();
@@ -53,7 +52,7 @@ class TemporaryClosingDayControllerTest extends TestCase
     #[Test]
     public function test_store_success(): void
     {
-        $this->loginOwner();
+        $this->loginAsOwner();
         $response = $this->postJson('/owner/temporary-closing-days', [
             'date' => '2025-05-14',
         ]);
@@ -70,7 +69,7 @@ class TemporaryClosingDayControllerTest extends TestCase
         TemporaryClosingDay::factory()->create([
             'date' => '2025-05-14',
         ]);
-        $this->loginOwner();
+        $this->loginAsOwner();
         $response = $this->postJson('/owner/temporary-closing-days', $requestBody);
         $response->assertUnprocessable();
         $response->assertInvalid($expectedError);
@@ -112,10 +111,11 @@ class TemporaryClosingDayControllerTest extends TestCase
         ];
     }
 
+    #[Test]
     public function test_destroy_success(): void
     {
         $day = TemporaryClosingDay::factory()->create();
-        $this->loginOwner();
+        $this->loginAsOwner();
 
         $response = $this->deleteJson("/owner/temporary-closing-days/{$day->date->format('Y-m-d')}");
 
@@ -123,5 +123,16 @@ class TemporaryClosingDayControllerTest extends TestCase
         $this->assertDatabaseMissing('temporary_closing_days', [
             'date' => $day->date->format('Y-m-d'),
         ]);
+    }
+
+    #[Test]
+    public function test_destroy_not_found(): void
+    {
+        $this->loginAsOwner();
+        $nonExistentDate = '2099-12-31'; // 存在しない日付
+
+        $response = $this->deleteJson("/owner/temporary-closing-days/{$nonExistentDate}");
+
+        $response->assertNotFound();
     }
 }

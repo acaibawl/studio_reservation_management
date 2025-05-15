@@ -17,10 +17,10 @@ class TemporaryClosingDayService
         return TemporaryClosingDay::orderBy('date')->get();
     }
 
-    public function create(array $attribute): TemporaryClosingDay
+    public function create(array $attributes): TemporaryClosingDay
     {
         return TemporaryClosingDay::create([
-            'date' => $attribute['date'],
+            'date' => $attributes['date'],
         ]);
     }
 }
