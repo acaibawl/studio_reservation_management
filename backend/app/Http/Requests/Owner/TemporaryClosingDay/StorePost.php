@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests\Owner\TemporaryClosingDay;
 
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -33,7 +35,7 @@ class StorePost extends FormRequest
     public function attributes(): array
     {
         return [
-            'date' => '日付'
+            'date' => '日付',
         ];
     }
 }

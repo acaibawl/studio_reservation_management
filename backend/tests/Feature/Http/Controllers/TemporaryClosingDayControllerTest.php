@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\TemporaryClosingDay;
@@ -16,7 +18,7 @@ class TemporaryClosingDayControllerTest extends TestCase
     #[Test]
     public function test_index_success(): void
     {
-        /** @var Collection<TemporaryClosingDay> $days */
+        /** @var Collection<int, TemporaryClosingDay> $days */
         $days = TemporaryClosingDay::factory()->createMany([
             ['date' => '2025-05-14'],
             ['date' => '2025-06-02'],
@@ -80,37 +82,37 @@ class TemporaryClosingDayControllerTest extends TestCase
             'dateは必須' => [
                 'requestBody' => [],
                 'expectedError' => [
-                    'date' => '日付は必須項目です。'
-                ]
+                    'date' => '日付は必須項目です。',
+                ],
             ],
             'dateは有効な日付' => [
                 'requestBody' => [
                     'date' => '2025-02-30',
                 ],
                 'expectedError' => [
-                    'date' => "日付の形式が'Y-m-d'と一致しません。"
-                ]
+                    'date' => "日付の形式が'Y-m-d'と一致しません。",
+                ],
             ],
             'dateは日付' => [
                 'requestBody' => [
                     'date' => 'あいうえお',
                 ],
                 'expectedError' => [
-                    'date' => "日付の形式が'Y-m-d'と一致しません。"
-                ]
+                    'date' => "日付の形式が'Y-m-d'と一致しません。",
+                ],
             ],
             'dateはユニーク' => [
                 'requestBody' => [
                     'date' => '2025-05-14',
                 ],
                 'expectedError' => [
-                    'date' => "指定の日付は既に使用されています。"
-                ]
+                    'date' => '指定の日付は既に使用されています。',
+                ],
             ],
         ];
     }
 
-    public function test_destroy_success()
+    public function test_destroy_success(): void
     {
         $day = TemporaryClosingDay::factory()->create();
         $this->loginOwner();

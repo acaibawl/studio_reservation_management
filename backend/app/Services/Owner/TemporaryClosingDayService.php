@@ -1,15 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Owner;
 
 use App\Models\TemporaryClosingDay;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Carbon;
 
 class TemporaryClosingDayService
 {
     /**
-     * @return Collection<TemporaryClosingDay>
+     * @return Collection<int, TemporaryClosingDay>
      */
     public function getAll(): Collection
     {
