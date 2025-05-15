@@ -1,0 +1,26 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Services\Owner;
+
+use App\Models\TemporaryClosingDay;
+use Illuminate\Database\Eloquent\Collection;
+
+class TemporaryClosingDayService
+{
+    /**
+     * @return Collection<int, TemporaryClosingDay>
+     */
+    public function getAll(): Collection
+    {
+        return TemporaryClosingDay::orderBy('date')->get();
+    }
+
+    public function create(array $attributes): TemporaryClosingDay
+    {
+        return TemporaryClosingDay::create([
+            'date' => $attributes['date'],
+        ]);
+    }
+}

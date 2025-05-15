@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Http\Controllers\HealthCheckController;
 use App\Http\Controllers\Owner\BusinessDayController;
 use App\Http\Controllers\Owner\OwnerAuthController;
+use App\Http\Controllers\TemporaryClosingDayController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/health', [HealthCheckController::class, 'index'])->name('health');
@@ -28,5 +29,13 @@ Route::middleware('auth:api_owner')->group(function () {
         ->group(function () {
             Route::get('business-day', [BusinessDayController::class, 'index'])->name('business-day.index');
             Route::put('business-day', [BusinessDayController::class, 'update'])->name('business-day.update');
+
+            Route::prefix('temporary-closing-days')
+                ->name('temporary-closing-days.')
+                ->group(function () {
+                    Route::get('/', [TemporaryClosingDayController::class, 'index'])->name('index');
+                    Route::post('/', [TemporaryClosingDayController::class, 'store'])->name('store');
+                    Route::delete('/{date:date}', [TemporaryClosingDayController::class, 'destroy'])->name('destroy');
+                });
         });
 });
