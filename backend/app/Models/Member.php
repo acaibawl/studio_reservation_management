@@ -50,6 +50,14 @@ class Member extends Model
         'password',
     ];
 
+    /** 終了時間が未来の予約をもつ場合はtrue */
+    public function hasReservation(): bool
+    {
+        return $this->reservations
+            ->where('finish_at', '>=', now())
+            ->isNotEmpty();
+    }
+
     /**
      * @return HasMany<Reservation, $this>
      */

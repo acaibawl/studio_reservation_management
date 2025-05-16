@@ -48,8 +48,8 @@ class Reservation extends Model
     ];
 
     protected $casts = [
-        'start_at' => 'datetime',
-        'finish_at' => 'datetime',
+        'start_at' => 'datetime:Y-m-d H:i:s',
+        'finish_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     /**
