@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Owner\Member\IndexGet;
+use App\Http\Resources\Onwer\Member\MemberCollection;
 use App\Models\Member;
 use App\Models\Reservation;
 use App\Services\Owner\MemberService;
@@ -17,18 +18,11 @@ class MemberController extends Controller
         private readonly MemberService $memberService,
     ) {}
 
-    public function index(IndexGet $request): JsonResponse
+    public function index(IndexGet $request): MemberCollection
     {
         $members = $this->memberService->fetchPaginatedMembers($request->validated())->load('reservations');
 
-        return response()->json([
-            'members' => $members->map(fn (Member $member) => [
-                'id' => $member->id,
-                'name' => $member->name,
-                'email' => $member->email,
-                'has_reservation' => $member->hasReservation(),
-            ]),
-        ]);
+        return new MemberCollection($members);
     }
 
     public function show(Member $member): JsonResponse
