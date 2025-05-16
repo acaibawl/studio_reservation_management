@@ -19,7 +19,7 @@ class MemberController extends Controller
 
     public function index(IndexGet $request): JsonResponse
     {
-        $members = $this->memberService->index($request->validated());
+        $members = $this->memberService->fetchPaginatedMembers($request->validated());
 
         return response()->json([
             'members' => $members->map(fn (Member $member) => [

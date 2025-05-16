@@ -15,9 +15,9 @@ class MemberService
     /**
      * @return Collection<int, Member>
      */
-    public function index(array $attributes): Collection
+    public function fetchPaginatedMembers(array $attributes): Collection
     {
-        $query = Member::with('reservations')->orderBy('id')->take(self::PAGE_SIZE);
+        $query = Member::orderBy('id')->take(self::PAGE_SIZE);
         if (isset($attributes['page'])) {
             $query->offset(($attributes['page'] - 1) * self::PAGE_SIZE);
         }
