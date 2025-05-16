@@ -54,6 +54,7 @@ Route::middleware('auth:api_owner')->group(function () {
                 ->name('members.')
                 ->group(function () {
                     Route::get('/', [MemberController::class, 'index'])->name('index');
+                    Route::get('/{member}', [MemberController::class, 'show'])->name('show');
                 });
         });
 });

@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Http\Controllers\Owner;
 
+use App\Enums\Studio\StartAt;
 use App\Models\Member;
 use App\Models\Reservation;
+use App\Models\Studio;
 use Arr;
+use Illuminate\Support\Carbon;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -174,5 +177,94 @@ class MemberControllerTest extends TestCase
                 ],
             ],
         ];
+    }
+
+    /**
+     * 会員の詳細のテスト
+     */
+    public function test_show_success(): void
+    {
+        Carbon::setTestNow('2025-05-16 09:00:00');
+        $member = Member::factory()->create();
+        $bStudio = Studio::factory()->create([
+            'name' => 'Bスタ',
+            'start_at' => StartAt::Zero,
+        ]);
+        // 過去の予約（取得対象外）
+        Reservation::factory()->create([
+            'member_id' => $member->id,
+            'studio_id' => $bStudio->id,
+            'start_at' => Carbon::create(2025, 5, 10, 10, 0, 0),
+            'finish_at' => Carbon::create(2025, 5, 10, 11, 59, 59),
+        ]);
+        // 未来の予約（取得対象）
+        $reservationBst2 = Reservation::factory()->create([
+            'member_id' => $member->id,
+            'studio_id' => $bStudio->id,
+            'start_at' => Carbon::create(2025, 5, 19, 15, 0, 0),
+            'finish_at' => Carbon::create(2025, 5, 19, 17, 59, 59),
+        ]);
+
+        // Aスタは未来の予約だけ登録
+        $aStudio = Studio::factory()->create([
+            'name' => 'Aスタ',
+            'start_at' => StartAt::Thirty,
+
+        ]);
+        $reservationAst1 = Reservation::factory()->create([
+            'member_id' => $member->id,
+            'studio_id' => $aStudio->id,
+            'start_at' => Carbon::create(2025, 5, 17, 12, 30, 0),
+            'finish_at' => Carbon::create(2025, 5, 17, 15, 29, 59),
+        ]);
+        $reservationAst2 = Reservation::factory()->create([
+            'member_id' => $member->id,
+            'studio_id' => $aStudio->id,
+            'start_at' => Carbon::create(2025, 5, 16, 10, 30, 0),
+            'finish_at' => Carbon::create(2025, 5, 16, 11, 29, 59),
+        ]);
+        $this->loginAsOwner();
+
+        $response = $this->getJson("/owner/members/{$member->id}");
+
+        $response->assertOk();
+        $response->assertExactJson([
+            'member' => [
+                'id' => $member->id,
+                'name' => $member->name,
+                'email' => $member->email,
+                'address' => $member->address,
+                'tel' => $member->tel,
+                'reservations' => [
+                    [
+                        'id' => $reservationAst2->id,
+                        'member_id' => $member->id,
+                        'studio_id' => $aStudio->id,
+                        'studio_name' => $aStudio->name,
+                        'start_at' => $reservationAst2->start_at->format('Y-m-d H:i:s'),
+                        'finish_at' => $reservationAst2->finish_at->format('Y-m-d H:i:s'),
+                        'memo' => $reservationAst2->memo,
+                    ],
+                    [
+                        'id' => $reservationAst1->id,
+                        'member_id' => $member->id,
+                        'studio_id' => $aStudio->id,
+                        'studio_name' => $aStudio->name,
+                        'start_at' => $reservationAst1->start_at->format('Y-m-d H:i:s'),
+                        'finish_at' => $reservationAst1->finish_at->format('Y-m-d H:i:s'),
+                        'memo' => $reservationAst1->memo,
+                    ],
+                    [
+                        'id' => $reservationBst2->id,
+                        'member_id' => $member->id,
+                        'studio_id' => $bStudio->id,
+                        'studio_name' => $bStudio->name,
+                        'start_at' => $reservationBst2->start_at->format('Y-m-d H:i:s'),
+                        'finish_at' => $reservationBst2->finish_at->format('Y-m-d H:i:s'),
+                        'memo' => $reservationBst2->memo,
+                    ],
+                ],
+            ],
+        ]);
     }
 }

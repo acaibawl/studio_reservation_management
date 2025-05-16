@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Owner;
 
 use App\Models\Member;
+use App\Models\Reservation;
 use Illuminate\Database\Eloquent\Collection;
 
 class MemberService
@@ -25,5 +26,19 @@ class MemberService
         }
 
         return $query->get();
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getFutureReservations(Member $member): Collection
+    {
+        return $member->reservations()
+            ->with('studio')
+            ->where('finish_at', '>=', now())
+            ->orderBy('start_at')
+            ->orderBy('finish_at')
+            ->orderByRaw('studio_id')
+            ->get();
     }
 }
