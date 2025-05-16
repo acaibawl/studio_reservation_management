@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\HealthCheckController;
 use App\Http\Controllers\Owner\BusinessDayController;
+use App\Http\Controllers\Owner\MemberController;
 use App\Http\Controllers\Owner\OwnerAuthController;
 use App\Http\Controllers\StudioController;
 use App\Http\Controllers\TemporaryClosingDayController;
@@ -47,6 +48,12 @@ Route::middleware('auth:api_owner')->group(function () {
                     Route::get('/{studio}', [StudioController::class, 'show'])->name('show');
                     Route::put('/{studio}', [StudioController::class, 'update'])->name('update');
                     Route::delete('/{studio}', [StudioController::class, 'destroy'])->name('destroy');
+                });
+
+            Route::prefix('members')
+                ->name('members.')
+                ->group(function () {
+                    Route::get('/', [MemberController::class, 'index'])->name('index');
                 });
         });
 });
