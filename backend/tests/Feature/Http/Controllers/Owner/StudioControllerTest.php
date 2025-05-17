@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\Controllers;
+namespace Feature\Http\Controllers\Owner;
 
 use App\Enums\Studio\StartAt;
 use App\Exceptions\Owner\Studio\ReservedStudioCantDeleteException;
