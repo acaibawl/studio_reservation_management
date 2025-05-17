@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\Controllers;
+namespace Feature\Http\Controllers\Owner;
 
 use App\Models\TemporaryClosingDay;
 use Illuminate\Support\Collection;
