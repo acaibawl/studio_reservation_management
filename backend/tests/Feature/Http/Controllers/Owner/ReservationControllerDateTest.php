@@ -37,7 +37,7 @@ class ReservationControllerDateTest extends TestCase
         $studio = Studio::factory()->create();
         $this->loginAsOwner();
 
-        $response = $this->getJson('/owner/reservations/date/2025-05-18');
+        $response = $this->getJson('/owner/reservations/get-quotas-by-date/2025-05-18');
 
         $response->assertOk();
         $response->assertExactJson([
@@ -166,7 +166,7 @@ class ReservationControllerDateTest extends TestCase
         $studio = Studio::factory()->create();
         $this->loginAsOwner();
 
-        $response = $this->getJson('/owner/reservations/date/2025-05-19');
+        $response = $this->getJson('/owner/reservations/get-quotas-by-date/2025-05-19');
 
         $response->assertOk();
         $response->assertExactJson([
@@ -295,7 +295,7 @@ class ReservationControllerDateTest extends TestCase
         $studio = Studio::factory()->create();
         $this->loginAsOwner();
 
-        $response = $this->getJson('/owner/reservations/date/2025-05-19');
+        $response = $this->getJson('/owner/reservations/get-quotas-by-date/2025-05-19');
 
         $response->assertOk();
         $response->assertExactJson([
@@ -424,7 +424,7 @@ class ReservationControllerDateTest extends TestCase
         $studio = Studio::factory()->create();
         $this->loginAsOwner();
 
-        $response = $this->getJson('/owner/reservations/date/2025-05-19');
+        $response = $this->getJson('/owner/reservations/get-quotas-by-date/2025-05-19');
 
         $response->assertOk();
         $response->assertExactJson([
@@ -553,7 +553,7 @@ class ReservationControllerDateTest extends TestCase
         $studio = Studio::factory()->create();
         $this->loginAsOwner();
 
-        $response = $this->getJson('/owner/reservations/date/2025-07-17');
+        $response = $this->getJson('/owner/reservations/get-quotas-by-date/2025-07-17');
 
         $response->assertOk();
         $response->assertExactJson([
@@ -682,7 +682,7 @@ class ReservationControllerDateTest extends TestCase
         $studio = Studio::factory()->create();
         $this->loginAsOwner();
 
-        $response = $this->getJson('/owner/reservations/date/2025-07-17');
+        $response = $this->getJson('/owner/reservations/get-quotas-by-date/2025-07-17');
 
         $response->assertOk();
         $response->assertExactJson([
@@ -811,7 +811,7 @@ class ReservationControllerDateTest extends TestCase
         $studio = Studio::factory()->create();
         $this->loginAsOwner();
 
-        $response = $this->getJson('/owner/reservations/date/2025-07-17');
+        $response = $this->getJson('/owner/reservations/get-quotas-by-date/2025-07-17');
 
         $response->assertOk();
         $response->assertExactJson([
@@ -940,7 +940,7 @@ class ReservationControllerDateTest extends TestCase
         $studio = Studio::factory()->create();
         $this->loginAsOwner();
 
-        $response = $this->getJson('/owner/reservations/date/2025-07-17');
+        $response = $this->getJson('/owner/reservations/get-quotas-by-date/2025-07-17');
 
         $response->assertOk();
         $response->assertExactJson([
@@ -1071,7 +1071,7 @@ class ReservationControllerDateTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->getJson('/owner/reservations/date/2025-05-17');
+        $response = $this->getJson('/owner/reservations/get-quotas-by-date/2025-05-17');
 
         $response->assertOk();
         $response->assertExactJson([
@@ -1202,7 +1202,7 @@ class ReservationControllerDateTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->getJson('/owner/reservations/date/2025-05-18');
+        $response = $this->getJson('/owner/reservations/get-quotas-by-date/2025-05-18');
 
         $response->assertOk();
         $response->assertExactJson([
@@ -1333,7 +1333,7 @@ class ReservationControllerDateTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->getJson('/owner/reservations/date/2025-05-17');
+        $response = $this->getJson('/owner/reservations/get-quotas-by-date/2025-05-17');
 
         $response->assertOk();
         $response->assertExactJson([
@@ -1464,7 +1464,7 @@ class ReservationControllerDateTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->getJson('/owner/reservations/date/2025-05-17');
+        $response = $this->getJson('/owner/reservations/get-quotas-by-date/2025-05-17');
 
         $response->assertOk();
         $response->assertExactJson([
@@ -1596,7 +1596,7 @@ class ReservationControllerDateTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->getJson('/owner/reservations/date/2025-05-18');
+        $response = $this->getJson('/owner/reservations/get-quotas-by-date/2025-05-18');
 
         $response->assertOk();
         $response->assertExactJson([
@@ -1728,7 +1728,7 @@ class ReservationControllerDateTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->getJson('/owner/reservations/date/2025-05-19');
+        $response = $this->getJson('/owner/reservations/get-quotas-by-date/2025-05-19');
 
         $response->assertOk();
         $response->assertExactJson([
@@ -1860,7 +1860,7 @@ class ReservationControllerDateTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->getJson('/owner/reservations/date/2025-05-18');
+        $response = $this->getJson('/owner/reservations/get-quotas-by-date/2025-05-18');
 
         $response->assertOk();
         $response->assertExactJson([
@@ -1992,7 +1992,7 @@ class ReservationControllerDateTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->getJson('/owner/reservations/date/2025-05-18');
+        $response = $this->getJson('/owner/reservations/get-quotas-by-date/2025-05-18');
 
         $response->assertOk();
         $response->assertExactJson([
@@ -2124,7 +2124,7 @@ class ReservationControllerDateTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->getJson('/owner/reservations/date/2025-05-19');
+        $response = $this->getJson('/owner/reservations/get-quotas-by-date/2025-05-19');
 
         $response->assertOk();
         $response->assertExactJson([
@@ -2256,7 +2256,7 @@ class ReservationControllerDateTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->getJson('/owner/reservations/date/2025-05-19');
+        $response = $this->getJson('/owner/reservations/get-quotas-by-date/2025-05-19');
 
         $response->assertOk();
         $response->assertExactJson([
@@ -2388,7 +2388,7 @@ class ReservationControllerDateTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->getJson('/owner/reservations/date/2025-05-19');
+        $response = $this->getJson('/owner/reservations/get-quotas-by-date/2025-05-19');
 
         $response->assertOk();
         $response->assertExactJson([
@@ -2524,7 +2524,7 @@ class ReservationControllerDateTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->getJson('/owner/reservations/date/2025-05-18');
+        $response = $this->getJson('/owner/reservations/get-quotas-by-date/2025-05-18');
 
         $response->assertOk();
         $response->assertExactJson([
@@ -2662,7 +2662,7 @@ class ReservationControllerDateTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->getJson('/owner/reservations/date/2025-05-19');
+        $response = $this->getJson('/owner/reservations/get-quotas-by-date/2025-05-19');
 
         $response->assertOk();
         $response->assertExactJson([
@@ -2803,7 +2803,7 @@ class ReservationControllerDateTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->getJson('/owner/reservations/date/2025-05-19');
+        $response = $this->getJson('/owner/reservations/get-quotas-by-date/2025-05-19');
 
         $response->assertOk();
         $response->assertExactJson([
@@ -2942,7 +2942,7 @@ class ReservationControllerDateTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->getJson('/owner/reservations/date/2025-05-19');
+        $response = $this->getJson('/owner/reservations/get-quotas-by-date/2025-05-19');
 
         $response->assertOk();
         $response->assertExactJson([

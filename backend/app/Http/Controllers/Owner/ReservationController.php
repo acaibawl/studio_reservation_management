@@ -22,7 +22,7 @@ use Illuminate\Support\Collection;
 
 class ReservationController extends Controller
 {
-    public function date(CarbonImmutable $date): JsonResponse
+    public function getQuotasByDate(CarbonImmutable $date): JsonResponse
     {
         $studios = Studio::get();
         $businessTime = BusinessTime::firstOrFail();
