@@ -16,7 +16,7 @@ readonly class Available implements ReservationQuotaInterface
     {
         return [
             'hour' => $this->hour,
-            'status' => Status::Available->label(),
+            'status' => Status::Available,
         ];
     }
 }

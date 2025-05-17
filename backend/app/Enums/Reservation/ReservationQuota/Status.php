@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace App\Enums\Reservation\ReservationQuota;
 
-enum Status: int
+enum Status: string
 {
-    case Available = 0;
-    case NotAvailable = 1;
-    case Reserved = 2;
+    case Available = 'available';
+    case NotAvailable = 'not available';
+    case Reserved = 'reserved';
 
     public function label(): string
     {
         return match ($this) {
-            Status::Available => 'available',
-            Status::NotAvailable => 'not available',
-            Status::Reserved => 'reserved',
+            Status::Available => '予約可',
+            Status::NotAvailable => '予約不可',
+            Status::Reserved => '予約済',
         };
     }
 }

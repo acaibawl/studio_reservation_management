@@ -16,7 +16,7 @@ readonly class NotAvailable implements ReservationQuotaInterface
     {
         return [
             'hour' => $this->hour,
-            'status' => Status::NotAvailable->label(),
+            'status' => Status::NotAvailable,
         ];
     }
 }

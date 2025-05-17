@@ -50,99 +50,99 @@ class ReservationControllerDateTest extends TestCase
                     'reservation_quotas' => [
                         [
                             'hour' => 0,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 1,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 2,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 3,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 4,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 5,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 6,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 7,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 8,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 9,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 10,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 11,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 12,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 13,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 14,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 15,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 16,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 17,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 18,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 19,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 20,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 21,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 22,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 23,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                     ],
                 ],
@@ -179,99 +179,99 @@ class ReservationControllerDateTest extends TestCase
                     'reservation_quotas' => [
                         [
                             'hour' => 0,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 1,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 2,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 3,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 4,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 5,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 6,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 7,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 8,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 9,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 10,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 11,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 12,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 13,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 14,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 15,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 16,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 17,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 18,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 19,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 20,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 21,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 22,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 23,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                     ],
                 ],
@@ -308,99 +308,99 @@ class ReservationControllerDateTest extends TestCase
                     'reservation_quotas' => [
                         [
                             'hour' => 0,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 1,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 2,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 3,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 4,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 5,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 6,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 7,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 8,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 9,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 10,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 11,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 12,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 13,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 14,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 15,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 16,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 17,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 18,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 19,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 20,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 21,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 22,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 23,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                     ],
                 ],
@@ -437,99 +437,99 @@ class ReservationControllerDateTest extends TestCase
                     'reservation_quotas' => [
                         [
                             'hour' => 0,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 1,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 2,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 3,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 4,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 5,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 6,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 7,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 8,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 9,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 10,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 11,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 12,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 13,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 14,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 15,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 16,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 17,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 18,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 19,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 20,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 21,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 22,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 23,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                     ],
                 ],
@@ -566,99 +566,99 @@ class ReservationControllerDateTest extends TestCase
                     'reservation_quotas' => [
                         [
                             'hour' => 0,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 1,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 2,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 3,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 4,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 5,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 6,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 7,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 8,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 9,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 10,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 11,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 12,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 13,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 14,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 15,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 16,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 17,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 18,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 19,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 20,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 21,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 22,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 23,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                     ],
                 ],
@@ -695,99 +695,99 @@ class ReservationControllerDateTest extends TestCase
                     'reservation_quotas' => [
                         [
                             'hour' => 0,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 1,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 2,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 3,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 4,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 5,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 6,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 7,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 8,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 9,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 10,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 11,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 12,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 13,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 14,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 15,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 16,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 17,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 18,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 19,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 20,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 21,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 22,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 23,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                     ],
                 ],
@@ -824,99 +824,99 @@ class ReservationControllerDateTest extends TestCase
                     'reservation_quotas' => [
                         [
                             'hour' => 0,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 1,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 2,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 3,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 4,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 5,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 6,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 7,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 8,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 9,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 10,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 11,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 12,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 13,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 14,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 15,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 16,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 17,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 18,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 19,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 20,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 21,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 22,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 23,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                     ],
                 ],
@@ -953,99 +953,99 @@ class ReservationControllerDateTest extends TestCase
                     'reservation_quotas' => [
                         [
                             'hour' => 0,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 1,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 2,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 3,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 4,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 5,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 6,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 7,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 8,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 9,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 10,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 11,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 12,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 13,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 14,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 15,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 16,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 17,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 18,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 19,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 20,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 21,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 22,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 23,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                     ],
                 ],
@@ -1084,99 +1084,99 @@ class ReservationControllerDateTest extends TestCase
                     'reservation_quotas' => [
                         [
                             'hour' => 0,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 1,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 2,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 3,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 4,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 5,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 6,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 7,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 8,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 9,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 10,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 11,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 12,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 13,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 14,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 15,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 16,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 17,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 18,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 19,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 20,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 21,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 22,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 23,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                     ],
                 ],
@@ -1215,99 +1215,99 @@ class ReservationControllerDateTest extends TestCase
                     'reservation_quotas' => [
                         [
                             'hour' => 0,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 1,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 2,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 3,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 4,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 5,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 6,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 7,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 8,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 9,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 10,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 11,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 12,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 13,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 14,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 15,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 16,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 17,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 18,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 19,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 20,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 21,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 22,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 23,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                     ],
                 ],
@@ -1346,99 +1346,99 @@ class ReservationControllerDateTest extends TestCase
                     'reservation_quotas' => [
                         [
                             'hour' => 0,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 1,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 2,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 3,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 4,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 5,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 6,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 7,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 8,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 9,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 10,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 11,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 12,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 13,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 14,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 15,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 16,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 17,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 18,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 19,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 20,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 21,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 22,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 23,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                     ],
                 ],
@@ -1477,99 +1477,99 @@ class ReservationControllerDateTest extends TestCase
                     'reservation_quotas' => [
                         [
                             'hour' => 0,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 1,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 2,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 3,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 4,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 5,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 6,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 7,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 8,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 9,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 10,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 11,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 12,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 13,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 14,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 15,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 16,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 17,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 18,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 19,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 20,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 21,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 22,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 23,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                     ],
                 ],
@@ -1609,99 +1609,99 @@ class ReservationControllerDateTest extends TestCase
                     'reservation_quotas' => [
                         [
                             'hour' => 0,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 1,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 2,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 3,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 4,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 5,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 6,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 7,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 8,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 9,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 10,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 11,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 12,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 13,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 14,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 15,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 16,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 17,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 18,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 19,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 20,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 21,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 22,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 23,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                     ],
                 ],
@@ -1741,99 +1741,99 @@ class ReservationControllerDateTest extends TestCase
                     'reservation_quotas' => [
                         [
                             'hour' => 0,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 1,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 2,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 3,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 4,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 5,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 6,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 7,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 8,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 9,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 10,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 11,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 12,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 13,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 14,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 15,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 16,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 17,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 18,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 19,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 20,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 21,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 22,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 23,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                     ],
                 ],
@@ -1873,99 +1873,99 @@ class ReservationControllerDateTest extends TestCase
                     'reservation_quotas' => [
                         [
                             'hour' => 0,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 1,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 2,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 3,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 4,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 5,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 6,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 7,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 8,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 9,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 10,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 11,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 12,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 13,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 14,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 15,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 16,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 17,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 18,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 19,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 20,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 21,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 22,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 23,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                     ],
                 ],
@@ -2005,99 +2005,99 @@ class ReservationControllerDateTest extends TestCase
                     'reservation_quotas' => [
                         [
                             'hour' => 0,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 1,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 2,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 3,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 4,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 5,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 6,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 7,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 8,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 9,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 10,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 11,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 12,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 13,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 14,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 15,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 16,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 17,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 18,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 19,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 20,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 21,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 22,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 23,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                     ],
                 ],
@@ -2137,99 +2137,99 @@ class ReservationControllerDateTest extends TestCase
                     'reservation_quotas' => [
                         [
                             'hour' => 0,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 1,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 2,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 3,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 4,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 5,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 6,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 7,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 8,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 9,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 10,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 11,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 12,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 13,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 14,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 15,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 16,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 17,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 18,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 19,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 20,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 21,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 22,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 23,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                     ],
                 ],
@@ -2269,99 +2269,99 @@ class ReservationControllerDateTest extends TestCase
                     'reservation_quotas' => [
                         [
                             'hour' => 0,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 1,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 2,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 3,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 4,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 5,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 6,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 7,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 8,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 9,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 10,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 11,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 12,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 13,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 14,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 15,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 16,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 17,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 18,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 19,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 20,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 21,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 22,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 23,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                     ],
                 ],
@@ -2401,99 +2401,99 @@ class ReservationControllerDateTest extends TestCase
                     'reservation_quotas' => [
                         [
                             'hour' => 0,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 1,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 2,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 3,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 4,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 5,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 6,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 7,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 8,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 9,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 10,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 11,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 12,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 13,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 14,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 15,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 16,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 17,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 18,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 19,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 20,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 21,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 22,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 23,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                     ],
                 ],
@@ -2537,101 +2537,101 @@ class ReservationControllerDateTest extends TestCase
                     'reservation_quotas' => [
                         [
                             'hour' => 0,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 1,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 2,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 3,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 4,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 5,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 6,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 7,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 8,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 9,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 10,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 11,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 12,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 13,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 14,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 15,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 16,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 17,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 18,
-                            'status' => Status::Reserved->label(),
+                            'status' => Status::Reserved,
                             'reservation_id' => $reservation->id,
                         ],
                         [
                             'hour' => 19,
-                            'status' => Status::Reserved->label(),
+                            'status' => Status::Reserved,
                             'reservation_id' => $reservation->id,
                         ],
                         [
                             'hour' => 20,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 21,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 22,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 23,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                     ],
                 ],
@@ -2675,103 +2675,103 @@ class ReservationControllerDateTest extends TestCase
                     'reservation_quotas' => [
                         [
                             'hour' => 0,
-                            'status' => Status::Reserved->label(),
+                            'status' => Status::Reserved,
                             'reservation_id' => $reservation->id,
                         ],
                         [
                             'hour' => 1,
-                            'status' => Status::Reserved->label(),
+                            'status' => Status::Reserved,
                             'reservation_id' => $reservation->id,
                         ],
                         [
                             'hour' => 2,
-                            'status' => Status::Reserved->label(),
+                            'status' => Status::Reserved,
                             'reservation_id' => $reservation->id,
                         ],
                         [
                             'hour' => 3,
-                            'status' => Status::Reserved->label(),
+                            'status' => Status::Reserved,
                             'reservation_id' => $reservation->id,
                         ],
                         [
                             'hour' => 4,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 5,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 6,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 7,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 8,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 9,
-                            'status' => Status::NotAvailable->label(),
+                            'status' => Status::NotAvailable,
                         ],
                         [
                             'hour' => 10,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 11,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 12,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 13,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 14,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 15,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 16,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 17,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 18,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 19,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 20,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 21,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 22,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 23,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                     ],
                 ],
@@ -2816,101 +2816,101 @@ class ReservationControllerDateTest extends TestCase
                     'reservation_quotas' => [
                         [
                             'hour' => 0,
-                            'status' => Status::Reserved->label(),
+                            'status' => Status::Reserved,
                             'reservation_id' => $reservation->id,
                         ],
                         [
                             'hour' => 1,
-                            'status' => Status::Reserved->label(),
+                            'status' => Status::Reserved,
                             'reservation_id' => $reservation->id,
                         ],
                         [
                             'hour' => 2,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 3,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 4,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 5,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 6,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 7,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 8,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 9,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 10,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 11,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 12,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 13,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 14,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 15,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 16,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 17,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 18,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 19,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 20,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 21,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 22,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 23,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                     ],
                 ],
@@ -2955,103 +2955,103 @@ class ReservationControllerDateTest extends TestCase
                     'reservation_quotas' => [
                         [
                             'hour' => 0,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 1,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 2,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 3,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 4,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 5,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 6,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 7,
-                            'status' => Status::Reserved->label(),
+                            'status' => Status::Reserved,
                             'reservation_id' => $reservation->id,
                         ],
                         [
                             'hour' => 8,
-                            'status' => Status::Reserved->label(),
+                            'status' => Status::Reserved,
                             'reservation_id' => $reservation->id,
                         ],
                         [
                             'hour' => 9,
-                            'status' => Status::Reserved->label(),
+                            'status' => Status::Reserved,
                             'reservation_id' => $reservation->id,
                         ],
                         [
                             'hour' => 10,
-                            'status' => Status::Reserved->label(),
+                            'status' => Status::Reserved,
                             'reservation_id' => $reservation->id,
                         ],
                         [
                             'hour' => 11,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 12,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 13,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 14,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 15,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 16,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 17,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 18,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 19,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 20,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 21,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 22,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                         [
                             'hour' => 23,
-                            'status' => Status::Available->label(),
+                            'status' => Status::Available,
                         ],
                     ],
                 ],

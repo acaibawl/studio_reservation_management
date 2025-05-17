@@ -17,7 +17,7 @@ readonly class Reserved implements ReservationQuotaInterface
     {
         return [
             'hour' => $this->hour,
-            'status' => Status::Reserved->label(),
+            'status' => Status::Reserved,
             'reservation_id' => $this->reservationId,
         ];
     }
