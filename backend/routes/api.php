@@ -6,6 +6,7 @@ use App\Http\Controllers\HealthCheckController;
 use App\Http\Controllers\Owner\BusinessDayController;
 use App\Http\Controllers\Owner\MemberController;
 use App\Http\Controllers\Owner\OwnerAuthController;
+use App\Http\Controllers\Owner\ReservationController;
 use App\Http\Controllers\StudioController;
 use App\Http\Controllers\TemporaryClosingDayController;
 use Illuminate\Support\Facades\Route;
@@ -37,7 +38,7 @@ Route::middleware('auth:api_owner')->group(function () {
                 ->group(function () {
                     Route::get('/', [TemporaryClosingDayController::class, 'index'])->name('index');
                     Route::post('/', [TemporaryClosingDayController::class, 'store'])->name('store');
-                    Route::delete('/{date:date}', [TemporaryClosingDayController::class, 'destroy'])->name('destroy');
+                    Route::delete('/{temporaryClosingDay:date}', [TemporaryClosingDayController::class, 'destroy'])->name('destroy');
                 });
 
             Route::prefix('studios')
@@ -55,6 +56,12 @@ Route::middleware('auth:api_owner')->group(function () {
                 ->group(function () {
                     Route::get('/', [MemberController::class, 'index'])->name('index');
                     Route::get('/{member}', [MemberController::class, 'show'])->name('show');
+                });
+
+            Route::prefix('reservations')
+                ->name('reservations.')
+                ->group(function () {
+                    Route::get('/get-quotas-by-date/{date}', [ReservationController::class, 'getQuotasByDate'])->name('get-quotas-by-date');
                 });
         });
 });

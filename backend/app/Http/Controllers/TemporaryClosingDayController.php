@@ -51,11 +51,11 @@ class TemporaryClosingDayController extends Controller
     /**
      * @throws Throwable
      */
-    public function destroy(TemporaryClosingDay $date): JsonResponse
+    public function destroy(TemporaryClosingDay $temporaryClosingDay): JsonResponse
     {
         DB::beginTransaction();
         try {
-            $date->delete();
+            $temporaryClosingDay->delete();
             DB::commit();
         } catch (\Exception $e) {
             \Log::error($e->getMessage(), $e->getTrace());
