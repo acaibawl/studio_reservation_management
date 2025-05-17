@@ -23,7 +23,7 @@ readonly class GetStudioQuotasByDateService
      */
     public function get(CarbonImmutable $date): Collection
     {
-        $studios = Studio::with('reservations')->get();
+        $studios = Studio::get();
         $businessTime = BusinessTime::firstOrFail();
         $regularHolidays = RegularHoliday::get();
         $temporaryClosingDays = TemporaryClosingDay::get();

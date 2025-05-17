@@ -66,7 +66,7 @@ class ReservationQuotaFactory
 
         // 既に他の予約が入っているか
         $dateTime = Carbon::create($date->year, $date->month, $date->day, $hour, $studio->start_at->value);
-        $alreadyReservation = $this->getAlreadyReservation($dateTime, $studio);
+        $alreadyReservation = $this->findExistingReservation($dateTime, $studio);
         if ($alreadyReservation) {
             return new Reserved($hour, $alreadyReservation->id);
         }
@@ -132,9 +132,9 @@ class ReservationQuotaFactory
         }
     }
 
-    private function getAlreadyReservation(Carbon $dateTime, Studio $studio): ?Reservation
+    private function findExistingReservation(Carbon $dateTime, Studio $studio): ?Reservation
     {
-        return $studio->reservations->where('start_at', '<=', $dateTime)->where('finish_at', '>=', $dateTime)->first();
+        return $studio->reservations()->where('start_at', '<=', $dateTime)->where('finish_at', '>=', $dateTime)->first();
     }
 
     private function isOverMaxReservationPeriod(CarbonImmutable $applicableDate): bool
