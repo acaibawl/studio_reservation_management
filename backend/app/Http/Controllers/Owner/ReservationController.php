@@ -22,9 +22,11 @@ use Illuminate\Support\Collection;
 
 class ReservationController extends Controller
 {
+    private const int MAX_RESERVATION_PERIOD_DAYS = 60;
+
     public function getQuotasByDate(CarbonImmutable $date): JsonResponse
     {
-        $studios = Studio::get();
+        $studios = Studio::with('reservations')->get();
         $businessTime = BusinessTime::firstOrFail();
         $regularHolidays = RegularHoliday::get();
         $temporaryClosingDays = TemporaryClosingDay::get();
@@ -81,7 +83,7 @@ class ReservationController extends Controller
         }
 
         // 現在日付より60日先までしか予約不可
-        if (Carbon::now()->diffInDays($applicableDate) > 60) {
+        if (Carbon::now()->diffInDays($applicableDate) > self::MAX_RESERVATION_PERIOD_DAYS) {
             return new NotAvailable($hour);
         }
 
@@ -170,6 +172,6 @@ class ReservationController extends Controller
 
     private function getAlreadyReservation(Carbon $dateTime, Studio $studio): ?Reservation
     {
-        return $studio->reservations()->where('start_at', '<=', $dateTime)->where('finish_at', '>=', $dateTime)->first();
+        return $studio->reservations->where('start_at', '<=', $dateTime)->where('finish_at', '>=', $dateTime)->first();
     }
 }
