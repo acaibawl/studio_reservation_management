@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Owner\Reservation;
 
 use App\Domains\Owner\ReservationQuota\Available;
