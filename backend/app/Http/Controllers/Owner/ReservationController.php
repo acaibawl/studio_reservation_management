@@ -1,0 +1,175 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Http\Controllers\Owner;
+
+use App\Domains\Owner\ReservationQuota\Available;
+use App\Domains\Owner\ReservationQuota\NotAvailable;
+use App\Domains\Owner\ReservationQuota\ReservationQuotaInterface;
+use App\Domains\Owner\ReservationQuota\Reserved;
+use App\Enums\Studio\StartAt;
+use App\Http\Controllers\Controller;
+use App\Models\BusinessTime;
+use App\Models\RegularHoliday;
+use App\Models\Reservation;
+use App\Models\Studio;
+use App\Models\TemporaryClosingDay;
+use Carbon\CarbonImmutable;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
+
+class ReservationController extends Controller
+{
+    public function date(CarbonImmutable $date): JsonResponse
+    {
+        $studios = Studio::get();
+        $businessTime = BusinessTime::firstOrFail();
+        $regularHolidays = RegularHoliday::get();
+        $temporaryClosingDays = TemporaryClosingDay::get();
+        $studiosArray = $studios->load('reservations')->map(
+            function (Studio $studio) use ($date, $businessTime, $regularHolidays, $temporaryClosingDays) {
+                $reservationQuotas = collect(range(0, 23))->map(
+                    function (int $hour) use ($date, $studio, $businessTime, $regularHolidays, $temporaryClosingDays) {
+                        return $this->getReservationQuota(
+                            $date,
+                            $hour,
+                            $studio,
+                            $businessTime,
+                            $regularHolidays,
+                            $temporaryClosingDays
+                        )->toArray();
+                    }
+                );
+
+                return [
+                    'id' => $studio->id,
+                    'name' => $studio->name,
+                    'start_at' => $studio->start_at->value,
+                    'reservation_quotas' => $reservationQuotas,
+                ];
+            }
+        );
+
+        return response()->json([
+            'date' => $date->toDateString(),
+            'studios' => $studiosArray,
+        ]);
+    }
+
+    /**
+     * @param Collection<int, RegularHoliday> $regularHolidays
+     * @param Collection<int, TemporaryClosingDay> $temporaryClosingDays
+     */
+    private function getReservationQuota(
+        CarbonImmutable $date,
+        int $hour,
+        Studio $studio,
+        BusinessTime $businessTime,
+        Collection $regularHolidays,
+        Collection $temporaryClosingDays
+    ): ReservationQuotaInterface {
+        // 日付を跨ぐ営業日か
+        $isCrossDateOperation = $businessTime->close_time->lessThanOrEqualTo($businessTime->open_time);
+        // 適用営業日
+        $applicableDate = $this->getApplicableDate($date, $hour, $businessTime, $isCrossDateOperation);
+
+        // 現在日時より前ではないか
+        if ($this->isPastTime($date, $hour, $studio->start_at)) {
+            return new NotAvailable($hour);
+        }
+
+        // 現在日付より60日先までしか予約不可
+        if (Carbon::now()->diffInDays($applicableDate) > 60) {
+            return new NotAvailable($hour);
+        }
+
+        // 定休日の曜日か判定
+        if ($this->isRegularHoliday($applicableDate, $regularHolidays)) {
+            return new NotAvailable($hour);
+        }
+
+        // 臨時休業日か判定
+        if ($this->isTemporaryClosingDay($applicableDate, $temporaryClosingDays)) {
+            return new NotAvailable($hour);
+        }
+
+        // 営業時間外ではないか
+        if ($this->isOutOfBusinessHours($hour, $businessTime, $isCrossDateOperation)) {
+            return new NotAvailable($hour);
+        }
+
+        // 既に他の予約が入っているか
+        $dateTime = Carbon::create($date->year, $date->month, $date->day, $hour, $studio->start_at->value);
+        $alreadyReservation = $this->getAlreadyReservation($dateTime, $studio);
+        if ($alreadyReservation) {
+            return new Reserved($hour, $alreadyReservation->id);
+        }
+
+        return new Available($hour);
+    }
+
+    private function getApplicableDate(
+        CarbonImmutable $date,
+        int $hour,
+        BusinessTime $businessTime,
+        bool $isCrossDateOperation
+    ): CarbonImmutable {
+        if ($isCrossDateOperation && $businessTime->close_time->isAfter(Carbon::createFromTime($hour))) {
+            return $date->subDay();
+        } else {
+            return $date;
+        }
+    }
+
+    private function isPastTime(CarbonImmutable $date, int $hour, StartAt $studioStartAt): bool
+    {
+        $targetDateTime = Carbon::create($date->year, $date->month, $date->day, $hour, $studioStartAt->value);
+
+        return $targetDateTime->lessThanOrEqualTo(Carbon::now());
+    }
+
+    /**
+     * @param Collection<int, RegularHoliday> $regularHolidays
+     */
+    private function isRegularHoliday(CarbonImmutable $applicableDate, Collection $regularHolidays): bool
+    {
+        return $regularHolidays->contains(function (RegularHoliday $regularHoliday) use ($applicableDate) {
+            return $regularHoliday->code->value === $applicableDate->dayOfWeek;
+        });
+    }
+
+    /**
+     * @param Collection<int, TemporaryClosingDay> $temporaryClosingDays
+     */
+    private function isTemporaryClosingDay(
+        CarbonImmutable $applicableDate,
+        Collection $temporaryClosingDays
+    ): bool {
+        return $temporaryClosingDays->contains(
+            function (TemporaryClosingDay $temporaryClosingDay) use ($applicableDate) {
+                return $temporaryClosingDay->date->isSameDay($applicableDate);
+            }
+        );
+    }
+
+    private function isOutOfBusinessHours(int $hour, BusinessTime $businessTime, bool $isCrossDateOperation): bool
+    {
+        $hourCarbon = Carbon::createFromTime($hour);
+        if ($isCrossDateOperation) {
+            // 例：open = 10:00, close = 5:00, hour = 5:00 の場合 true
+            return $businessTime->open_time->isAfter($hourCarbon) &&
+                $businessTime->close_time->lessThanOrEqualTo($hourCarbon);
+        } else {
+            // 例：open = 10:00, close = 22:00, hour = 22:00 の場合 true
+            return $businessTime->open_time->isAfter($hourCarbon) ||
+                $businessTime->close_time->lessThanOrEqualTo($hourCarbon);
+        }
+    }
+
+    private function getAlreadyReservation(Carbon $dateTime, Studio $studio): ?Reservation
+    {
+        return $studio->reservations()->where('start_at', '<=', $dateTime)->where('finish_at', '>=', $dateTime)->first();
+    }
+}
