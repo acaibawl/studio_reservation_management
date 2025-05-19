@@ -13,6 +13,9 @@ use App\Services\Owner\Reservation\StudioMaxUsageHourService;
 use App\ViewModels\Reservation\DailyQuotasStatus;
 use App\ViewModels\Reservation\ReservationShow;
 use Carbon\CarbonImmutable;
+use DB;
+use Illuminate\Http\JsonResponse;
+use Throwable;
 
 class ReservationController extends Controller
 {
@@ -37,5 +40,24 @@ class ReservationController extends Controller
         );
 
         return new ReservationShowResource($showViewModel);
+    }
+
+    /**
+     * @throws Throwable
+     */
+    public function destroy(Reservation $reservation): JsonResponse
+    {
+        DB::beginTransaction();
+        try {
+            $reservation->delete();
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage(), $e->getTrace());
+            DB::rollBack();
+            throw $e;
+        }
+
+        return response()->json([
+            'message' => '予約を削除しました'
+        ]);
     }
 }
