@@ -15,7 +15,7 @@ use Illuminate\Support\Carbon;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class ReservationControllerMaxUsageHourTest extends TestCase
+class ReservationControllerMaxAvailableHourTest extends TestCase
 {
     /**
      * 6時間取れずに頭打ち
@@ -36,7 +36,7 @@ class ReservationControllerMaxUsageHourTest extends TestCase
 
         $this->loginAsOwner();
 
-        $response = $this->getJson("/owner/reservations/studios/{$studio->id}/2025-05-18/18/max-usage-hour");
+        $response = $this->getJson("/owner/reservations/studios/{$studio->id}/2025-05-18/18/max-available-hour");
 
         $response->assertOk();
         $response->assertExactJson([
@@ -44,7 +44,7 @@ class ReservationControllerMaxUsageHourTest extends TestCase
             'studio_name' => $studio->name,
             'date' => '2025-05-18',
             'hour' => 18,
-            'max_usage_hour' => 4,
+            'max_available_hour' => 4,
         ]);
     }
 
@@ -70,7 +70,7 @@ class ReservationControllerMaxUsageHourTest extends TestCase
 
         $this->loginAsOwner();
 
-        $response = $this->getJson("/owner/reservations/studios/{$studio->id}/2025-05-18/3/max-usage-hour");
+        $response = $this->getJson("/owner/reservations/studios/{$studio->id}/2025-05-18/3/max-available-hour");
 
         $response->assertOk();
         $response->assertExactJson([
@@ -78,7 +78,7 @@ class ReservationControllerMaxUsageHourTest extends TestCase
             'studio_name' => $studio->name,
             'date' => '2025-05-18',
             'hour' => 3,
-            'max_usage_hour' => 2,
+            'max_available_hour' => 2,
         ]);
     }
 
@@ -104,7 +104,7 @@ class ReservationControllerMaxUsageHourTest extends TestCase
 
         $this->loginAsOwner();
 
-        $response = $this->getJson("/owner/reservations/studios/{$studio->id}/2025-05-18/3/max-usage-hour");
+        $response = $this->getJson("/owner/reservations/studios/{$studio->id}/2025-05-18/3/max-available-hour");
 
         $response->assertOk();
         $response->assertExactJson([
@@ -112,7 +112,7 @@ class ReservationControllerMaxUsageHourTest extends TestCase
             'studio_name' => $studio->name,
             'date' => '2025-05-18',
             'hour' => 3,
-            'max_usage_hour' => 2,
+            'max_available_hour' => 2,
         ]);
     }
 
@@ -135,7 +135,7 @@ class ReservationControllerMaxUsageHourTest extends TestCase
 
         $this->loginAsOwner();
 
-        $response = $this->getJson("/owner/reservations/studios/{$studio->id}/2025-07-17/3/max-usage-hour");
+        $response = $this->getJson("/owner/reservations/studios/{$studio->id}/2025-07-17/3/max-available-hour");
 
         $response->assertOk();
         $response->assertExactJson([
@@ -143,7 +143,7 @@ class ReservationControllerMaxUsageHourTest extends TestCase
             'studio_name' => $studio->name,
             'date' => '2025-07-17',
             'hour' => 3,
-            'max_usage_hour' => 2,
+            'max_available_hour' => 2,
         ]);
     }
 
@@ -171,7 +171,7 @@ class ReservationControllerMaxUsageHourTest extends TestCase
 
         $this->loginAsOwner();
 
-        $response = $this->getJson("/owner/reservations/studios/{$studio->id}/2025-05-18/3/max-usage-hour");
+        $response = $this->getJson("/owner/reservations/studios/{$studio->id}/2025-05-18/3/max-available-hour");
 
         $response->assertOk();
         $response->assertExactJson([
@@ -179,7 +179,7 @@ class ReservationControllerMaxUsageHourTest extends TestCase
             'studio_name' => $studio->name,
             'date' => '2025-05-18',
             'hour' => 3,
-            'max_usage_hour' => 2,
+            'max_available_hour' => 2,
         ]);
     }
 
@@ -201,7 +201,7 @@ class ReservationControllerMaxUsageHourTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->getJson("/owner/reservations/studios/{$studio->id}/2025-05-18/22/max-usage-hour");
+        $response = $this->getJson("/owner/reservations/studios/{$studio->id}/2025-05-18/22/max-available-hour");
 
         $response->assertOk();
         $response->assertExactJson([
@@ -209,7 +209,7 @@ class ReservationControllerMaxUsageHourTest extends TestCase
             'studio_name' => $studio->name,
             'date' => '2025-05-18',
             'hour' => 22,
-            'max_usage_hour' => 6,
+            'max_available_hour' => 6,
         ]);
     }
 
@@ -231,7 +231,7 @@ class ReservationControllerMaxUsageHourTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->getJson("/owner/reservations/studios/{$studio->id}/2025-05-18/8/max-usage-hour");
+        $response = $this->getJson("/owner/reservations/studios/{$studio->id}/2025-05-18/8/max-available-hour");
 
         $response->assertOk();
         $response->assertExactJson([
@@ -239,7 +239,7 @@ class ReservationControllerMaxUsageHourTest extends TestCase
             'studio_name' => $studio->name,
             'date' => '2025-05-18',
             'hour' => 8,
-            'max_usage_hour' => 6,
+            'max_available_hour' => 6,
         ]);
     }
 
@@ -261,7 +261,7 @@ class ReservationControllerMaxUsageHourTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->getJson("/owner/reservations/studios/{$studio->id}/2025-05-17/18/max-usage-hour");
+        $response = $this->getJson("/owner/reservations/studios/{$studio->id}/2025-05-17/18/max-available-hour");
 
         $response->assertOk();
         $response->assertExactJson([
@@ -269,7 +269,7 @@ class ReservationControllerMaxUsageHourTest extends TestCase
             'studio_name' => $studio->name,
             'date' => '2025-05-17',
             'hour' => 18,
-            'max_usage_hour' => 0,
+            'max_available_hour' => 0,
         ]);
     }
 }

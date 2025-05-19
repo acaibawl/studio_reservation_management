@@ -13,7 +13,7 @@ use App\Models\TemporaryClosingDay;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Collection;
 
-readonly class StudioMaxUsageHourService
+readonly class StudioMaxAvailableHourService
 {
     private const int MAX_ADDITIONAL_HOURS_TO_CHECK = 5;
 
@@ -31,7 +31,7 @@ readonly class StudioMaxUsageHourService
         $temporaryClosingDays = TemporaryClosingDay::get();
         $startTime = new CarbonImmutable($reservation->start_at);
 
-        return $this->calculateMaxUsageHour(
+        return $this->calculateMaxAvailableHour(
             $startTime,
             $reservation->studio,
             $businessTime,
@@ -51,7 +51,7 @@ readonly class StudioMaxUsageHourService
         $temporaryClosingDays = TemporaryClosingDay::get();
         $startTime = CarbonImmutable::create($date->year, $date->month, $date->day, $hour, $studio->start_at->value);
 
-        return $this->calculateMaxUsageHour(
+        return $this->calculateMaxAvailableHour(
             $startTime,
             $studio,
             $businessTime,
@@ -64,7 +64,7 @@ readonly class StudioMaxUsageHourService
      * @param Collection<int, RegularHoliday> $regularHolidays
      * @param Collection<int, TemporaryClosingDay> $temporaryClosingDays
      */
-    private function calculateMaxUsageHour(
+    private function calculateMaxAvailableHour(
         CarbonImmutable $startTime,
         Studio $studio,
         BusinessTime $businessTime,
@@ -74,7 +74,7 @@ readonly class StudioMaxUsageHourService
     ): int {
         $targetTimes = $this->generateTargetTimes($startTime);
 
-        $maxUsageHour = 0;
+        $maxAvailableHour = 0;
         foreach ($targetTimes as $targetTime) {
             $reservationQuota = $this->reservationQuotaFactory->generate(
                 $targetTime,
@@ -86,13 +86,13 @@ readonly class StudioMaxUsageHourService
                 $reservationId,
             );
             if ($reservationQuota instanceof Available) {
-                $maxUsageHour++;
+                $maxAvailableHour++;
             } else {
                 break;
             }
         }
 
-        return $maxUsageHour;
+        return $maxAvailableHour;
     }
 
     /**
@@ -103,7 +103,7 @@ readonly class StudioMaxUsageHourService
     private function generateTargetTimes(CarbonImmutable $startTime): Collection
     {
         return collect(range(0, self::MAX_ADDITIONAL_HOURS_TO_CHECK))->map(
-            fn(int $h) => $startTime->addHours($h)
+            fn (int $h) => $startTime->addHours($h)
         );
     }
 }

@@ -7,12 +7,12 @@ namespace App\ViewModels\Reservation;
 use App\Models\Studio;
 use Carbon\CarbonImmutable;
 
-readonly class MaxUsageHourViewModel
+readonly class MaxAvailableHourViewModel
 {
     public function __construct(
         public Studio $studio,
         public CarbonImmutable $date,
         public int $hour,
-        public int $maxUsageHour,
+        public int $maxAvailableHour,
     ) {}
 }

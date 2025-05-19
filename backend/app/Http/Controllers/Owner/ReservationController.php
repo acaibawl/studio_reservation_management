@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Owner;
 
-use App\Exceptions\Reservation\UsageHourExceededException;
+use App\Exceptions\Reservation\AvailableHourExceededException;
 use App\Exceptions\UserDisplayableException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Owner\Reservation\UpdatePatch;
 use App\Http\Resources\Reservation\DailyQuotasStatusResource;
-use App\Http\Resources\Reservation\MaxUsageHourResource;
+use App\Http\Resources\Reservation\MaxAvailableHourResource;
 use App\Http\Resources\Reservation\ReservationShowResource;
 use App\Models\Reservation;
 use App\Models\Studio;
 use App\Services\Owner\Reservation\GetStudioQuotasByDateService;
 use App\Services\Owner\Reservation\ReservationUpdateService;
-use App\Services\Owner\Reservation\StudioMaxUsageHourService;
+use App\Services\Owner\Reservation\StudioMaxAvailableHourService;
 use App\ViewModels\Reservation\DailyQuotasStatus;
-use App\ViewModels\Reservation\MaxUsageHourViewModel;
+use App\ViewModels\Reservation\MaxAvailableHourViewModel;
 use App\ViewModels\Reservation\ReservationShow;
 use Carbon\CarbonImmutable;
 use DB;
@@ -28,7 +28,7 @@ class ReservationController extends Controller
 {
     public function __construct(
         private readonly GetStudioQuotasByDateService $getStudioQuotasByDateService,
-        private readonly StudioMaxUsageHourService $studioUsageLimitService,
+        private readonly StudioMaxAvailableHourService $studioMaxAvailableHourService,
         private readonly ReservationUpdateService $reservationUpdateService,
     ) {}
 
@@ -44,7 +44,7 @@ class ReservationController extends Controller
     {
         $showViewModel = new ReservationShow(
             $reservation,
-            $this->studioUsageLimitService->getByReservation($reservation)
+            $this->studioMaxAvailableHourService->getByReservation($reservation)
         );
 
         return new ReservationShowResource($showViewModel);
@@ -53,7 +53,7 @@ class ReservationController extends Controller
     /**
      * @throws Throwable
      * @throws UserDisplayableException
-     * @throws UsageHourExceededException
+     * @throws AvailableHourExceededException
      */
     public function update(Reservation $reservation, UpdatePatch $request): JsonResponse
     {
@@ -95,14 +95,14 @@ class ReservationController extends Controller
         ]);
     }
 
-    public function getMaxUsageHour(Studio $studio, CarbonImmutable $date, int $hour): MaxUsageHourResource
+    public function getMaxAvailableHour(Studio $studio, CarbonImmutable $date, int $hour): MaxAvailableHourResource
     {
-        return new MaxUsageHourResource(
-            new MaxUsageHourViewModel(
+        return new MaxAvailableHourResource(
+            new MaxAvailableHourViewModel(
                 $studio,
                 $date,
                 $hour,
-                $this->studioUsageLimitService->getByDate($studio, $date, $hour)
+                $this->studioMaxAvailableHourService->getByDate($studio, $date, $hour)
             )
         );
     }

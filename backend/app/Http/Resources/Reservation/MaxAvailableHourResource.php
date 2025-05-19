@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\Reservation;
 
-use App\ViewModels\Reservation\MaxUsageHourViewModel;
+use App\ViewModels\Reservation\MaxAvailableHourViewModel;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MaxUsageHourResource extends JsonResource
+class MaxAvailableHourResource extends JsonResource
 {
     /**
-     * @var MaxUsageHourViewModel
+     * @var MaxAvailableHourViewModel
      */
     public $resource;
 
@@ -27,7 +27,7 @@ class MaxUsageHourResource extends JsonResource
             'studio_name' => $this->resource->studio->name,
             'date' => $this->resource->date->toDateString(),
             'hour' => $this->resource->hour,
-            'max_usage_hour' => $this->resource->maxUsageHour,
+            'max_available_hour' => $this->resource->maxAvailableHour,
         ];
     }
 }

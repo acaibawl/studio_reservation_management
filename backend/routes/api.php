@@ -65,7 +65,7 @@ Route::middleware('auth:api_owner')->group(function () {
                     Route::get('/{reservation}', [ReservationController::class, 'show'])->name('show');
                     Route::patch('/{reservation}', [ReservationController::class, 'update'])->name('update');
                     Route::delete('/{reservation}', [ReservationController::class, 'destroy'])->name('destroy');
-                    Route::get('/studios/{studio}/{date}/{hour}/max-usage-hour', [ReservationController::class, 'getMaxUsageHour'])->name('max-usage-hour');
+                    Route::get('/studios/{studio}/{date}/{hour}/max-available-hour', [ReservationController::class, 'getMaxAvailableHour'])->name('max-usage-hour');
                 });
         });
 });

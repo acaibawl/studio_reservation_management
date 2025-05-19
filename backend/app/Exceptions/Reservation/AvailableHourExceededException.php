@@ -7,7 +7,7 @@ namespace App\Exceptions\Reservation;
 use App\Exceptions\UserDisplayableException;
 use Symfony\Component\HttpFoundation\Response;
 
-class UsageHourExceededException extends UserDisplayableException
+class AvailableHourExceededException extends UserDisplayableException
 {
     public const string MESSAGE = '予約可能な利用時間を超えています';
 

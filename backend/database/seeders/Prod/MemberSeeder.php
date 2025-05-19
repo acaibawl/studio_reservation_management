@@ -12,6 +12,7 @@ use Str;
 class MemberSeeder extends Seeder
 {
     const int OWNER_MEMBER_ID = 9999999;
+
     /**
      * Run the database seeds.
      */
