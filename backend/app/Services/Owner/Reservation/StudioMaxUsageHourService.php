@@ -13,7 +13,7 @@ use Carbon\CarbonImmutable;
 
 readonly class StudioMaxUsageHourService
 {
-    private const MAX_ADDITIONAL_HOURS_TO_CHECK = 5;
+    private const int MAX_ADDITIONAL_HOURS_TO_CHECK = 5;
 
     public function __construct(
         private ReservationQuotaFactory $reservationQuotaFactory,
