@@ -67,7 +67,7 @@ class ReservationQuotaFactory
 
         // 既に他の予約が入っているか
         $dateTime = Carbon::create($date->year, $date->month, $date->day, $hour, $studio->start_at->value);
-        $alreadyReservation = $this->findExistingReservation($dateTime, $studio, $ignoreReservationId);
+        $alreadyReservation = $this->findConflictingReservation($dateTime, $studio, $ignoreReservationId);
         if ($alreadyReservation) {
             return new Reserved($hour, $alreadyReservation->id);
         }
@@ -133,7 +133,7 @@ class ReservationQuotaFactory
         }
     }
 
-    private function findExistingReservation(Carbon $dateTime, Studio $studio, ?int $ignoreReservationId): ?Reservation
+    private function findConflictingReservation(Carbon $dateTime, Studio $studio, ?int $ignoreReservationId): ?Reservation
     {
         $query = $studio->reservations()->where('start_at', '<=', $dateTime)->where('finish_at', '>=', $dateTime);
         if ($ignoreReservationId) {

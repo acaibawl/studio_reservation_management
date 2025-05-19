@@ -11,20 +11,22 @@ use App\Models\Reservation;
 use App\Models\TemporaryClosingDay;
 use Carbon\CarbonImmutable;
 
-readonly class StudioUsageLimitService
+readonly class StudioMaxUsageHourService
 {
+    private const MAX_ADDITIONAL_HOURS_TO_CHECK = 5;
+
     public function __construct(
         private ReservationQuotaFactory $reservationQuotaFactory,
     ) {}
 
-    public function getMaxUsageHoursByReservation(Reservation $reservation): int
+    public function getByReservation(Reservation $reservation): int
     {
         $businessTime = BusinessTime::firstOrFail();
         $regularHolidays = RegularHoliday::get();
         $temporaryClosingDays = TemporaryClosingDay::get();
         $targetTimes = collect();
         $targetTimes->push(new CarbonImmutable($reservation->start_at));
-        collect(range(1, 5))->map(
+        collect(range(1, self::MAX_ADDITIONAL_HOURS_TO_CHECK))->map(
             fn (int $hour) => $targetTimes->push(new CarbonImmutable($reservation->start_at)->addHours($hour))
         );
 
@@ -32,7 +34,7 @@ readonly class StudioUsageLimitService
         foreach ($targetTimes as $targetTime) {
             $reservationQuota = $this->reservationQuotaFactory->generate(
                 $targetTime,
-                $targetTime->format('H'),
+                intval($targetTime->format('H')),
                 $reservation->studio,
                 $businessTime,
                 $regularHolidays,
