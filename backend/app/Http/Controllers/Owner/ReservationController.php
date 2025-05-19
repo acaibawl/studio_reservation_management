@@ -9,6 +9,7 @@ use App\Exceptions\UserDisplayableException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Owner\Reservation\UpdatePatch;
 use App\Http\Resources\Reservation\DailyQuotasStatusResource;
+use App\Http\Resources\Reservation\MaxUsageHourResource;
 use App\Http\Resources\Reservation\ReservationShowResource;
 use App\Models\Reservation;
 use App\Models\Studio;
@@ -16,6 +17,7 @@ use App\Services\Owner\Reservation\GetStudioQuotasByDateService;
 use App\Services\Owner\Reservation\ReservationUpdateService;
 use App\Services\Owner\Reservation\StudioMaxUsageHourService;
 use App\ViewModels\Reservation\DailyQuotasStatus;
+use App\ViewModels\Reservation\MaxUsageHourViewModel;
 use App\ViewModels\Reservation\ReservationShow;
 use Carbon\CarbonImmutable;
 use DB;
@@ -93,15 +95,10 @@ class ReservationController extends Controller
         ]);
     }
 
-    public function maxUsageHour(Studio $studio, CarbonImmutable $date, int $hour): JsonResponse
+    public function maxUsageHour(Studio $studio, CarbonImmutable $date, int $hour): MaxUsageHourResource
     {
-        $maxUsageHour = $this->studioUsageLimitService->getByDate($studio, $date, $hour);;
-        return response()->json([
-            'studio_id' => $studio->id,
-            'studio_name' => $studio->name,
-            'date' => $date->toDateString(),
-            'hour' => $hour,
-            'max_usage_hour' => $maxUsageHour,
-        ]);
+        $maxUsageHour = $this->studioUsageLimitService->getByDate($studio, $date, $hour);
+
+        return new MaxUsageHourResource(new MaxUsageHourViewModel($studio, $date, $hour, $maxUsageHour));
     }
 }

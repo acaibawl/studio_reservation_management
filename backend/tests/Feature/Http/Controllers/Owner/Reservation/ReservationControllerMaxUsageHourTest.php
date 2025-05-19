@@ -1,17 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Http\Controllers\Owner\Reservation;
 
 use App\Enums\Studio\StartAt;
 use App\Models\BusinessTime;
-use App\Models\Member;
 use App\Models\RegularHoliday;
 use App\Models\Reservation;
 use App\Models\Studio;
 use App\Models\TemporaryClosingDay;
 use Carbon\WeekDay;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Carbon;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -66,7 +65,7 @@ class ReservationControllerMaxUsageHourTest extends TestCase
             'start_at' => StartAt::Thirty,
         ]);
         RegularHoliday::factory()->create([
-            'code' => WeekDay::Sunday
+            'code' => WeekDay::Sunday,
         ]);
 
         $this->loginAsOwner();

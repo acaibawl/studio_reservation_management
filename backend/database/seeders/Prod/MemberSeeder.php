@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders\Prod;
 
 use App\Models\Member;
 use Hash;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Str;
 

@@ -11,6 +11,7 @@ use App\Models\Reservation;
 use App\Models\Studio;
 use App\Models\TemporaryClosingDay;
 use Carbon\CarbonImmutable;
+use Illuminate\Support\Collection;
 
 readonly class StudioMaxUsageHourService
 {
@@ -25,31 +26,16 @@ readonly class StudioMaxUsageHourService
         $businessTime = BusinessTime::firstOrFail();
         $regularHolidays = RegularHoliday::get();
         $temporaryClosingDays = TemporaryClosingDay::get();
-        $targetTimes = collect();
-        $targetTimes->push(new CarbonImmutable($reservation->start_at));
-        collect(range(1, self::MAX_ADDITIONAL_HOURS_TO_CHECK))->map(
-            fn (int $hour) => $targetTimes->push(new CarbonImmutable($reservation->start_at)->addHours($hour))
+        $startTime = new CarbonImmutable($reservation->start_at);
+
+        return $this->calculateMaxUsageHours(
+            $startTime,
+            $reservation->studio,
+            $businessTime,
+            $regularHolidays,
+            $temporaryClosingDays,
+            $reservation->id
         );
-
-        $maxUsageHours = 0;
-        foreach ($targetTimes as $targetTime) {
-            $reservationQuota = $this->reservationQuotaFactory->generate(
-                $targetTime,
-                intval($targetTime->format('H')),
-                $reservation->studio,
-                $businessTime,
-                $regularHolidays,
-                $temporaryClosingDays,
-                $reservation->id,
-            );
-            if ($reservationQuota instanceof Available) {
-                $maxUsageHours++;
-            } else {
-                break;
-            }
-        }
-
-        return $maxUsageHours;
     }
 
     public function getByDate(Studio $studio, CarbonImmutable $date, int $hour): int
@@ -57,14 +43,32 @@ readonly class StudioMaxUsageHourService
         $businessTime = BusinessTime::firstOrFail();
         $regularHolidays = RegularHoliday::get();
         $temporaryClosingDays = TemporaryClosingDay::get();
-        $targetStartAt = CarbonImmutable::create($date->year, $date->month, $date->day, $hour, $studio->start_at->value);
-        $targetTimes = collect();
-        $targetTimes->push($targetStartAt);
-        collect(range(1, self::MAX_ADDITIONAL_HOURS_TO_CHECK))->map(
-            fn (int $hour) => $targetTimes->push($targetStartAt->addHours($hour))
-        );
+        $startTime = CarbonImmutable::create($date->year, $date->month, $date->day, $hour, $studio->start_at->value);
 
-        $maxUsageHours = 0;
+        return $this->calculateMaxUsageHours(
+            $startTime,
+            $studio,
+            $businessTime,
+            $regularHolidays,
+            $temporaryClosingDays
+        );
+    }
+
+    /**
+     * @param Collection<int, RegularHoliday> $regularHolidays
+     * @param Collection<int, TemporaryClosingDay> $temporaryClosingDays
+     */
+    private function calculateMaxUsageHours(
+        CarbonImmutable $startTime,
+        Studio $studio,
+        BusinessTime $businessTime,
+        Collection $regularHolidays,
+        Collection $temporaryClosingDays,
+        ?int $reservationId = null
+    ): int {
+        $targetTimes = $this->generateTargetTimes($startTime);
+
+        $maxUsageHour = 0;
         foreach ($targetTimes as $targetTime) {
             $reservationQuota = $this->reservationQuotaFactory->generate(
                 $targetTime,
@@ -73,14 +77,29 @@ readonly class StudioMaxUsageHourService
                 $businessTime,
                 $regularHolidays,
                 $temporaryClosingDays,
+                $reservationId,
             );
             if ($reservationQuota instanceof Available) {
-                $maxUsageHours++;
+                $maxUsageHour++;
             } else {
                 break;
             }
         }
 
-        return $maxUsageHours;
+        return $maxUsageHour;
+    }
+
+    /**
+     * @return Collection<int, CarbonImmutable>
+     */
+    private function generateTargetTimes(CarbonImmutable $startTime): Collection
+    {
+        $targetTimes = collect();
+        $targetTimes->push($startTime);
+        collect(range(1, self::MAX_ADDITIONAL_HOURS_TO_CHECK))->map(
+            fn (int $hour) => $targetTimes->push($startTime->addHours($hour))
+        );
+
+        return $targetTimes;
     }
 }
