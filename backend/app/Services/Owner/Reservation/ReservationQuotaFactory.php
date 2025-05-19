@@ -32,7 +32,8 @@ class ReservationQuotaFactory
         Studio $studio,
         BusinessTime $businessTime,
         Collection $regularHolidays,
-        Collection $temporaryClosingDays
+        Collection $temporaryClosingDays,
+        ?int $ignoreReservationId = null
     ): ReservationQuotaInterface {
         // 日付を跨ぐ営業日か
         $isCrossDateOperation = $this->isCrossDateOperation($businessTime);
@@ -66,7 +67,7 @@ class ReservationQuotaFactory
 
         // 既に他の予約が入っているか
         $dateTime = Carbon::create($date->year, $date->month, $date->day, $hour, $studio->start_at->value);
-        $alreadyReservation = $this->findExistingReservation($dateTime, $studio);
+        $alreadyReservation = $this->findExistingReservation($dateTime, $studio, $ignoreReservationId);
         if ($alreadyReservation) {
             return new Reserved($hour, $alreadyReservation->id);
         }
@@ -132,9 +133,14 @@ class ReservationQuotaFactory
         }
     }
 
-    private function findExistingReservation(Carbon $dateTime, Studio $studio): ?Reservation
+    private function findExistingReservation(Carbon $dateTime, Studio $studio, ?int $ignoreReservationId): ?Reservation
     {
-        return $studio->reservations()->where('start_at', '<=', $dateTime)->where('finish_at', '>=', $dateTime)->first();
+        $query = $studio->reservations()->where('start_at', '<=', $dateTime)->where('finish_at', '>=', $dateTime);
+        if ($ignoreReservationId) {
+            $query->whereNot('id', '=', $ignoreReservationId);
+        }
+
+        return $query->first();
     }
 
     private function isOverMaxReservationPeriod(CarbonImmutable $applicableDate): bool
