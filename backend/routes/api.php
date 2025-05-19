@@ -62,6 +62,7 @@ Route::middleware('auth:api_owner')->group(function () {
                 ->name('reservations.')
                 ->group(function () {
                     Route::get('/get-quotas-by-date/{date}', [ReservationController::class, 'getQuotasByDate'])->name('get-quotas-by-date');
+                    Route::get('/{reservation}', [ReservationController::class, 'show'])->name('show');
                 });
         });
 });

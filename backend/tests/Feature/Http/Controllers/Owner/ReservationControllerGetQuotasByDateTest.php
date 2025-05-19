@@ -19,7 +19,7 @@ use Tests\TestCase;
 /**
  * dateメソッドのテストクラス
  */
-class ReservationControllerDateTest extends TestCase
+class ReservationControllerGetQuotasByDateTest extends TestCase
 {
     /**
      * 営業時間10-22時（跨がない）
