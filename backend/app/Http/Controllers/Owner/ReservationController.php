@@ -9,12 +9,14 @@ use App\Http\Resources\Reservation\DailyQuotasStatusResource;
 use App\Http\Resources\Reservation\ReservationShowResource;
 use App\Models\Reservation;
 use App\Services\Owner\Reservation\GetStudioQuotasByDateService;
+use App\Services\Owner\Reservation\ReservationUpdateService;
 use App\Services\Owner\Reservation\StudioMaxUsageHourService;
 use App\ViewModels\Reservation\DailyQuotasStatus;
 use App\ViewModels\Reservation\ReservationShow;
 use Carbon\CarbonImmutable;
 use DB;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Throwable;
 
 class ReservationController extends Controller
@@ -22,6 +24,7 @@ class ReservationController extends Controller
     public function __construct(
         private readonly GetStudioQuotasByDateService $getStudioQuotasByDateService,
         private readonly StudioMaxUsageHourService $studioUsageLimitService,
+        private readonly ReservationUpdateService $reservationUpdateService,
     ) {}
 
     public function getQuotasByDate(CarbonImmutable $date): DailyQuotasStatusResource
@@ -40,6 +43,15 @@ class ReservationController extends Controller
         );
 
         return new ReservationShowResource($showViewModel);
+    }
+
+    public function update(Reservation $reservation, Request $request): JsonResponse
+    {
+        $this->reservationUpdateService->update($reservation, $request->toArray());
+
+        return response()->json([
+            'message' => '予約を更新しました。',
+        ]);
     }
 
     /**
