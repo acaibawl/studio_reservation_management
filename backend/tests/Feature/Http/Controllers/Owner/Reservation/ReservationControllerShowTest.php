@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\Controllers\Owner;
+namespace Tests\Feature\Http\Controllers\Owner\Reservation;
 
 use App\Enums\Studio\StartAt;
 use App\Models\BusinessTime;
