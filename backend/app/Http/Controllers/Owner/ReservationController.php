@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Owner;
 use App\Exceptions\Reservation\UsageHourExceededException;
 use App\Exceptions\UserDisplayableException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Owner\Reservation\UpdatePatch;
 use App\Http\Resources\Reservation\DailyQuotasStatusResource;
 use App\Http\Resources\Reservation\ReservationShowResource;
 use App\Models\Reservation;
@@ -18,7 +19,6 @@ use App\ViewModels\Reservation\ReservationShow;
 use Carbon\CarbonImmutable;
 use DB;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Throwable;
 
 class ReservationController extends Controller
@@ -52,11 +52,11 @@ class ReservationController extends Controller
      * @throws UserDisplayableException
      * @throws UsageHourExceededException
      */
-    public function update(Reservation $reservation, Request $request): JsonResponse
+    public function update(Reservation $reservation, UpdatePatch $request): JsonResponse
     {
         DB::beginTransaction();
         try {
-            $this->reservationUpdateService->update($reservation, $request->toArray());
+            $this->reservationUpdateService->update($reservation, $request->validated());
             DB::commit();
         } catch (UserDisplayableException $e) {
             DB::rollBack();
