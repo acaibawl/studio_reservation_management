@@ -50,6 +50,7 @@ class ReservationController extends Controller
         DB::beginTransaction();
         try {
             $reservation->delete();
+            DB::commit();
         } catch (\Exception $e) {
             \Log::error($e->getMessage(), $e->getTrace());
             DB::rollBack();
