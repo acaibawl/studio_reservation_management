@@ -11,17 +11,18 @@ use Str;
 
 class MemberSeeder extends Seeder
 {
+    const int OWNER_MEMBER_ID = 9999999;
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        if (Member::find(9999999) !== null) {
+        if (Member::where('id', self::OWNER_MEMBER_ID)->exists()) {
             return;
         }
         // オーナー画面で予約作成時にダミーで入るユーザーなので、ログインはできないようにパスワードを不明とする
         Member::factory()->create([
-            'id' => 9999999,
+            'id' => self::OWNER_MEMBER_ID,
             'name' => 'owner',
             'email' => 'owner@example.com',
             'address' => 'オーナー住所',

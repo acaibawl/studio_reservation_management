@@ -36,7 +36,7 @@ class RouteServiceProvider extends ServiceProvider
         // パスパラメータでhourが指定された変数は0~23の数値しか受け付けない
         Route::bind('hour', function ($param) {
             if (is_numeric($param) && $param >= 0 && $param <= 23) {
-                return $param;
+                return (int) $param;
             }
             throw new NotFoundHttpException();
         });

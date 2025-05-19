@@ -95,10 +95,15 @@ class ReservationController extends Controller
         ]);
     }
 
-    public function maxUsageHour(Studio $studio, CarbonImmutable $date, int $hour): MaxUsageHourResource
+    public function getMaxUsageHour(Studio $studio, CarbonImmutable $date, int $hour): MaxUsageHourResource
     {
-        $maxUsageHour = $this->studioUsageLimitService->getByDate($studio, $date, $hour);
-
-        return new MaxUsageHourResource(new MaxUsageHourViewModel($studio, $date, $hour, $maxUsageHour));
+        return new MaxUsageHourResource(
+            new MaxUsageHourViewModel(
+                $studio,
+                $date,
+                $hour,
+                $this->studioUsageLimitService->getByDate($studio, $date, $hour)
+            )
+        );
     }
 }

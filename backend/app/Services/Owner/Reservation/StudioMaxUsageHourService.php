@@ -21,6 +21,9 @@ readonly class StudioMaxUsageHourService
         private ReservationQuotaFactory $reservationQuotaFactory,
     ) {}
 
+    /**
+     * 既に存在する予約に対する最大予約可能時間取得処理
+     */
     public function getByReservation(Reservation $reservation): int
     {
         $businessTime = BusinessTime::firstOrFail();
@@ -28,7 +31,7 @@ readonly class StudioMaxUsageHourService
         $temporaryClosingDays = TemporaryClosingDay::get();
         $startTime = new CarbonImmutable($reservation->start_at);
 
-        return $this->calculateMaxUsageHours(
+        return $this->calculateMaxUsageHour(
             $startTime,
             $reservation->studio,
             $businessTime,
@@ -38,6 +41,9 @@ readonly class StudioMaxUsageHourService
         );
     }
 
+    /**
+     * 枠に対する新規予約向けの最大予約可能時間取得処理
+     */
     public function getByDate(Studio $studio, CarbonImmutable $date, int $hour): int
     {
         $businessTime = BusinessTime::firstOrFail();
@@ -45,7 +51,7 @@ readonly class StudioMaxUsageHourService
         $temporaryClosingDays = TemporaryClosingDay::get();
         $startTime = CarbonImmutable::create($date->year, $date->month, $date->day, $hour, $studio->start_at->value);
 
-        return $this->calculateMaxUsageHours(
+        return $this->calculateMaxUsageHour(
             $startTime,
             $studio,
             $businessTime,
@@ -58,7 +64,7 @@ readonly class StudioMaxUsageHourService
      * @param Collection<int, RegularHoliday> $regularHolidays
      * @param Collection<int, TemporaryClosingDay> $temporaryClosingDays
      */
-    private function calculateMaxUsageHours(
+    private function calculateMaxUsageHour(
         CarbonImmutable $startTime,
         Studio $studio,
         BusinessTime $businessTime,
@@ -90,16 +96,14 @@ readonly class StudioMaxUsageHourService
     }
 
     /**
+     * 対象時間帯を一定時間分生成するメソッド
+     * 入力された開始時刻から N 時間分の対象時刻を生成して、予約可能性を逐次チェックする目的で使用
      * @return Collection<int, CarbonImmutable>
      */
     private function generateTargetTimes(CarbonImmutable $startTime): Collection
     {
-        $targetTimes = collect();
-        $targetTimes->push($startTime);
-        collect(range(1, self::MAX_ADDITIONAL_HOURS_TO_CHECK))->map(
-            fn (int $hour) => $targetTimes->push($startTime->addHours($hour))
+        return collect(range(0, self::MAX_ADDITIONAL_HOURS_TO_CHECK))->map(
+            fn(int $h) => $startTime->addHours($h)
         );
-
-        return $targetTimes;
     }
 }
