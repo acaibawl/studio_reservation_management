@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Owner;
 
+use App\Exceptions\Reservation\UsageHourExceededException;
+use App\Exceptions\UserDisplayableException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Reservation\DailyQuotasStatusResource;
 use App\Http\Resources\Reservation\ReservationShowResource;
@@ -45,9 +47,25 @@ class ReservationController extends Controller
         return new ReservationShowResource($showViewModel);
     }
 
+    /**
+     * @throws Throwable
+     * @throws UserDisplayableException
+     * @throws UsageHourExceededException
+     */
     public function update(Reservation $reservation, Request $request): JsonResponse
     {
-        $this->reservationUpdateService->update($reservation, $request->toArray());
+        DB::beginTransaction();
+        try {
+            $this->reservationUpdateService->update($reservation, $request->toArray());
+            DB::commit();
+        } catch (UserDisplayableException $e) {
+            DB::rollBack();
+            throw $e;
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage(), $e->getTrace());
+            DB::rollBack();
+            throw $e;
+        }
 
         return response()->json([
             'message' => '予約を更新しました。',
