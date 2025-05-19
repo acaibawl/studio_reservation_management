@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Database\Seeders;
+namespace Database\Seeders\Dev;
 
-use App\Models\RegularHoliday;
+use App\Models\Reservation;
 use Illuminate\Database\Seeder;
 
-class RegularHolidaySeeder extends Seeder
+class ReservationSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        RegularHoliday::factory()->count(1)->create();
+        Reservation::factory()->count(1)->create();
     }
 }

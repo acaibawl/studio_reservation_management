@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Database\Seeders;
+namespace Database\Seeders\Dev;
 
 use App\Models\Member;
 use Illuminate\Database\Seeder;

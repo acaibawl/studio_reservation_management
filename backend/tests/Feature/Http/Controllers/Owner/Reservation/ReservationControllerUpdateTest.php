@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Http\Controllers\Owner\Reservation;
 
 use App\Enums\Studio\StartAt;
-use App\Exceptions\Reservation\UsageHourExceededException;
+use App\Exceptions\Reservation\AvailableHourExceededException;
 use App\Models\BusinessTime;
 use App\Models\Reservation;
 use App\Models\Studio;
@@ -121,7 +121,7 @@ class ReservationControllerUpdateTest extends TestCase
             'memo' => 'test',
         ]);
 
-        Exceptions::assertReported(UsageHourExceededException::class);
+        Exceptions::assertReported(AvailableHourExceededException::class);
         $response->assertBadRequest();
         $this->assertDatabaseHas('reservations', [
             'id' => $reservation->id,

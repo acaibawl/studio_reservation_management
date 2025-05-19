@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Database\Seeders;
+namespace Database\Seeders\Dev;
 
-use App\Models\Owner;
+use App\Models\BusinessTime;
 use Illuminate\Database\Seeder;
 
-class OwnerSeeder extends Seeder
+class BusinessTimeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Owner::factory()->count(10)->create();
+        BusinessTime::factory()->count(1)->create();
     }
 }
