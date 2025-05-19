@@ -11,6 +11,7 @@ use App\Http\Requests\Owner\Reservation\UpdatePatch;
 use App\Http\Resources\Reservation\DailyQuotasStatusResource;
 use App\Http\Resources\Reservation\ReservationShowResource;
 use App\Models\Reservation;
+use App\Models\Studio;
 use App\Services\Owner\Reservation\GetStudioQuotasByDateService;
 use App\Services\Owner\Reservation\ReservationUpdateService;
 use App\Services\Owner\Reservation\StudioMaxUsageHourService;
@@ -89,6 +90,18 @@ class ReservationController extends Controller
 
         return response()->json([
             'message' => '予約を削除しました。',
+        ]);
+    }
+
+    public function maxUsageHour(Studio $studio, CarbonImmutable $date, int $hour): JsonResponse
+    {
+        $maxUsageHour = $this->studioUsageLimitService->getByDate($studio, $date, $hour);;
+        return response()->json([
+            'studio_id' => $studio->id,
+            'studio_name' => $studio->name,
+            'date' => $date->toDateString(),
+            'hour' => $hour,
+            'max_usage_hour' => $maxUsageHour,
         ]);
     }
 }
