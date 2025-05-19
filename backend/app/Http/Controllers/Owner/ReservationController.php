@@ -57,7 +57,7 @@ class ReservationController extends Controller
         }
 
         return response()->json([
-            'message' => '予約を削除しました'
+            'message' => '予約を削除しました。',
         ]);
     }
 }
