@@ -63,6 +63,7 @@ Route::middleware('auth:api_owner')->group(function () {
                 ->group(function () {
                     Route::get('/get-quotas-by-date/{date}', [ReservationController::class, 'getQuotasByDate'])->name('get-quotas-by-date');
                     Route::get('/{reservation}', [ReservationController::class, 'show'])->name('show');
+                    Route::delete('/{reservation}', [ReservationController::class, 'destroy'])->name('destroy');
                 });
         });
 });
