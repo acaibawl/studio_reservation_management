@@ -33,6 +33,7 @@ readonly class ReservationCreateService
             $targetDateTime,
             $targetDateTime->hour,
         );
+        // 利用可能上限時間を超えた場合はエラーをスローする
         if ($maxAvailableHour < $usageHour) {
             throw new AvailableHourExceededException();
         }

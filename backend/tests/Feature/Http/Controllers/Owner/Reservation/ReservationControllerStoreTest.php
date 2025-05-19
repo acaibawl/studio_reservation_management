@@ -121,7 +121,7 @@ class ReservationControllerStoreTest extends TestCase
         $this->assertDatabaseMissing('reservations', [
             'studio_id' => $studio->id,
             'member_id' => self::OWNER_DUMMY_MEMBER_ID,
-            'start_at' => '2025-05-18 18:30:00',
+            'start_at' => '2025-05-18 22:30:00',
             'memo' => 'メモ本文',
         ]);
     }

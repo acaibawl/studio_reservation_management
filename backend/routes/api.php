@@ -61,12 +61,12 @@ Route::middleware('auth:api_owner')->group(function () {
             Route::prefix('reservations')
                 ->name('reservations.')
                 ->group(function () {
-                    Route::get('/get-quotas-by-date/{date}', [ReservationController::class, 'getQuotasByDate'])->name('get-quotas-by-date');
+                    Route::post('/', [ReservationController::class, 'store'])->name('store');
                     Route::get('/{reservation}', [ReservationController::class, 'show'])->name('show');
                     Route::patch('/{reservation}', [ReservationController::class, 'update'])->name('update');
                     Route::delete('/{reservation}', [ReservationController::class, 'destroy'])->name('destroy');
-                    Route::get('/studios/{studio}/{date}/{hour}/max-available-hour', [ReservationController::class, 'getMaxAvailableHour'])->name('max-usage-hour');
-                    Route::post('/', [ReservationController::class, 'store'])->name('store');
+                    Route::get('/get-quotas-by-date/{date}', [ReservationController::class, 'getQuotasByDate'])->name('get-quotas-by-date');
+                    Route::get('/studios/{studio}/{date}/{hour}/max-available-hour', [ReservationController::class, 'getMaxAvailableHour'])->name('max-available-hour');
                 });
         });
 });
