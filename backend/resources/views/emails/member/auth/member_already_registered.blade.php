@@ -1,5 +1,6 @@
 スタジオ予約管理システムをご利用いただきありがとうございます。
 
-ご入力いただきましたメールアドレスは既に会員登録されております。
+ご入力いただきましたメールアドレスは既には既にアカウントが存在しています。
 
-パスワードを忘れた方はこちら https://studio-reservation.com/password/reset
+パスワードをお忘れですか？再設定はこちらから可能です。
+https://studio-reservation.com/password/reset

@@ -10,7 +10,6 @@ use App\Http\Requests\Member\Auth\SendSignUpEmailVerifiedCode\SendPost;
 use App\Services\Member\Auth\Email\SendSignUpEmailVerifiedCodeService;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Random\RandomException;
 
 class MemberAuthController extends Controller
 {
@@ -19,7 +18,6 @@ class MemberAuthController extends Controller
     ) {}
 
     /**
-     * @throws RandomException
      * @throws Exception
      */
     public function sendSignUpEmailVerifiedCode(SendPost $request): JsonResponse

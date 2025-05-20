@@ -19,7 +19,7 @@ class PassCodePool
      */
     public function issue(PassCodeType $type, string $email): string
     {
-        $emailVerifiedCode = $this->generateCode();
+        $emailVerifiedCode = $this->generatePassCode();
         Redis::set(
             $this->generateRedisKey($type, $email),
             $emailVerifiedCode,
@@ -33,7 +33,7 @@ class PassCodePool
     /**
      * @throws RandomException
      */
-    private function generateCode(): string
+    private function generatePassCode(): string
     {
         $randomNumber = (string) random_int(0, 999999);
 

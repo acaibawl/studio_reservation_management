@@ -61,10 +61,10 @@ class MemberAuthControllerSendSignUpEmailVerifiedCodeTest extends TestCase
         return [
             'メールアドレスは必須' => [
                 'requestBody' => [
-                    'email' => 'メールアドレスは必須項目です。',
+                    'email' => '',
                 ],
                 'expectedError' => [
-                    'email' => 'メールアドレスは、有効なメールアドレス形式で指定してください。',
+                    'email' => 'メールアドレスは必須項目です。',
                 ],
             ],
             'メールアドレスのフォーマット誤り' => [
