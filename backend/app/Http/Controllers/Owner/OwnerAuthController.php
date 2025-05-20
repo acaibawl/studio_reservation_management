@@ -6,7 +6,6 @@ namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OwnerAuth\LoginPost;
-use App\Models\Owner;
 use Illuminate\Http\JsonResponse;
 
 class OwnerAuthController extends Controller
