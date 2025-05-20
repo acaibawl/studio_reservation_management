@@ -60,6 +60,15 @@ services:
     volumes:
       - redis_data:/data
 
+  mailpit:
+    image: axllent/mailpit:v1.25.0
+    container_name: mailpit
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+    environment:
+      TZ: Asia/Tokyo
+
 volumes:
   db_data:
   redis_data:
