@@ -7,8 +7,8 @@ use App\Http\Controllers\Owner\BusinessDayController;
 use App\Http\Controllers\Owner\MemberController;
 use App\Http\Controllers\Owner\OwnerAuthController;
 use App\Http\Controllers\Owner\ReservationController;
-use App\Http\Controllers\StudioController;
-use App\Http\Controllers\TemporaryClosingDayController;
+use App\Http\Controllers\Owner\StudioController;
+use App\Http\Controllers\Owner\TemporaryClosingDayController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/health', [HealthCheckController::class, 'index'])->name('health');
