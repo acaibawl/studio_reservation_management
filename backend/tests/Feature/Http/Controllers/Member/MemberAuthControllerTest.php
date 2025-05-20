@@ -22,7 +22,7 @@ class MemberAuthControllerTest extends TestCase
 
     public function test_send_register_authentication_code_success(): void
     {
-        $response = $this->postJson('/member-auth/send-register-authentication-code', [
+        $response = $this->postJson('/member-auth/send-sign-up-email-verified-code', [
             'email' => '<EMAIL>',
         ]);
         $response->assertOk();
