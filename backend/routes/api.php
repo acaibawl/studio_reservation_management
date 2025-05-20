@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\HealthCheckController;
+use App\Http\Controllers\Member\MemberAuthController;
 use App\Http\Controllers\Owner\BusinessDayController;
 use App\Http\Controllers\Owner\MemberController;
 use App\Http\Controllers\Owner\OwnerAuthController;
@@ -12,6 +13,12 @@ use App\Http\Controllers\Owner\TemporaryClosingDayController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/health', [HealthCheckController::class, 'index'])->name('health');
+
+Route::prefix('member-auth')
+    ->name('member-auth.')
+    ->group(function () {
+        Route::post('/send-register-authentication-code', [MemberAuthController::class, 'sendRegisterAuthenticationCode'])->name('send-register-authentication-code');
+    });
 
 Route::prefix('owner-auth')
     ->name('owner-auth.')

@@ -20,4 +20,8 @@ RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install pdo_mysql mysqli exif
 RUN cd /usr/bin && curl -s http://getcomposer.org/installer | php && ln -s /usr/bin/composer.phar /usr/bin/composer
 
+# Redis
+RUN git clone https://github.com/phpredis/phpredis.git /usr/src/php/ext/redis -b 6.2.0
+RUN docker-php-ext-install redis
+
 WORKDIR /var/www/backend
