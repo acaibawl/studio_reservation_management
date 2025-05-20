@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Owner;
 
 use App\Exceptions\UserDisplayableException;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Owner\Studio\StorePost;
 use App\Http\Requests\Owner\Studio\UpdatePut;
 use App\Models\Studio;
