@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class SignUpEmailVerifiedCodeMail extends Mailable
+class MemberAlreadyRegisteredMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -19,7 +19,6 @@ class SignUpEmailVerifiedCodeMail extends Mailable
      */
     public function __construct(
         public string $email,
-        public string $code
     ) {}
 
     /**
@@ -29,7 +28,7 @@ class SignUpEmailVerifiedCodeMail extends Mailable
     {
         return new Envelope(
             to: [$this->email],
-            subject: 'メールアドレス認証コードをお送り致します。',
+            subject: 'ご入力いただいたメールアドレスは既に登録されています。',
         );
     }
 
@@ -39,7 +38,7 @@ class SignUpEmailVerifiedCodeMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            text: 'emails.member.auth.sign_up_email_verified_code',
+            text: 'emails.member.auth.member_already_registered',
         );
     }
 

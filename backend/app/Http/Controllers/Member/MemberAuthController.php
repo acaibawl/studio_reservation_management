@@ -4,35 +4,35 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Member;
 
+use App\Exceptions\Member\Auth\MemberAlreadyRegisteredException;
 use App\Http\Controllers\Controller;
-use App\Mail\Member\Auth\SignUpEmailVerifiedCodeMail;
+use App\Http\Requests\Member\Auth\SendSignUpEmailVerifiedCode\SendPost;
+use App\Services\Member\Auth\Email\SendSignUpEmailVerifiedCodeService;
+use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Redis\Connections\PhpRedisConnection;
-use Illuminate\Support\Facades\Redis;
-use Mail;
 use Random\RandomException;
 
 class MemberAuthController extends Controller
 {
-    /**
-     * 600秒=10分 で失効
-     */
-    private const int TTL_IN_SEC =600;
+    public function __construct(
+        private readonly SendSignUpEmailVerifiedCodeService $sendSignUpEmailVerifiedCodeService,
+    ) {}
 
     /**
      * @throws RandomException
+     * @throws Exception
      */
-    public function sendSignUpEmailVerifiedCode(): JsonResponse
+    public function sendSignUpEmailVerifiedCode(SendPost $request): JsonResponse
     {
-        $randomNumber = (string) random_int(0, 999999);
-        $emailVerifiedCode = str_pad($randomNumber, 6, '0', STR_PAD_LEFT);
-
-        $email = 'dummy@example.com';
-        /** @var PhpRedisConnection $connection */
-        $connection = Redis::connection();
-        $connection->set("sign_up_email_verified_token_{$email}", $emailVerifiedCode, self::TTL_IN_SEC);
-
-        Mail::send(new SignUpEmailVerifiedCodeMail($email, $emailVerifiedCode));
+        try {
+            $this->sendSignUpEmailVerifiedCodeService->send($request->validated()['email']);
+        } catch (MemberAlreadyRegisteredException $e) {
+            // 攻撃の可能性があるので、infoレベルのログだけ残して成功時と同じレスポンスを返す
+            \Log::info($e->getMessage());
+        } catch (Exception $e) {
+            \Log::error($e->getMessage(), $e->getTrace());
+            throw $e;
+        }
 
         return response()->json([
             'message' => 'メールアドレス認証コードを送信しました。',

@@ -14,4 +14,8 @@ parameters:
         '#no value type specified in iterable type array.#'
     -
         '#Unable to resolve the template type (.*) in call to function collect#'
+    -
+        '#Static method Redis::set\(\) invoked with 4 parameters, 2-3 required#'
+    -
+        '#Parameter \#3 \$options of static method Redis::set\(\) expects array\|int, string given#'
   reportMaybes: false
