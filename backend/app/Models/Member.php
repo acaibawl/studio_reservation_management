@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
  * @property int $id ID
@@ -33,7 +34,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Member whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Member extends Model
+class Member extends Authenticatable implements JWTSubject
 {
     /** @use HasFactory<\Database\Factories\MemberFactory> */
     use HasFactory;
@@ -64,5 +65,18 @@ class Member extends Model
     public function reservations(): HasMany
     {
         return $this->hasMany(Reservation::class);
+    }
+
+    public function getJWTIdentifier(): mixed
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * @return array<int, mixed>
+     */
+    public function getJWTCustomClaims(): array
+    {
+        return [];
     }
 }

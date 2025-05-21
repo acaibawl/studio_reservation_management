@@ -30,6 +30,7 @@ Route::prefix('member-auth')
             ->group(function () {
                 Route::post('/', [AuthMemberController::class, 'store'])->name('store');
             });
+        Route::post('/login', [AuthMemberController::class, 'login'])->name('login');
     });
 
 Route::prefix('owner-auth')
