@@ -11,13 +11,15 @@ RUN apt-get update && \
     libmcrypt-dev \
     libpng-dev \
     libfontconfig1 \
-    libxrender1
+    libxrender1 \
+    libicu-dev
 
 # php設定
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install gd
 RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install pdo_mysql mysqli exif
+RUN docker-php-ext-install intl
 RUN cd /usr/bin && curl -s http://getcomposer.org/installer | php && ln -s /usr/bin/composer.phar /usr/bin/composer
 
 # Redis

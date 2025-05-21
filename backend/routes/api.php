@@ -17,7 +17,7 @@ Route::get('/health', [HealthCheckController::class, 'index'])->name('health');
 Route::prefix('member-auth')
     ->name('member-auth.')
     ->group(function () {
-        Route::post('/send-register-authentication-code', [MemberAuthController::class, 'sendRegisterAuthenticationCode'])->name('send-register-authentication-code');
+        Route::post('/send-sign-up-email-verified-code', [MemberAuthController::class, 'sendSignUpEmailVerifiedCode'])->name('send-sign-up-email-verified-code');
     });
 
 Route::prefix('owner-auth')

@@ -4,25 +4,36 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Member;
 
+use App\Exceptions\Member\Auth\MemberAlreadyRegisteredException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Member\Auth\SendSignUpEmailVerifiedCode\SendPost;
+use App\Services\Member\Auth\Email\SendSignUpEmailVerifiedCodeService;
+use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Redis\Connections\PhpRedisConnection;
-use Illuminate\Support\Facades\Redis;
 
 class MemberAuthController extends Controller
 {
-    public function sendRegisterAuthenticationCode(): JsonResponse
-    {
-        \Mail::raw('test from laravel 本文です。', function($message) {
-            $message->to('atesaki@example.com')->subject('testメールタイトルです。');
-        });
+    public function __construct(
+        private readonly SendSignUpEmailVerifiedCodeService $sendSignUpEmailVerifiedCodeService,
+    ) {}
 
-        /** @var PhpRedisConnection $connection */
-        $connection = Redis::connection();
-        $connection->set('aaa', '123456');
+    /**
+     * @throws Exception
+     */
+    public function sendSignUpEmailVerifiedCode(SendPost $request): JsonResponse
+    {
+        try {
+            $this->sendSignUpEmailVerifiedCodeService->send($request->validated()['email']);
+        } catch (MemberAlreadyRegisteredException $e) {
+            // 攻撃の可能性があるので、infoレベルのログだけ残して成功時と同じレスポンスを返す
+            \Log::info($e->getMessage());
+        } catch (Exception $e) {
+            \Log::error($e->getMessage(), $e->getTrace());
+            throw $e;
+        }
 
         return response()->json([
-            'message' => '会員登録認証コードを送信しました。',
+            'message' => 'メールアドレス認証コードを送信しました。',
         ]);
     }
 }
