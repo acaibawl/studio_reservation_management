@@ -30,6 +30,11 @@ class PassCodePool
         return $emailVerifiedCode;
     }
 
+    public function verify(PassCodeType $type, string $email, string $code): bool
+    {
+        return Redis::get($this->generateRedisKey($type, $email)) === $code;
+    }
+
     /**
      * @throws RandomException
      */

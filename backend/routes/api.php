@@ -21,6 +21,7 @@ Route::prefix('member-auth')
             ->name('sign-up-email-verified-code.')
             ->group(function () {
                 Route::post('/send', [SignUpEmailVerifiedCodeController::class, 'send'])->name('send');
+                Route::post('/verify', [SignUpEmailVerifiedCodeController::class, 'verify'])->name('verify');
             });
     });
 
