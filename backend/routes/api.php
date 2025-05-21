@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\HealthCheckController;
+use App\Http\Controllers\Member\Auth\MemberController as AuthMemberController;
 use App\Http\Controllers\Member\Auth\SignUpEmailVerifiedCodeController;
 use App\Http\Controllers\Owner\BusinessDayController;
 use App\Http\Controllers\Owner\MemberController;
@@ -22,6 +23,12 @@ Route::prefix('member-auth')
             ->group(function () {
                 Route::post('/send', [SignUpEmailVerifiedCodeController::class, 'send'])->name('send');
                 Route::post('/verify', [SignUpEmailVerifiedCodeController::class, 'verify'])->name('verify');
+            });
+
+        Route::prefix('member')
+            ->name('member.')
+            ->group(function () {
+                Route::post('/', [AuthMemberController::class, 'store'])->name('store');
             });
     });
 
