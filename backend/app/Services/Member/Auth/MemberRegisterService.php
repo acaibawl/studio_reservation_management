@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Member\Auth;
 
 use App\Auth\Member\EnsureMemberDoesntExist;
-use App\Auth\Member\PassCodeDestroyer;
+use App\Auth\Member\SignUpPassCodeDestroyer;
 use App\Exceptions\Member\Auth\MemberAlreadyRegisteredException;
 use App\Exceptions\Member\Auth\PassCodeVerifyFailedException;
 use App\Mail\Member\Auth\RegisterCompletedMail;
@@ -18,7 +18,7 @@ readonly class MemberRegisterService
     public function __construct(
         private VerifySignUpEmailVerifiedCodeService $verifySignUpEmailVerifiedCodeService,
         private EnsureMemberDoesntExist $ensureMemberDoesntExist,
-        private PassCodeDestroyer $passCodeDestroyer,
+        private SignUpPassCodeDestroyer $passCodeDestroyer,
     ) {}
 
     /**
