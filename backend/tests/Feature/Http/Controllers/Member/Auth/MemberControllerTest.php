@@ -772,4 +772,38 @@ class MemberControllerTest extends TestCase
             ],
         ];
     }
+
+    #[Test]
+    public function test_show_me_success(): void
+    {
+        $email = 'test@gmail.com';
+        $name = 'テスト太郎';
+        $address = 'テスト住所';
+        $tel = '0312345678';
+        $member = Member::factory()->create([
+            'email' => $email,
+            'name' => $name,
+            'address' => $address,
+            'tel' => $tel,
+        ]);
+        $this->loginAsMember($member);
+        $response = $this->getJson('/member-auth/me');
+        $response->assertOk();
+        $response->assertExactJson([
+            'email' => $email,
+            'name' => $name,
+            'address' => $address,
+            'tel' => $tel,
+        ]);
+    }
+
+    /**
+     * 未ログインではshow meはアクセス不可
+     */
+    #[Test]
+    public function test_show_me_failed_by_not_logged_in(): void
+    {
+        $response = $this->getJson('/member-auth/me');
+        $response->assertUnauthorized();
+    }
 }

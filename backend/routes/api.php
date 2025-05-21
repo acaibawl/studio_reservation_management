@@ -31,6 +31,11 @@ Route::prefix('member-auth')
                 Route::post('/', [AuthMemberController::class, 'store'])->name('store');
             });
         Route::post('/login', [AuthMemberController::class, 'login'])->name('login');
+
+        Route::middleware('auth:api_member')->group(function () {
+            Route::get('/me', [AuthMemberController::class, 'showMe'])->name('me');
+            Route::post('/logout', [AuthMemberController::class, 'logout'])->name('logout');
+        });
     });
 
 Route::prefix('owner-auth')

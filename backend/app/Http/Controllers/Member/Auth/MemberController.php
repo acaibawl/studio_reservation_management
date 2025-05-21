@@ -9,6 +9,7 @@ use App\Exceptions\Member\Auth\PassCodeVerifyFailedException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Member\Auth\LoginPost;
 use App\Http\Requests\Member\Auth\StorePost;
+use App\Http\Resources\Member\ShowMeResource;
 use App\Services\Member\Auth\MemberRegisterService;
 use DB;
 use Illuminate\Http\JsonResponse;
@@ -65,18 +66,18 @@ class MemberController extends Controller
         return $this->respondWithToken($token);
     }
 
-    public function me(): JsonResponse
+    public function showMe(): ShowMeResource
     {
-        $user = auth()->user();
+        $member = auth()->user();
 
-        return response()->json($user);
+        return new ShowMeResource($member);
     }
 
     public function logout(): JsonResponse
     {
         auth()->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return response()->json(['message' => 'ログアウトしました。']);
     }
 
     public function refresh(): JsonResponse

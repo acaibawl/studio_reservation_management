@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use App\Models\Member;
 use App\Models\Owner;
 use Illuminate\Foundation\Console\CliDumper;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -66,7 +67,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * 共通のログイン処理
+     * 共通のオーナーログイン処理
      */
     protected function loginAsOwner(?Owner $owner = null): Owner
     {
@@ -74,5 +75,16 @@ abstract class TestCase extends BaseTestCase
         $this->actingAs($owner, 'api_owner');
 
         return $owner;
+    }
+
+    /**
+     * 共通の会員ログイン処理
+     */
+    protected function loginAsMember(?Member $member = null): Member
+    {
+        $member ??= Member::factory()->create();
+        $this->actingAs($member, 'api_member');
+
+        return $member;
     }
 }
