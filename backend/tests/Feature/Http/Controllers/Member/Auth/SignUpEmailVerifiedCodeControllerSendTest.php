@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\Controllers\Member;
+namespace Tests\Feature\Http\Controllers\Member\Auth;
 
 use App\Mail\Member\Auth\MemberAlreadyRegisteredMail;
 use App\Mail\Member\Auth\SignUpEmailVerifiedCodeMail;
@@ -13,7 +13,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class MemberAuthControllerSendSignUpEmailVerifiedCodeTest extends TestCase
+class SignUpEmailVerifiedCodeControllerSendTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -29,7 +29,7 @@ class MemberAuthControllerSendSignUpEmailVerifiedCodeTest extends TestCase
         Mail::fake();
         $email = 'test@gmail.com';
 
-        $response = $this->postJson('/member-auth/send-sign-up-email-verified-code', [
+        $response = $this->postJson('/member-auth/sign-up-email-verified-code/send', [
             'email' => $email,
         ]);
 
@@ -50,7 +50,7 @@ class MemberAuthControllerSendSignUpEmailVerifiedCodeTest extends TestCase
     #[DataProvider('dataProviderSendInvalidParameter')]
     public function test_send_failed_by_validation_error(array $requestBody, array $expectedError): void
     {
-        $response = $this->postJson('/member-auth/send-sign-up-email-verified-code', $requestBody);
+        $response = $this->postJson('/member-auth/sign-up-email-verified-code/send', $requestBody);
 
         $response->assertUnprocessable();
         $response->assertInvalid($expectedError);
@@ -99,7 +99,7 @@ class MemberAuthControllerSendSignUpEmailVerifiedCodeTest extends TestCase
             'email' => $email,
         ]);
 
-        $response = $this->postJson('/member-auth/send-sign-up-email-verified-code', [
+        $response = $this->postJson('/member-auth/sign-up-email-verified-code/send', [
             'email' => $email,
         ]);
 
