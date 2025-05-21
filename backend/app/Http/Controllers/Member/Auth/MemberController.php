@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Member\Auth;
 use App\Exceptions\Member\Auth\MemberAlreadyRegisteredException;
 use App\Exceptions\Member\Auth\PassCodeVerifyFailedException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Member\Auth\LoginPost;
 use App\Http\Requests\Member\Auth\StorePost;
 use App\Services\Member\Auth\MemberRegisterService;
 use DB;
@@ -49,5 +50,47 @@ class MemberController extends Controller
         return response()->json([
             'message' => '会員登録をしました。',
         ], Response::HTTP_CREATED);
+    }
+
+    public function login(LoginPost $request): JsonResponse
+    {
+        $credentials = $request->validated();
+        // email・password（自動でハッシュする）で検索をかけて、一致するmemberがいればtokenを設定。なければfalseが入る
+        /** @var mixed $token */
+        $token = auth()->guard('api_member')->attempt($credentials);
+        if (! $token) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        return $this->respondWithToken($token);
+    }
+
+    public function me(): JsonResponse
+    {
+        $user = auth()->user();
+
+        return response()->json($user);
+    }
+
+    public function logout(): JsonResponse
+    {
+        auth()->logout();
+
+        return response()->json(['message' => 'Successfully logged out']);
+    }
+
+    public function refresh(): JsonResponse
+    {
+        // @phpstan-ignore method.notFound
+        return $this->respondWithToken(auth()->refresh());
+    }
+
+    protected function respondWithToken(string $token): JsonResponse
+    {
+        return response()->json([
+            'member_access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => config('jwt.ttl'),
+        ]);
     }
 }

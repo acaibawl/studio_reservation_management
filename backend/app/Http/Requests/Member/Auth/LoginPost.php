@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\OwnerAuth;
+namespace App\Http\Requests\Member\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 

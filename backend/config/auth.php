@@ -46,6 +46,10 @@ return [
             'driver' => 'jwt',
             'provider' => 'owners',
         ],
+        'api_member' => [
+            'driver' => 'jwt',
+            'provider' => 'members',
+        ],
     ],
 
     /*
@@ -79,6 +83,10 @@ return [
         'owners' => [
             'driver' => 'eloquent',
             'model' => App\Models\Owner::class,
+        ],
+        'members' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Member::class,
         ],
     ],
 

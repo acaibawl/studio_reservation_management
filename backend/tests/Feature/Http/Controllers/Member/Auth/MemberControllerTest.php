@@ -7,7 +7,9 @@ namespace Tests\Feature\Http\Controllers\Member\Auth;
 use App\Mail\Member\Auth\MemberAlreadyRegisteredMail;
 use App\Mail\Member\Auth\RegisterCompletedMail;
 use App\Models\Member;
+use App\Models\Owner;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Testing\Fluent\AssertableJson;
 use Mail;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -642,5 +644,132 @@ class MemberControllerTest extends TestCase
         $this->assertNotNull($code);
 
         Mail::assertNotSent(RegisterCompletedMail::class);
+    }
+
+    #[Test]
+    public function test_login_success(): void
+    {
+        $password = 'password';
+        $email = 'test@gmail.com';
+        Member::factory()->create([
+            'email' => $email,
+            'password' => \Hash::make($password),
+        ]);
+        $requestBody = [
+            'email' => $email,
+            'password' => $password,
+        ];
+
+        $response = $this->postJson('/member-auth/login', $requestBody);
+        $response->assertStatus(200);
+        $response->assertJson(fn (AssertableJson $json) => $json->hasAll(
+            [
+                'member_access_token',
+                'token_type',
+                'expires_in',
+            ])
+            ->where('token_type', 'bearer')
+        );
+    }
+
+    /**
+     * ログインリクエストのパラメータバリデーションエラーのテスト
+     */
+    #[Test]
+    #[DataProvider('dataProviderLoginInvalidParameter')]
+    public function test_login_failed_by_validation_error(array $requestBody, string $errorMessage): void
+    {
+        $response = $this->postJson('/member-auth/login', $requestBody);
+        $response->assertUnprocessable();
+        $response->assertJson(fn (AssertableJson $json) => $json->where('message', $errorMessage)
+            ->etc()
+        );
+    }
+
+    /**
+     * @return array[]
+     */
+    public static function dataProviderLoginInvalidParameter(): array
+    {
+        return [
+            'email空文字' => [
+                'requestBody' => [
+                    'email' => '',
+                    'password' => 'password',
+                ],
+                'errorMessage' => 'メールアドレスは必須項目です。',
+            ],
+            'emailフォーマット誤り' => [
+                'requestBody' => [
+                    'email' => 'acai',
+                    'password' => 'password',
+                ],
+                'errorMessage' => 'メールアドレスは、有効なメールアドレス形式で指定してください。',
+            ],
+            'email文字数超過' => [
+                'requestBody' => [
+                    'email' => str_repeat('a', 244) . '@example.com',
+                    'password' => 'password',
+                ],
+                'errorMessage' => 'メールアドレスの文字数は、255文字以下である必要があります。',
+            ],
+            'password空文字' => [
+                'requestBody' => [
+                    'email' => 'acai@example.com',
+                    'password' => '',
+                ],
+                'errorMessage' => 'パスワードは必須項目です。',
+            ],
+            'password文字数不足' => [
+                'requestBody' => [
+                    'email' => 'acai@example.com',
+                    'password' => str_repeat('a', 7),
+                ],
+                'errorMessage' => 'パスワードは、8文字から32文字にしてください。',
+            ],
+            'password文字数超過' => [
+                'requestBody' => [
+                    'email' => 'acai@example.com',
+                    'password' => str_repeat('a', 33),
+                ],
+                'errorMessage' => 'パスワードは、8文字から32文字にしてください。',
+            ],
+        ];
+    }
+
+    /**
+     * 認証情報誤りによるログイン失敗のテスト
+     */
+    #[Test]
+    #[DataProvider('dataProviderLoginMismatch')]
+    public function test_login_failed_by_mismatch_of_authentication_information(array $requestBody): void
+    {
+        Owner::factory()->create([
+            'email' => 'acai@example.com',
+            'password' => \Hash::make('password'),
+        ]);
+        $response = $this->postJson('/member-auth/login', $requestBody);
+        $response->assertUnauthorized();
+    }
+
+    /**
+     * @return array[]
+     */
+    public static function dataProviderLoginMismatch(): array
+    {
+        return [
+            'email不一致' => [
+                'requestBody' => [
+                    'email' => 'mismatch@example.com',
+                    'password' => 'password',
+                ],
+            ],
+            'password不一致' => [
+                'requestBody' => [
+                    'email' => 'acai@example.com',
+                    'password' => 'mismatch',
+                ],
+            ],
+        ];
     }
 }

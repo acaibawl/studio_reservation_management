@@ -67,42 +67,42 @@ class OwnerAuthControllerTest extends TestCase
                     'email' => '',
                     'password' => 'password',
                 ],
-                'errorMessage' => 'Emailは必須項目です。',
+                'errorMessage' => 'メールアドレスは必須項目です。',
             ],
             'emailフォーマット誤り' => [
                 'requestBody' => [
                     'email' => 'acai',
                     'password' => 'password',
                 ],
-                'errorMessage' => 'Emailは、有効なメールアドレス形式で指定してください。',
+                'errorMessage' => 'メールアドレスは、有効なメールアドレス形式で指定してください。',
             ],
             'email文字数超過' => [
                 'requestBody' => [
                     'email' => str_repeat('a', 244) . '@example.com',
                     'password' => 'password',
                 ],
-                'errorMessage' => 'Emailの文字数は、255文字以下である必要があります。',
+                'errorMessage' => 'メールアドレスの文字数は、255文字以下である必要があります。',
             ],
             'password空文字' => [
                 'requestBody' => [
                     'email' => 'acai@example.com',
                     'password' => '',
                 ],
-                'errorMessage' => 'Passwordは必須項目です。',
+                'errorMessage' => 'パスワードは必須項目です。',
             ],
             'password文字数不足' => [
                 'requestBody' => [
                     'email' => 'acai@example.com',
                     'password' => str_repeat('a', 7),
                 ],
-                'errorMessage' => 'Passwordは、8文字から32文字にしてください。',
+                'errorMessage' => 'パスワードは、8文字から32文字にしてください。',
             ],
             'password文字数超過' => [
                 'requestBody' => [
                     'email' => 'acai@example.com',
                     'password' => str_repeat('a', 33),
                 ],
-                'errorMessage' => 'Passwordは、8文字から32文字にしてください。',
+                'errorMessage' => 'パスワードは、8文字から32文字にしてください。',
             ],
         ];
     }
