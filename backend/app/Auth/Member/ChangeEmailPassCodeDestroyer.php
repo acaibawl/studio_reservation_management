@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Auth\Member;
 
-readonly class PassCodeDestroyer
+readonly class ChangeEmailPassCodeDestroyer
 {
     public function __construct(
         private PassCodePool $passCodePool,
@@ -12,6 +12,6 @@ readonly class PassCodeDestroyer
 
     public function handle(string $email): void
     {
-        $this->passCodePool->delete(PassCodeType::SIGN_UP, $email);
+        $this->passCodePool->delete(PassCodeType::CHANGE_EMAIL, $email);
     }
 }

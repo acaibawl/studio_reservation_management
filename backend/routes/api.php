@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\HealthCheckController;
+use App\Http\Controllers\Member\Auth\ChangeEmailVerifiedCodeController;
+use App\Http\Controllers\Member\Auth\EmailUpdateController;
 use App\Http\Controllers\Member\Auth\MemberController as AuthMemberController;
 use App\Http\Controllers\Member\Auth\SignUpEmailVerifiedCodeController;
 use App\Http\Controllers\Owner\BusinessDayController;
@@ -35,6 +37,8 @@ Route::prefix('member-auth')
         Route::middleware('auth:api_member')->group(function () {
             Route::get('/me', [AuthMemberController::class, 'showMe'])->name('me');
             Route::post('/logout', [AuthMemberController::class, 'logout'])->name('logout');
+            Route::post('/change-email-verified-code/send', [ChangeEmailVerifiedCodeController::class, 'send'])->name('change-email-verified-code.send');
+            Route::patch('/email', [EmailUpdateController::class, 'update'])->name('email.update');
         });
     });
 
