@@ -1,13 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Http\Controllers\Member\Auth;
 
-use App\Exceptions\Member\Auth\PassCodeVerifyFailedException;
-use App\Exceptions\Reservation\AvailableHourExceededException;
-use App\Mail\Member\Auth\SignUpEmailVerifiedCodeMail;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Exceptions;
 use Illuminate\Support\Facades\Redis;
 use Mail;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -110,7 +106,7 @@ class SignUpEmailVerifiedCodeControllerVerifyTest extends TestCase
             '認証コードの文字数不足' => [
                 'requestBody' => [
                     'email' => 'test@gmail.com',
-                    'code' => "12345",
+                    'code' => '12345',
                 ],
                 'expectedError' => [
                     'code' => '認証コードの文字数は、6文字にしてください。',
@@ -119,7 +115,7 @@ class SignUpEmailVerifiedCodeControllerVerifyTest extends TestCase
             '認証コードの文字数超過' => [
                 'requestBody' => [
                     'email' => 'test@gmail.com',
-                    'code' => "1234567",
+                    'code' => '1234567',
                 ],
                 'expectedError' => [
                     'code' => '認証コードの文字数は、6文字にしてください。',

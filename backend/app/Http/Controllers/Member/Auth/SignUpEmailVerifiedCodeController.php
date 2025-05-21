@@ -13,8 +13,6 @@ use App\Services\Member\Auth\Email\SendSignUpEmailVerifiedCodeService;
 use App\Services\Member\Auth\Email\VerifySignUpEmailVerifiedCodeService;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Symfony\Component\HttpFoundation\Response;
 
 class SignUpEmailVerifiedCodeController extends Controller
@@ -54,8 +52,9 @@ class SignUpEmailVerifiedCodeController extends Controller
         } catch (PassCodeVerifyFailedException $e) {
             return response()->json([
                 'message' => 'コードの検証に失敗しました。',
-            ],  Response::HTTP_BAD_REQUEST);
+            ], Response::HTTP_BAD_REQUEST);
         }
+
         return response()->json([
             'message' => 'メールアドレス検証しました',
         ]);
