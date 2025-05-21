@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\HealthCheckController;
-use App\Http\Controllers\Member\MemberAuthController;
+use App\Http\Controllers\Member\Auth\SignUpEmailVerifiedCodeController;
 use App\Http\Controllers\Owner\BusinessDayController;
 use App\Http\Controllers\Owner\MemberController;
 use App\Http\Controllers\Owner\OwnerAuthController;
@@ -17,7 +17,11 @@ Route::get('/health', [HealthCheckController::class, 'index'])->name('health');
 Route::prefix('member-auth')
     ->name('member-auth.')
     ->group(function () {
-        Route::post('/send-sign-up-email-verified-code', [MemberAuthController::class, 'sendSignUpEmailVerifiedCode'])->name('send-sign-up-email-verified-code');
+        Route::prefix('sign-up-email-verified-code')
+            ->name('sign-up-email-verified-code.')
+            ->group(function () {
+                Route::post('/send', [SignUpEmailVerifiedCodeController::class, 'send'])->name('send');
+            });
     });
 
 Route::prefix('owner-auth')

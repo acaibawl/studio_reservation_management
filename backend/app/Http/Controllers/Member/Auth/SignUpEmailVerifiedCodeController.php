@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Member;
+namespace App\Http\Controllers\Member\Auth;
 
 use App\Exceptions\Member\Auth\MemberAlreadyRegisteredException;
 use App\Http\Controllers\Controller;
@@ -11,7 +11,7 @@ use App\Services\Member\Auth\Email\SendSignUpEmailVerifiedCodeService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 
-class MemberAuthController extends Controller
+class SignUpEmailVerifiedCodeController extends Controller
 {
     public function __construct(
         private readonly SendSignUpEmailVerifiedCodeService $sendSignUpEmailVerifiedCodeService,
@@ -20,7 +20,7 @@ class MemberAuthController extends Controller
     /**
      * @throws Exception
      */
-    public function sendSignUpEmailVerifiedCode(SendPost $request): JsonResponse
+    public function send(SendPost $request): JsonResponse
     {
         try {
             $this->sendSignUpEmailVerifiedCodeService->send($request->validated()['email']);
