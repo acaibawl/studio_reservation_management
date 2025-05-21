@@ -63,7 +63,7 @@ class EmailUpdateControllerTest extends TestCase
     public function test_update_failed_by_validation_error(array $requestBody, array $expectedError): void
     {
         $this->loginAsMember();
-        $response = $this->postJson('/member-auth/sign-up-email-verified-code/verify', $requestBody);
+        $response = $this->patchJson('/member-auth/email', $requestBody);
 
         $response->assertUnprocessable();
         $response->assertInvalid($expectedError);

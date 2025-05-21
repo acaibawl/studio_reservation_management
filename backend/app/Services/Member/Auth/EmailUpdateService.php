@@ -12,7 +12,7 @@ use App\Exceptions\Member\Auth\MemberAlreadyRegisteredException;
 use App\Exceptions\Member\Auth\PassCodeVerifyFailedException;
 use App\Models\Member;
 
-readonly class UpdateEmailService
+readonly class EmailUpdateService
 {
     public function __construct(
         private PassCodePool $passCodePool,

@@ -9,14 +9,14 @@ use App\Exceptions\Member\Auth\PassCodeVerifyFailedException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Member\Auth\Email\UpdatePatch;
 use App\Models\Member;
-use App\Services\Member\Auth\UpdateEmailService;
+use App\Services\Member\Auth\EmailUpdateService;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class EmailUpdateController extends Controller
 {
     public function __construct(
-        private readonly UpdateEmailService $verifyChangeEmailVerifiedCodeService,
+        private readonly EmailUpdateService $emailUpdateService,
     ) {}
 
     public function update(UpdatePatch $request): JsonResponse
@@ -24,10 +24,11 @@ class EmailUpdateController extends Controller
         /** @var Member $member */
         $member = auth()->user();
         try {
-            $this->verifyChangeEmailVerifiedCodeService->update(
+            $validated = $request->validated();
+            $this->emailUpdateService->update(
                 $member,
-                $request->validated()['email'],
-                $request->validated()['code']
+                $validated['email'],
+                $validated['code']
             );
         } catch (PassCodeVerifyFailedException $e) {
             return response()->json([
