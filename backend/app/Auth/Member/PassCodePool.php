@@ -35,6 +35,11 @@ class PassCodePool
         return Redis::get($this->generateRedisKey($type, $email)) === $code;
     }
 
+    public function delete(PassCodeType $type, string $email): void
+    {
+        Redis::del([$this->generateRedisKey($type, $email)]);
+    }
+
     /**
      * @throws RandomException
      */
