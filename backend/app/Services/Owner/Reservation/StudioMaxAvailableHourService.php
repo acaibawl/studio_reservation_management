@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Owner\Reservation;
 
-use App\Domains\Owner\ReservationQuota\Available;
+use App\Domains\ReservationQuota\Available;
 use App\Models\BusinessTime;
 use App\Models\RegularHoliday;
 use App\Models\Reservation;

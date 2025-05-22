@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Services\Owner\Reservation;
 
-use App\Domains\Owner\ReservationQuota\Available;
-use App\Domains\Owner\ReservationQuota\NotAvailable;
-use App\Domains\Owner\ReservationQuota\ReservationQuotaInterface;
-use App\Domains\Owner\ReservationQuota\Reserved;
+use App\Domains\ReservationQuota\Available;
+use App\Domains\ReservationQuota\NotAvailable;
+use App\Domains\ReservationQuota\ReservationQuotaInterface;
+use App\Domains\ReservationQuota\Reserved;
 use App\Enums\Studio\StartAt;
 use App\Models\BusinessTime;
 use App\Models\RegularHoliday;

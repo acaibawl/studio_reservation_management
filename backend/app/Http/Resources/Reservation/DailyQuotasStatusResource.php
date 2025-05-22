@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\Reservation;
 
-use App\Domains\Owner\ReservationQuota\ReservationQuotaInterface;
+use App\Domains\ReservationQuota\ReservationQuotaInterface;
 use App\ViewModels\Reservation\DailyQuotasStatus;
 use App\ViewModels\Reservation\StudioReservationQuotas;
 use Illuminate\Http\Request;
