@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Member\Auth;
+namespace App\Http\Requests\Member\Auth\PasswordReset;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePost extends FormRequest
+class ResetPost extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +25,7 @@ class StorePost extends FormRequest
     {
         return [
             'email' => ['required', 'email:strict,dns,spoof'],
-            'code' => ['required', 'string', 'size:6'],
-            'name' => ['required', 'string', 'max:50'],
-            'address' => ['required', 'string', 'max:128'],
-            'tel' => ['required', 'string', 'between:10,11', 'regex:/^[0-9]+$/'],
+            'email_verified_token' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'regex:/^[a-zA-Z0-9_-]+$/', 'between:8,32', 'confirmed'],
         ];
     }
@@ -37,10 +34,7 @@ class StorePost extends FormRequest
     {
         return [
             'email' => 'メールアドレス',
-            'code' => '認証コード',
-            'name' => '名前',
-            'address' => '住所',
-            'tel' => '電話番号',
+            'email_verified_token' => 'メールアドレス検証トークン',
             'password' => 'パスワード',
         ];
     }
@@ -48,7 +42,6 @@ class StorePost extends FormRequest
     public function messages(): array
     {
         return [
-            'tel.regex' => '電話番号はハイフン抜きの数字のみ入力してください。',
             'password.regex' => 'パスワードには半角英数字及び-と_のみ入力できます。',
         ];
     }

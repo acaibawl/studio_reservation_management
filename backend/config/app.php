@@ -125,4 +125,6 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    // オリジナルの環境変数
+    'front_base_url' => env('FRONT_BASE_URL', 'https://front.local'),
 ];
