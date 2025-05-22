@@ -30,7 +30,6 @@ class StorePost extends FormRequest
             'address' => ['required', 'string', 'max:128'],
             'tel' => ['required', 'string', 'between:10,11', 'regex:/^[0-9]+$/'],
             'password' => ['required', 'string', 'regex:/^[a-zA-Z0-9_-]+$/', 'between:8,32', 'confirmed'],
-            'password_confirmation' => ['required', 'string', 'regex:/^[a-zA-Z0-9_-]+$/', 'between:8,32'],
         ];
     }
 
@@ -43,7 +42,6 @@ class StorePost extends FormRequest
             'address' => '住所',
             'tel' => '電話番号',
             'password' => 'パスワード',
-            'password_confirmation' => 'パスワード確認',
         ];
     }
 
@@ -52,7 +50,6 @@ class StorePost extends FormRequest
         return [
             'tel.regex' => '電話番号はハイフン抜きの数字のみ入力してください。',
             'password.regex' => 'パスワードには半角英数字及び-と_のみ入力できます。',
-            'password_confirmation.regex' => 'パスワード確認には半角英数字及び-と_のみ入力できます。',
         ];
     }
 }

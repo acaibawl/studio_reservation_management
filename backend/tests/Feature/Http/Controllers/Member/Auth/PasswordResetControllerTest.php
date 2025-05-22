@@ -326,61 +326,6 @@ class PasswordResetControllerTest extends TestCase
                     'password' => 'パスワードとパスワード確認が一致しません。',
                 ],
             ],
-            'パスワード確認は必須' => [
-                'requestBody' => [
-                    'email' => 'test@gmail.com',
-                    'email_verified_token' => 'token',
-                    'password' => 'password',
-                    'password_confirmation' => '',
-                ],
-                'expectedError' => [
-                    'password_confirmation' => 'パスワード確認は必須項目です。',
-                ],
-            ],
-            'パスワード確認は文字列' => [
-                'requestBody' => [
-                    'email' => 'test@gmail.com',
-                    'email_verified_token' => 'token',
-                    'password' => 'password',
-                    'password_confirmation' => 12345678,
-                ],
-                'expectedError' => [
-                    'password_confirmation' => 'パスワード確認には、文字列を指定してください。',
-                ],
-            ],
-            'パスワード確認に使えない全角文字を入力' => [
-                'requestBody' => [
-                    'email' => 'test@gmail.com',
-                    'email_verified_token' => 'token',
-                    'password' => 'password',
-                    'password_confirmation' => 'あいうえおかきくけこ',
-                ],
-                'expectedError' => [
-                    'password_confirmation' => 'パスワード確認には半角英数字及び-と_のみ入力できます。',
-                ],
-            ],
-            'パスワード確認の文字数不足' => [
-                'requestBody' => [
-                    'email' => 'test@gmail.com',
-                    'email_verified_token' => 'token',
-                    'password' => 'password',
-                    'password_confirmation' => str_repeat('a', 7),
-                ],
-                'expectedError' => [
-                    'password_confirmation' => 'パスワード確認は、8文字から32文字にしてください。',
-                ],
-            ],
-            'パスワード確認の文字数超過' => [
-                'requestBody' => [
-                    'email' => 'test@gmail.com',
-                    'email_verified_token' => 'token',
-                    'password' => 'password',
-                    'password_confirmation' => str_repeat('a', 33),
-                ],
-                'expectedError' => [
-                    'password_confirmation' => 'パスワード確認は、8文字から32文字にしてください。',
-                ],
-            ],
         ];
     }
 

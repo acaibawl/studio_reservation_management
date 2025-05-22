@@ -27,7 +27,6 @@ class ResetPost extends FormRequest
             'email' => ['required', 'email:strict,dns,spoof'],
             'email_verified_token' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'regex:/^[a-zA-Z0-9_-]+$/', 'between:8,32', 'confirmed'],
-            'password_confirmation' => ['required', 'string', 'regex:/^[a-zA-Z0-9_-]+$/', 'between:8,32'],
         ];
     }
 
@@ -37,7 +36,6 @@ class ResetPost extends FormRequest
             'email' => 'メールアドレス',
             'email_verified_token' => 'メールアドレス検証トークン',
             'password' => 'パスワード',
-            'password_confirmation' => 'パスワード確認',
         ];
     }
 
@@ -45,7 +43,6 @@ class ResetPost extends FormRequest
     {
         return [
             'password.regex' => 'パスワードには半角英数字及び-と_のみ入力できます。',
-            'password_confirmation.regex' => 'パスワード確認には半角英数字及び-と_のみ入力できます。',
         ];
     }
 }
