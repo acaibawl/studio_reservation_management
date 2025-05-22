@@ -806,4 +806,185 @@ class MemberControllerTest extends TestCase
         $response = $this->getJson('/member-auth/me');
         $response->assertUnauthorized();
     }
+
+    #[Test]
+    #[DataProvider('dataProviderUpdateValidParameter')]
+    public function test_update_success(
+        string $updatedName,
+        string $updatedAddress,
+        string $updatedTel,
+    ): void {
+        $member = $this->loginAsMember();
+        $requestBody = [
+            'name' => $updatedName,
+            'address' => $updatedAddress,
+            'tel' => $updatedTel,
+        ];
+
+        $response = $this->putJson('/member-auth/member', $requestBody);
+
+        $response->assertOk();
+        $this->assertDatabaseHas('members', [
+            'id' => $member->id,
+            'name' => $updatedName,
+            'address' => $updatedAddress,
+            'tel' => $updatedTel,
+        ]);
+    }
+
+    public static function dataProviderUpdateValidParameter(): array
+    {
+        return [
+            '最大文字数' => [
+                'updatedName' => str_repeat('あ', 50),
+                'updatedAddress' => str_repeat('あ', 128),
+                'updatedTel' => '08012345678',
+            ],
+            '最小文字数' => [
+                'updatedName' => 'a',
+                'updatedAddress' => 'a',
+                'updatedTel' => '0312345678',
+            ],
+        ];
+    }
+
+    #[Test]
+    #[DataProvider('dataProviderUpdateInvalidParameter')]
+    public function test_update_failed_by_validation_error(array $requestBody, array $expectedError): void
+    {
+        $this->loginAsMember();
+
+        $response = $this->putJson('/member-auth/member', $requestBody);
+
+        $response->assertUnprocessable();
+        $response->assertInvalid($expectedError);
+    }
+
+    public static function dataProviderUpdateInvalidParameter(): array
+    {
+        return [
+            '名前は必須' => [
+                'requestBody' => [
+                    'name' => '',
+                    'address' => 'テスト住所',
+                    'tel' => '0312345678',
+                ],
+                'expectedError' => [
+                    'name' => '名前は必須項目です。',
+                ],
+            ],
+            '名前は文字列' => [
+                'requestBody' => [
+                    'name' => 123,
+                    'address' => 'テスト住所',
+                    'tel' => '0312345678',
+                ],
+                'expectedError' => [
+                    'name' => '名前には、文字列を指定してください。',
+                ],
+            ],
+            '名前の文字数超過' => [
+                'requestBody' => [
+                    'name' => str_repeat('a', 51),
+                    'address' => 'テスト住所',
+                    'tel' => '0312345678',
+                ],
+                'expectedError' => [
+                    'name' => '名前の文字数は、50文字以下である必要があります。',
+                ],
+            ],
+            '住所は必須' => [
+                'requestBody' => [
+                    'name' => 'テスト太郎',
+                    'address' => '',
+                    'tel' => '0312345678',
+                ],
+                'expectedError' => [
+                    'address' => '住所は必須項目です。',
+                ],
+            ],
+            '住所は文字列' => [
+                'requestBody' => [
+                    'name' => 'テスト太郎',
+                    'address' => 123,
+                    'tel' => '0312345678',
+                ],
+                'expectedError' => [
+                    'address' => '住所には、文字列を指定してください。',
+                ],
+            ],
+            '住所の文字数超過' => [
+                'requestBody' => [
+                    'name' => 'テスト太郎',
+                    'address' => str_repeat('a', 129),
+                    'tel' => '0312345678',
+                ],
+                'expectedError' => [
+                    'address' => '住所の文字数は、128文字以下である必要があります。',
+                ],
+            ],
+            '電話番号は必須' => [
+                'requestBody' => [
+                    'name' => 'テスト太郎',
+                    'address' => 'テスト住所',
+                    'tel' => '',
+                ],
+                'expectedError' => [
+                    'tel' => '電話番号は必須項目です。',
+                ],
+            ],
+            '電話番号は文字列' => [
+                'requestBody' => [
+                    'name' => 'テスト太郎',
+                    'address' => 'テスト住所',
+                    'tel' => 1234567890,
+                ],
+                'expectedError' => [
+                    'tel' => '電話番号には、文字列を指定してください。',
+                ],
+            ],
+            '電話番号の文字数超過' => [
+                'requestBody' => [
+                    'name' => 'テスト太郎',
+                    'address' => 'テスト住所',
+                    'tel' => '080123456789',
+                ],
+                'expectedError' => [
+                    'tel' => '電話番号は、10文字から11文字にしてください。',
+                ],
+            ],
+            '電話番号の文字数不足' => [
+                'requestBody' => [
+                    'name' => 'テスト太郎',
+                    'address' => 'テスト住所',
+                    'tel' => '031234567',
+                ],
+                'expectedError' => [
+                    'tel' => '電話番号は、10文字から11文字にしてください。',
+                ],
+            ],
+            '電話番号は数字のみ' => [
+                'requestBody' => [
+                    'name' => 'テスト太郎',
+                    'address' => 'テスト住所',
+                    'tel' => 'aaaaaaaaaa',
+                ],
+                'expectedError' => [
+                    'tel' => '電話番号はハイフン抜きの数字のみ入力してください。',
+                ],
+            ],
+        ];
+    }
+
+    #[Test]
+    public function test_update_failed_by_not_logged_in(): void
+    {
+        $response = $this->putJson('/member-auth/member', [
+            'name' => 'テスト太郎',
+            'address' => 'テスト住所',
+            'tel' => '0312345678',
+        ]);
+
+        $response->assertUnauthorized();
+    }
 }

@@ -9,7 +9,9 @@ use App\Exceptions\Member\Auth\PassCodeVerifyFailedException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Member\Auth\LoginPost;
 use App\Http\Requests\Member\Auth\StorePost;
+use App\Http\Requests\Member\Auth\UpdatePut;
 use App\Http\Resources\Member\ShowMeResource;
+use App\Models\Member;
 use App\Services\Member\Auth\MemberRegisterService;
 use DB;
 use Illuminate\Http\JsonResponse;
@@ -71,6 +73,29 @@ class MemberController extends Controller
         $member = auth()->user();
 
         return new ShowMeResource($member);
+    }
+
+    /**
+     * 基本情報の更新
+     * @throws Throwable
+     */
+    public function update(UpdatePut $request): JsonResponse
+    {
+        /** @var Member $member */
+        $member = auth()->user();
+
+        DB::beginTransaction();
+        try {
+            $member->update($request->validated());
+        } catch (Throwable $e) {
+            DB::rollBack();
+            \Log::error($e->getMessage(), $e->getTrace());
+            throw $e;
+        }
+
+        return response()->json([
+            'message' => '基本情報を更新しました。',
+        ]);
     }
 
     public function logout(): JsonResponse
