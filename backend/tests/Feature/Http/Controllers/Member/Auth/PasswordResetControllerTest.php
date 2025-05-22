@@ -78,7 +78,7 @@ class PasswordResetControllerTest extends TestCase
     #[DataProvider('dataProviderSendCodeInvalidParameter')]
     public function test_send_code_failed_by_validation_error(array $requestBody, array $expectedError): void
     {
-        $response = $this->postJson('/member-auth/sign-up-email-verified-code/send', $requestBody);
+        $response = $this->postJson('/member-auth/password-reset/send-email', $requestBody);
 
         $response->assertUnprocessable();
         $response->assertInvalid($expectedError);

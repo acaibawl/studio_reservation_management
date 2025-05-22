@@ -22,7 +22,7 @@ readonly class PasswordResetService
         if (! $this->passwordResetTokenPool->verify($token, $email)) {
             throw new PasswordResetTokenVerifyFailedException();
         }
-        // tokenが検証できたら削除
+        // トークンが再利用されないように削除することで、パスワード変更の一回性を保証する
         $this->passwordResetTokenPool->delete($email);
         $member = Member::where('email', $email)->first();
         // memberが存在しない場合については考慮不要。パスワードリセットtokenの発行もできないので、tokenのverifyができれば必ず存在する。
