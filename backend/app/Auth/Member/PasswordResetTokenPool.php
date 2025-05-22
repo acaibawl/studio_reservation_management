@@ -29,7 +29,7 @@ class PasswordResetTokenPool
         return $emailVerifiedToken;
     }
 
-    public function verify(string $email, string $token): bool
+    public function verify(string $token, string $email): bool
     {
         return Redis::get($this->generateRedisKey($email)) === $token;
     }

@@ -31,7 +31,8 @@ Route::prefix('member-auth')
         Route::prefix('password-reset')
             ->name('password-reset.')
             ->group(function () {
-                Route::post('/send-email', [PasswordResetController::class, 'sendEmail'])->name('send-code');
+                Route::post('/send-email', [PasswordResetController::class, 'sendEmail'])->name('send-email');
+                Route::post('/reset', [PasswordResetController::class, 'reset'])->name('reset');
             });
 
         Route::post('/login', [AuthMemberController::class, 'login'])->name('login');

@@ -9,10 +9,10 @@ use App\Mail\Member\Auth\PasswordResetMail;
 use App\Models\Member;
 use Mail;
 
-class SendPasswordResetEmailService
+readonly class SendPasswordResetEmailService
 {
     public function __construct(
-        private readonly PasswordResetTokenPool $passwordResetTokenPool,
+        private PasswordResetTokenPool $passwordResetTokenPool,
     ) {}
 
     public function send(string $email): void
