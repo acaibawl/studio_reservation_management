@@ -27,12 +27,14 @@ Route::prefix('member-auth')
                 Route::post('/verify', [SignUpEmailVerifiedCodeController::class, 'verify'])->name('verify');
             });
 
+        Route::post('/login', [AuthMemberController::class, 'login'])->name('login');
+
         Route::prefix('member')
             ->name('member.')
             ->group(function () {
                 Route::post('/', [AuthMemberController::class, 'store'])->name('store');
+                Route::put('/', [AuthMemberController::class, 'update'])->middleware('auth:api_member')->name('update');
             });
-        Route::post('/login', [AuthMemberController::class, 'login'])->name('login');
 
         Route::middleware('auth:api_member')->group(function () {
             Route::get('/me', [AuthMemberController::class, 'showMe'])->name('me');
