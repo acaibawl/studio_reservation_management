@@ -5,6 +5,6 @@
 再設定の有効期限は10分となっています。
 期限を過ぎた場合は、再度パスワードリセットメール送信の操作からやり直してください。
 
-{{ env('FRONT_BASE_URL') }}/member/password-reset/{{ $email }}/{{ $token }}
+{{ config('app.front_base_url') }}/member/password-reset/{{ $email }}/{{ $token }}
 
 このメールにお心当たりがない場合は、お手数ですが破棄をお願い致します。
