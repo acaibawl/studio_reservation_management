@@ -6,6 +6,7 @@ use App\Http\Controllers\HealthCheckController;
 use App\Http\Controllers\Member\Auth\ChangeEmailVerifiedCodeController;
 use App\Http\Controllers\Member\Auth\EmailUpdateController;
 use App\Http\Controllers\Member\Auth\MemberController as AuthMemberController;
+use App\Http\Controllers\Member\Auth\PasswordResetController;
 use App\Http\Controllers\Member\Auth\SignUpEmailVerifiedCodeController;
 use App\Http\Controllers\Owner\BusinessDayController;
 use App\Http\Controllers\Owner\MemberController;
@@ -25,6 +26,12 @@ Route::prefix('member-auth')
             ->group(function () {
                 Route::post('/send', [SignUpEmailVerifiedCodeController::class, 'send'])->name('send');
                 Route::post('/verify', [SignUpEmailVerifiedCodeController::class, 'verify'])->name('verify');
+            });
+
+        Route::prefix('password-reset')
+            ->name('password-reset.')
+            ->group(function () {
+                Route::post('/send-email', [PasswordResetController::class, 'sendEmail'])->name('send-code');
             });
 
         Route::post('/login', [AuthMemberController::class, 'login'])->name('login');
