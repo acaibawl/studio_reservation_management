@@ -87,6 +87,7 @@ class MemberController extends Controller
         DB::beginTransaction();
         try {
             $member->update($request->validated());
+            DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();
             \Log::error($e->getMessage(), $e->getTrace());

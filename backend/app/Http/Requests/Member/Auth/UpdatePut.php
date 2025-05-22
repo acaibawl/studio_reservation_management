@@ -43,8 +43,6 @@ class UpdatePut extends FormRequest
     {
         return [
             'tel.regex' => '電話番号はハイフン抜きの数字のみ入力してください。',
-            'password.regex' => 'パスワードには半角英数字及び-と_のみ入力できます。',
-            'password_confirmation.regex' => 'パスワード確認には半角英数字及び-と_のみ入力できます。',
         ];
     }
 }
