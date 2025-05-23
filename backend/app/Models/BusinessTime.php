@@ -9,10 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id ID
- * @property \Illuminate\Support\Carbon $open_time 営業開始時間
- * @property \Illuminate\Support\Carbon $close_time 営業終了時間
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Carbon\CarbonImmutable $open_time 営業開始時間
+ * @property \Carbon\CarbonImmutable $close_time 営業終了時間
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
  * @property-read bool $is_cross_date_operation
  * @method static \Database\Factories\BusinessTimeFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BusinessTime newModelQuery()

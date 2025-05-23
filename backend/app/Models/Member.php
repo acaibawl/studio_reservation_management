@@ -16,8 +16,8 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property string $address 住所
  * @property string $tel 電話番号
  * @property string $password パスワード
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Reservation> $reservations
  * @property-read int|null $reservations_count
  * @method static \Database\Factories\MemberFactory factory($count = null, $state = [])

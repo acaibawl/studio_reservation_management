@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id ID
- * @property \Illuminate\Support\Carbon $date 日付
- * @property \Illuminate\Support\Carbon $created_at
+ * @property \Carbon\CarbonImmutable $date 日付
+ * @property \Carbon\CarbonImmutable $created_at
  * @method static \Database\Factories\TemporaryClosingDayFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TemporaryClosingDay newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TemporaryClosingDay newQuery()

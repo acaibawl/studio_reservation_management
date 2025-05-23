@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property WeekDay $code 定休日コード
- * @property \Illuminate\Support\Carbon $created_at
+ * @property \Carbon\CarbonImmutable $created_at
  * @method static \Database\Factories\RegularHolidayFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RegularHoliday newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RegularHoliday newQuery()

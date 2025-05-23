@@ -12,6 +12,7 @@ use App\Http\Requests\Owner\Reservation\UpdatePatch;
 use App\Http\Resources\Reservation\DailyQuotasStatusResource;
 use App\Http\Resources\Reservation\MaxAvailableHourResource;
 use App\Http\Resources\Reservation\ReservationShowResource;
+use App\Models\Member;
 use App\Models\Reservation;
 use App\Models\Studio;
 use App\Services\Owner\Reservation\GetStudioQuotasByDateService;
@@ -29,6 +30,8 @@ use Throwable;
 
 class ReservationController extends Controller
 {
+    const int OWNER_MEMBER_ID = 9999999;
+
     public function __construct(
         private readonly GetStudioQuotasByDateService $getStudioQuotasByDateService,
         private readonly StudioMaxAvailableHourService $studioMaxAvailableHourService,
@@ -120,7 +123,8 @@ class ReservationController extends Controller
     {
         DB::beginTransaction();
         try {
-            $this->reservationCreateService->create($request->validated());
+            $member = Member::find(self::OWNER_MEMBER_ID);
+            $this->reservationCreateService->create($member, $request->validated());
             DB::commit();
         } catch (UserDisplayableException $e) {
             DB::rollBack();

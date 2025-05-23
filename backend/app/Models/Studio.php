@@ -13,8 +13,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $id ID
  * @property string $name 名前
  * @property StartAt $start_at 開始時間
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Reservation> $reservations
  * @property-read int|null $reservations_count
  * @method static \Database\Factories\StudioFactory factory($count = null, $state = [])
