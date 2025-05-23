@@ -57,8 +57,9 @@ Route::middleware('auth:api_member')->group(function () {
     Route::get('/reservation_availability/date/{date}', [MemberReservationController::class, 'getAvailabilityByDate'])->name('reservation-availability.date');
     Route::prefix('reservations')->name('reservations.')->group(function () {
         Route::get('/studios/{studio}/{date}/{hour}/max-available-hour', [MemberReservationController::class, 'getMaxAvailableHour'])->name('get-max-available-hour');
-        Route::post('/', [MemberReservationController::class, 'store'])->name('store');
+//        Route::post('/', [MemberReservationController::class, 'store'])->name('store');
     });
+    Route::post('/studios/{studio}/reservations', [MemberReservationController::class, 'store'])->name('store');
 });
 
 Route::prefix('owner-auth')
@@ -109,12 +110,17 @@ Route::middleware('auth:api_owner')->group(function () {
             Route::prefix('reservations')
                 ->name('reservations.')
                 ->group(function () {
+                    Route::get('/get-quotas-by-date/{date}', [ReservationController::class, 'getQuotasByDate'])->name('get-quotas-by-date');
+                    Route::get('/studios/{studio}/{date}/{hour}/max-available-hour', [ReservationController::class, 'getMaxAvailableHour'])->name('max-available-hour');
+                });
+
+            Route::prefix('studios/{studio}/reservations')
+                ->name('studios.reservations.')
+                ->group(function () {
                     Route::post('/', [ReservationController::class, 'store'])->name('store');
                     Route::get('/{reservation}', [ReservationController::class, 'show'])->name('show');
                     Route::patch('/{reservation}', [ReservationController::class, 'update'])->name('update');
                     Route::delete('/{reservation}', [ReservationController::class, 'destroy'])->name('destroy');
-                    Route::get('/get-quotas-by-date/{date}', [ReservationController::class, 'getQuotasByDate'])->name('get-quotas-by-date');
-                    Route::get('/studios/{studio}/{date}/{hour}/max-available-hour', [ReservationController::class, 'getMaxAvailableHour'])->name('max-available-hour');
                 });
         });
 });

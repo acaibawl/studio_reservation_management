@@ -18,9 +18,8 @@ readonly class EnsureCanReserve
     /**
      * @throws AvailableHourExceededException
      */
-    public function handle(int $studioId, CarbonImmutable $startAt, int $usageHour)
+    public function handle(Studio $studio, CarbonImmutable $startAt, int $usageHour): void
     {
-        $studio = Studio::where(['id' => $studioId])->firstOrFail();
         $maxAvailableHour = $this->studioMaxAvailableHourService->getByDate(
             $studio,
             $startAt,

@@ -19,7 +19,7 @@ class ReservationControllerDestroyTest extends TestCase
         $reservation = Reservation::factory()->create();
         $this->loginAsOwner();
 
-        $response = $this->deleteJson("/owner/reservations/{$reservation->id}");
+        $response = $this->deleteJson("/owner/studios/{$reservation->studio->id}/reservations/{$reservation->id}");
 
         $response->assertOk();
         $this->assertDatabaseMissing('reservations', [

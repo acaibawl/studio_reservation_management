@@ -7,6 +7,7 @@ namespace App\Services\Owner\Reservation;
 use App\Exceptions\Reservation\AvailableHourExceededException;
 use App\Models\Member;
 use App\Models\Reservation;
+use App\Models\Studio;
 use App\Services\GenerateReservationFinishAtService;
 use App\Services\Reservation\EnsureCanReserve;
 use Arr;
@@ -22,20 +23,19 @@ readonly class ReservationCreateService
     /**
      * @throws AvailableHourExceededException
      */
-    public function create(Member $member, array $attributes): Reservation
+    public function create(Member $member, Studio $studio, array $attributes): Reservation
     {
-        $studioId = $attributes['studio_id'];
         $usageHour = $attributes['usage_hour'];
         $startAt = CarbonImmutable::parse($attributes['start_at']);
         $this->ensureCanReserve->handle(
-            $studioId,
+            $studio,
             $startAt,
             $usageHour
         );
 
         return Reservation::create([
             'member_id' => $member->id,
-            'studio_id' => $studioId,
+            'studio_id' => $studio->id,
             'start_at' => $attributes['start_at'],
             'finish_at' => $this->generateReservationFinishAtService->generate(
                 $startAt,

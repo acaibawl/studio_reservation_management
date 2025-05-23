@@ -56,13 +56,13 @@ class ReservationController extends Controller
      * @throws Throwable
      * @throws UserDisplayableException
      */
-    public function store(StorePost $request): JsonResponse
+    public function store(Studio $studio, StorePost $request): JsonResponse
     {
         DB::beginTransaction();
         try {
             /** @var Member $member */
             $member = auth()->user();
-            $this->reservationCreateService->create($member, $request->validated());
+            $this->reservationCreateService->create($member, $studio, $request->validated());
             DB::commit();
         } catch (UserDisplayableException $e) {
             DB::rollBack();

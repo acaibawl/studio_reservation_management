@@ -47,11 +47,11 @@ class ReservationController extends Controller
         return new DailyQuotasStatusResource($dailyQuotasStatus);
     }
 
-    public function show(Reservation $reservation): ReservationShowResource
+    public function show(Studio $studio, Reservation $reservation): ReservationShowResource
     {
         $showViewModel = new ReservationShow(
             $reservation,
-            $this->studioMaxAvailableHourService->getByReservation($reservation)
+            $this->studioMaxAvailableHourService->getByReservation($studio, $reservation)
         );
 
         return new ReservationShowResource($showViewModel);
@@ -62,11 +62,11 @@ class ReservationController extends Controller
      * @throws UserDisplayableException
      * @throws AvailableHourExceededException
      */
-    public function update(Reservation $reservation, UpdatePatch $request): JsonResponse
+    public function update(Studio $studio, Reservation $reservation, UpdatePatch $request): JsonResponse
     {
         DB::beginTransaction();
         try {
-            $this->reservationUpdateService->update($reservation, $request->validated());
+            $this->reservationUpdateService->update($studio, $reservation, $request->validated());
             DB::commit();
         } catch (UserDisplayableException $e) {
             DB::rollBack();
@@ -85,7 +85,7 @@ class ReservationController extends Controller
     /**
      * @throws Throwable
      */
-    public function destroy(Reservation $reservation): JsonResponse
+    public function destroy(Studio $studio, Reservation $reservation): JsonResponse
     {
         DB::beginTransaction();
         try {
@@ -119,12 +119,12 @@ class ReservationController extends Controller
      * @throws Throwable
      * @throws UserDisplayableException
      */
-    public function store(StorePost $request): JsonResponse
+    public function store(Studio $studio, StorePost $request): JsonResponse
     {
         DB::beginTransaction();
         try {
             $member = Member::find(self::OWNER_MEMBER_ID);
-            $this->reservationCreateService->create($member, $request->validated());
+            $this->reservationCreateService->create($member, $studio, $request->validated());
             DB::commit();
         } catch (UserDisplayableException $e) {
             DB::rollBack();

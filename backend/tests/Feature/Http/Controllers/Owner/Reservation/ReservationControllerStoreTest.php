@@ -37,8 +37,7 @@ class ReservationControllerStoreTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->postJson('/owner/reservations', [
-            'studio_id' => $studio->id,
+        $response = $this->postJson("/owner/studios/{$studio->id}/reservations", [
             'start_at' => '2025-05-18 16:30:00',
             'usage_hour' => 6,
             'memo' => str_repeat('a', 512),
@@ -73,8 +72,7 @@ class ReservationControllerStoreTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->postJson('/owner/reservations', [
-            'studio_id' => $studio->id,
+        $response = $this->postJson("/owner/studios/{$studio->id}/reservations", [
             'start_at' => '2025-05-18 18:30:00',
             'usage_hour' => 5,
             'memo' => 'メモ本文',
@@ -83,7 +81,6 @@ class ReservationControllerStoreTest extends TestCase
         Exceptions::assertReported(AvailableHourExceededException::class);
         $response->assertBadRequest();
         $this->assertDatabaseMissing('reservations', [
-            'studio_id' => $studio->id,
             'member_id' => self::OWNER_DUMMY_MEMBER_ID,
             'start_at' => '2025-05-18 18:30:00',
             'memo' => 'メモ本文',
@@ -109,8 +106,7 @@ class ReservationControllerStoreTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->postJson('/owner/reservations', [
-            'studio_id' => $studio->id,
+        $response = $this->postJson("/owner/studios/{$studio->id}/reservations", [
             'start_at' => '2025-05-18 22:30:00',
             'usage_hour' => 1,
             'memo' => 'メモ本文',
@@ -141,9 +137,10 @@ class ReservationControllerStoreTest extends TestCase
             'open_time' => Carbon::createFromTime(10, 0, 0),
             'close_time' => Carbon::createFromTime(22, 0, 0),
         ]);
+        $studio = Studio::factory()->create([]);
         $this->loginAsOwner();
 
-        $response = $this->postJson('/owner/reservations', $requestBody);
+        $response = $this->postJson("/owner/studios/{$studio->id}/reservations", $requestBody);
 
         $response->assertUnprocessable();
         $response->assertInvalid($expectedError);
@@ -155,51 +152,6 @@ class ReservationControllerStoreTest extends TestCase
     public static function dataProviderStoreInvalidParameter(): array
     {
         return [
-            'スタジオIDが存在しない' => [
-                'provider' => function () {
-                    return [
-                        'requestBody' => [
-                            'studio_id' => Studio::factory()->create(['start_at' => StartAt::Thirty])->id + 1,
-                            'start_at' => '2025-05-18 18:30:00',
-                            'usage_hour' => 4,
-                            'memo' => 'メモ本文',
-                        ],
-                        'expectedError' => [
-                            'studio_id' => '選択されたスタジオIDは、有効ではありません。',
-                        ],
-                    ];
-                },
-            ],
-            'スタジオIDが空' => [
-                'provider' => function () {
-                    return [
-                        'requestBody' => [
-                            'studio_id' => '',
-                            'start_at' => '2025-05-18 18:30:00',
-                            'usage_hour' => 4,
-                            'memo' => 'メモ本文',
-                        ],
-                        'expectedError' => [
-                            'studio_id' => 'スタジオIDは必須項目です。',
-                        ],
-                    ];
-                },
-            ],
-            'スタジオIDが文字列' => [
-                'provider' => function () {
-                    return [
-                        'requestBody' => [
-                            'studio_id' => 'あ',
-                            'start_at' => '2025-05-18 18:30:00',
-                            'usage_hour' => 4,
-                            'memo' => 'メモ本文',
-                        ],
-                        'expectedError' => [
-                            'studio_id' => 'スタジオIDには、整数を指定してください。',
-                        ],
-                    ];
-                },
-            ],
             '利用開始時間が空' => [
                 'provider' => function () {
                     return [

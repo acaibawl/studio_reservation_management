@@ -32,11 +32,10 @@ class ReservationControllerStoreTest extends TestCase
         ];
         $member = $this->loginAsMember();
 
-        $response = $this->postJson('/reservations', $requestBody);
+        $response = $this->postJson("/studios/{$studio->id}/reservations/", $requestBody);
 
         $response->assertCreated();
         $this->assertDatabaseHas('reservations', [
-            'studio_id' => $studio->id,
             'member_id' => $member->id,
             'start_at' => '2025-05-18 16:30:00',
             'finish_at' => '2025-05-18 22:29:59',
