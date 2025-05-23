@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   modules: ['@nuxt/eslint'],
   vite: {
     server: {
-      allowedHosts: ['front.local']
-    }
-  }
+      allowedHosts: ['front.local'],
+    },
+  },
 });
