@@ -123,8 +123,11 @@ class ReservationController extends Controller
     {
         DB::beginTransaction();
         try {
-            $member = Member::find(self::OWNER_MEMBER_ID);
-            $this->reservationCreateService->create($member, $studio, $request->validated());
+            $this->reservationCreateService->create(
+                Member::findOrFail(self::OWNER_MEMBER_ID),
+                $studio,
+                $request->validated()
+            );
             DB::commit();
         } catch (UserDisplayableException $e) {
             DB::rollBack();
