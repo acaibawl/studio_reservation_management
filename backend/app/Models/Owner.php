@@ -12,8 +12,8 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property int $id
  * @property string $email メールアドレス
  * @property string $password パスワード
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
  * @method static \Database\Factories\OwnerFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Owner newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Owner newQuery()

@@ -43,7 +43,7 @@ class ReservationControllerShowTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->getJson("/owner/reservations/{$reservation->id}");
+        $response = $this->getJson("/owner/studios/{$studio->id}/reservations/{$reservation->id}");
 
         $response->assertOk();
         $response->assertExactJson([
@@ -89,7 +89,7 @@ class ReservationControllerShowTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->getJson("/owner/reservations/{$reservation->id}");
+        $response = $this->getJson("/owner/studios/{$studio->id}/reservations/{$reservation->id}");
 
         $response->assertOk();
         $response->assertExactJson([
@@ -135,7 +135,7 @@ class ReservationControllerShowTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->getJson("/owner/reservations/{$reservation->id}");
+        $response = $this->getJson("/owner/studios/{$studio->id}/reservations/{$reservation->id}");
 
         $response->assertOk();
         $response->assertExactJson([
@@ -178,7 +178,7 @@ class ReservationControllerShowTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->getJson("/owner/reservations/{$reservation->id}");
+        $response = $this->getJson("/owner/studios/{$studio->id}/reservations/{$reservation->id}");
 
         $response->assertOk();
         $response->assertExactJson([
@@ -226,7 +226,7 @@ class ReservationControllerShowTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->getJson("/owner/reservations/{$reservation->id}");
+        $response = $this->getJson("/owner/studios/{$studio->id}/reservations/{$reservation->id}");
 
         $response->assertOk();
         $response->assertExactJson([
@@ -274,7 +274,7 @@ class ReservationControllerShowTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->getJson("/owner/reservations/{$reservation->id}");
+        $response = $this->getJson("/owner/studios/{$studio->id}/reservations/{$reservation->id}");
 
         $response->assertOk();
         $response->assertExactJson([
@@ -316,7 +316,7 @@ class ReservationControllerShowTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->getJson("/owner/reservations/{$reservation->id}");
+        $response = $this->getJson("/owner/studios/{$studio->id}/reservations/{$reservation->id}");
 
         $response->assertOk();
         $response->assertExactJson([

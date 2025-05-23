@@ -24,7 +24,7 @@ readonly class StudioMaxAvailableHourService
     /**
      * 既に存在する予約に対する最大予約可能時間取得処理
      */
-    public function getByReservation(Reservation $reservation): int
+    public function getByReservation(Studio $studio, Reservation $reservation): int
     {
         $businessTime = BusinessTime::firstOrFail();
         $regularHolidays = RegularHoliday::get();
@@ -33,7 +33,7 @@ readonly class StudioMaxAvailableHourService
 
         return $this->calculateMaxAvailableHour(
             $startTime,
-            $reservation->studio,
+            $studio,
             $businessTime,
             $regularHolidays,
             $temporaryClosingDays,

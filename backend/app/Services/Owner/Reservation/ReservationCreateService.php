@@ -5,48 +5,43 @@ declare(strict_types=1);
 namespace App\Services\Owner\Reservation;
 
 use App\Exceptions\Reservation\AvailableHourExceededException;
+use App\Models\Member;
 use App\Models\Reservation;
 use App\Models\Studio;
 use App\Services\GenerateReservationFinishAtService;
+use App\Services\Reservation\EnsureCanReserve;
+use Arr;
 use Carbon\CarbonImmutable;
-use Illuminate\Support\Carbon;
 
 readonly class ReservationCreateService
 {
-    const int OWNER_MEMBER_ID = 9999999;
-
     public function __construct(
         private GenerateReservationFinishAtService $generateReservationFinishAtService,
-        private StudioMaxAvailableHourService $studioMaxAvailableHourService,
+        private EnsureCanReserve $ensureCanReserve,
     ) {}
 
     /**
      * @throws AvailableHourExceededException
      */
-    public function create(array $attributes): Reservation
+    public function create(Member $member, Studio $studio, array $attributes): Reservation
     {
         $usageHour = $attributes['usage_hour'];
-        $studio = Studio::where(['id' => $attributes['studio_id']])->firstOrFail();
-        $targetDateTime = CarbonImmutable::parse($attributes['start_at']);
-        $maxAvailableHour = $this->studioMaxAvailableHourService->getByDate(
+        $startAt = CarbonImmutable::parse($attributes['start_at']);
+        $this->ensureCanReserve->handle(
             $studio,
-            $targetDateTime,
-            $targetDateTime->hour,
+            $startAt,
+            $usageHour
         );
-        // 利用可能上限時間を超えた場合はエラーをスローする
-        if ($maxAvailableHour < $usageHour) {
-            throw new AvailableHourExceededException();
-        }
 
         return Reservation::create([
-            'member_id' => self::OWNER_MEMBER_ID,
-            'studio_id' => $attributes['studio_id'],
+            'member_id' => $member->id,
+            'studio_id' => $studio->id,
             'start_at' => $attributes['start_at'],
             'finish_at' => $this->generateReservationFinishAtService->generate(
-                Carbon::parse($attributes['start_at']),
+                $startAt,
                 $usageHour
             ),
-            'memo' => $attributes['memo'],
+            'memo' => Arr::get($attributes, 'memo', null),
         ]);
     }
 }

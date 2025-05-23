@@ -6,6 +6,7 @@ namespace App\Services\Owner\Reservation;
 
 use App\Exceptions\Reservation\AvailableHourExceededException;
 use App\Models\Reservation;
+use App\Models\Studio;
 use App\Services\GenerateReservationFinishAtService;
 
 readonly class ReservationUpdateService
@@ -18,10 +19,10 @@ readonly class ReservationUpdateService
     /**
      * @throws AvailableHourExceededException
      */
-    public function update(Reservation $reservation, array $attributes): bool
+    public function update(Studio $studio, Reservation $reservation, array $attributes): bool
     {
         $usageHour = $attributes['usage_hour'];
-        if ($this->studioMaxUsageHourService->getByReservation($reservation) < $usageHour) {
+        if ($this->studioMaxUsageHourService->getByReservation($studio, $reservation) < $usageHour) {
             throw new AvailableHourExceededException();
         }
 

@@ -7,17 +7,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
  * @property int $member_id 会員ID
  * @property int $studio_id スタジオID
- * @property Carbon $start_at 開始日時
- * @property Carbon $finish_at 終了日時
+ * @property \Carbon\CarbonImmutable $start_at 開始日時
+ * @property \Carbon\CarbonImmutable $finish_at 終了日時
  * @property string|null $memo メモ
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
  * @property-read \App\Models\Member $member
  * @property-read \App\Models\Studio $studio
  * @method static \Database\Factories\ReservationFactory factory($count = null, $state = [])

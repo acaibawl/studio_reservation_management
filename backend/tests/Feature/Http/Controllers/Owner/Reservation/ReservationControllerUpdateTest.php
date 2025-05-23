@@ -39,7 +39,7 @@ class ReservationControllerUpdateTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->patchJson("/owner/reservations/{$reservation->id}", [
+        $response = $this->patchJson("/owner/studios/{$studio->id}/reservations/{$reservation->id}", [
             'usage_hour' => 4,
             'memo' => 'test',
         ]);
@@ -74,7 +74,7 @@ class ReservationControllerUpdateTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->patchJson("/owner/reservations/{$reservation->id}", [
+        $response = $this->patchJson("/owner/studios/{$studio->id}/reservations/{$reservation->id}", [
             'usage_hour' => 1,
             'memo' => 'test',
         ]);
@@ -116,7 +116,7 @@ class ReservationControllerUpdateTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->patchJson("/owner/reservations/{$reservation->id}", [
+        $response = $this->patchJson("/owner/studios/{$studio->id}/reservations/{$reservation->id}", [
             'usage_hour' => 4,
             'memo' => 'test',
         ]);
@@ -153,7 +153,7 @@ class ReservationControllerUpdateTest extends TestCase
         ]);
         $this->loginAsOwner();
 
-        $response = $this->patchJson("/owner/reservations/{$reservation->id}", $requestBody);
+        $response = $this->patchJson("/owner/studios/{$studio->id}/reservations/{$reservation->id}", $requestBody);
 
         $response->assertUnprocessable();
         $response->assertInvalid($expectedError);
