@@ -63,6 +63,7 @@ Route::middleware('auth:api_member')->group(function () {
             Route::post('/reservations', [MemberReservationController::class, 'store'])->name('reservations.store');
         });
 
+    Route::get('/me/reservations', [MemberReservationController::class, 'myReservations'])->name('my-reservations');
 });
 
 Route::prefix('owner-auth')
