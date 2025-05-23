@@ -6,7 +6,7 @@ namespace App\Domains\ReservationQuota;
 
 use App\Enums\Reservation\ReservationQuota\Status;
 
-readonly class NotAvailable implements ReservationQuotaInterface
+readonly class AvailableQuota implements ReservationQuotaInterface
 {
     public function __construct(
         private int $hour,
@@ -21,7 +21,7 @@ readonly class NotAvailable implements ReservationQuotaInterface
     {
         return [
             'hour' => $this->hour,
-            'status' => Status::NotAvailable,
+            'status' => Status::Available,
         ];
     }
 }

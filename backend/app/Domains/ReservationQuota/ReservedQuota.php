@@ -6,7 +6,7 @@ namespace App\Domains\ReservationQuota;
 
 use App\Enums\Reservation\ReservationQuota\Status;
 
-readonly class Reserved implements ReservationQuotaInterface
+readonly class ReservedQuota implements ReservationQuotaInterface
 {
     public function __construct(
         private int $hour,

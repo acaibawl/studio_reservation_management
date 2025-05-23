@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Services\Owner\Reservation;
 
-use App\Domains\ReservationQuota\Available;
-use App\Domains\ReservationQuota\NotAvailable;
+use App\Domains\ReservationQuota\AvailableQuota;
+use App\Domains\ReservationQuota\NotAvailableQuota;
 use App\Domains\ReservationQuota\ReservationQuotaInterface;
-use App\Domains\ReservationQuota\Reserved;
+use App\Domains\ReservationQuota\ReservedQuota;
 use App\Enums\Studio\StartAt;
 use App\Models\BusinessTime;
 use App\Models\RegularHoliday;
@@ -42,37 +42,37 @@ class ReservationQuotaFactory
 
         // 現在日時より前ではないか
         if ($this->isPastTime($date, $hour, $studio->start_at)) {
-            return new NotAvailable($hour);
+            return new NotAvailableQuota($hour);
         }
 
         // 現在日付より60日先までしか予約不可
         if ($this->isOverMaxReservationPeriod($applicableDate)) {
-            return new NotAvailable($hour);
+            return new NotAvailableQuota($hour);
         }
 
         // 定休日の曜日か判定
         if ($this->isRegularHoliday($applicableDate, $regularHolidays)) {
-            return new NotAvailable($hour);
+            return new NotAvailableQuota($hour);
         }
 
         // 臨時休業日か判定
         if ($this->isTemporaryClosingDay($applicableDate, $temporaryClosingDays)) {
-            return new NotAvailable($hour);
+            return new NotAvailableQuota($hour);
         }
 
         // 営業時間外ではないか
         if ($this->isOutOfBusinessHours($hour, $businessTime, $isCrossDateOperation)) {
-            return new NotAvailable($hour);
+            return new NotAvailableQuota($hour);
         }
 
         // 既に他の予約が入っているか
         $dateTime = Carbon::create($date->year, $date->month, $date->day, $hour, $studio->start_at->value);
         $alreadyReservation = $this->findConflictingReservation($dateTime, $studio, $ignoreReservationId);
         if ($alreadyReservation) {
-            return new Reserved($hour, $alreadyReservation->id);
+            return new ReservedQuota($hour, $alreadyReservation->id);
         }
 
-        return new Available($hour);
+        return new AvailableQuota($hour);
     }
 
     private function getApplicableDate(

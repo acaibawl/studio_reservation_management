@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Owner\Reservation;
 
-use App\Domains\ReservationQuota\Available;
+use App\Domains\ReservationQuota\AvailableQuota;
 use App\Models\BusinessTime;
 use App\Models\RegularHoliday;
 use App\Models\Reservation;
@@ -85,7 +85,7 @@ readonly class StudioMaxAvailableHourService
                 $temporaryClosingDays,
                 $reservationId,
             );
-            if ($reservationQuota instanceof Available) {
+            if ($reservationQuota instanceof AvailableQuota) {
                 $maxAvailableHour++;
             } else {
                 break;

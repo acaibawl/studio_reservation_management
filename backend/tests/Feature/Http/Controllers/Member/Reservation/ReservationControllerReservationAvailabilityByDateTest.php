@@ -37,6 +37,7 @@ class ReservationControllerReservationAvailabilityByDateTest extends TestCase
             'start_at' => '2025-05-18 18:30:00',
             'finish_at' => '2025-05-18 20:29:59',
         ]);
+        $this->loginAsMember();
 
         $response = $this->getJson('/reservation_availability/date/2025-05-18');
         $response->assertOk();

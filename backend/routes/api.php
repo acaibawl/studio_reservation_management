@@ -53,7 +53,9 @@ Route::prefix('member-auth')
         });
     });
 
-Route::get('/reservation_availability/date/{date}', [MemberReservationController::class, 'getAvailabilityByDate'])->name('reservation_availability.date');
+Route::middleware('auth:api_member')->group(function () {
+    Route::get('/reservation_availability/date/{date}', [MemberReservationController::class, 'getAvailabilityByDate'])->name('reservation_availability.date');
+});
 
 Route::prefix('owner-auth')
     ->name('owner-auth.')
