@@ -114,7 +114,6 @@ Route::middleware('auth:api_owner')->group(function () {
                 ->name('reservations.')
                 ->group(function () {
                     Route::get('/get-quotas-by-date/{date}', [ReservationController::class, 'getQuotasByDate'])->name('get-quotas-by-date');
-                    Route::get('/studios/{studio}/{date}/{hour}/max-available-hour', [ReservationController::class, 'getReservationQuota'])->name('max-available-hour');
                 });
 
             Route::prefix('studios/{studio}')
@@ -122,7 +121,7 @@ Route::middleware('auth:api_owner')->group(function () {
                 ->group(function () {
                     Route::get('/reservation-quota/{date}/{hour}', [ReservationController::class, 'getReservationQuota'])->name('reservation-quota');
 
-                    Route::prefix('reservations/')
+                    Route::prefix('reservations')
                         ->name('reservations.')
                         ->group(function () {
                             Route::post('/', [ReservationController::class, 'store'])->name('store');
