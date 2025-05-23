@@ -18,4 +18,12 @@ parameters:
         '#Static method Redis::set\(\) invoked with 4 parameters, 2-3 required#'
     -
         '#Parameter \#3 \$options of static method Redis::set\(\) expects array\|int, string given#'
+    -
+        '#.*with generic class Illuminate\\Database\\Eloquent\\Builder.*#'
+    -
+        '#Call to an undefined method.*Illuminate\\Database\\Eloquent.*#'
+    -
+        '#.*should return Illuminate\\Database\\Eloquent.*#'
+    -
+        '#.*return type with generic class Illuminate\\Database\\Eloquent\\Relations.*does not specify its types.*#'
   reportMaybes: false

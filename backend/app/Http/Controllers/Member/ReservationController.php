@@ -86,7 +86,7 @@ class ReservationController extends Controller
         $member = auth()->user();
 
         return ReservationResource::collection(
-            $member->reservationsNotFinished()
+            $member->reservations()->notFinished()
                 ->with('studio')
                 ->orderBy('start_at')
                 ->orderBy('studio_id')
