@@ -13,9 +13,9 @@ use Tests\TestCase;
 
 /**
  * 処理内容はオーナー向けの最大予約時間取得処理と同じで、そちらで詳細なテストを実施しているので、このクラスではテストしない
- * @see \Tests\Feature\Http\Controllers\Owner\Reservation\ReservationControllerMaxAvailableHourTest
+ * @see \Tests\Feature\Http\Controllers\Owner\Reservation\ReservationControllerGetReservationQuotaTest
  */
-class ReservationControllerMaxAvailableHourTest extends TestCase
+class ReservationControllerGetReservationQuotaTest extends TestCase
 {
     #[Test]
     public function test_success(): void
@@ -32,7 +32,7 @@ class ReservationControllerMaxAvailableHourTest extends TestCase
 
         $this->loginAsMember();
 
-        $response = $this->getJson("/reservations/studios/{$studio->id}/2025-05-18/18/max-available-hour");
+        $response = $this->getJson("/studios/{$studio->id}/reservation-quota/2025-05-18/18");
 
         $response->assertOk();
         $response->assertExactJson([

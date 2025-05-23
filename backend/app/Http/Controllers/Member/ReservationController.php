@@ -39,7 +39,7 @@ class ReservationController extends Controller
         return new DailyQuotasStatusResource($dailyQuotasStatus);
     }
 
-    public function getMaxAvailableHour(Studio $studio, CarbonImmutable $date, int $hour): MaxAvailableHourResource
+    public function getReservationQuota(Studio $studio, CarbonImmutable $date, int $hour): MaxAvailableHourResource
     {
         return new MaxAvailableHourResource(
             new MaxAvailableHourViewModel(
