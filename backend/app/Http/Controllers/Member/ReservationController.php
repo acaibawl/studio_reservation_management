@@ -8,6 +8,7 @@ use App\Exceptions\Reservation\AvailableHourExceededException;
 use App\Exceptions\UserDisplayableException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Member\Reservation\StorePost;
+use App\Http\Resources\Member\ReservationResource;
 use App\Http\Resources\Reservation\DailyQuotasStatusResource;
 use App\Http\Resources\Reservation\MaxAvailableHourResource;
 use App\Models\Member;
@@ -20,6 +21,7 @@ use App\ViewModels\Reservation\MaxAvailableHourViewModel;
 use Carbon\CarbonImmutable;
 use DB;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
@@ -76,5 +78,19 @@ class ReservationController extends Controller
         return response()->json([
             'message' => '予約を登録しました。',
         ], Response::HTTP_CREATED);
+    }
+
+    public function myReservations(): AnonymousResourceCollection
+    {
+        /** @var Member $member */
+        $member = auth()->user();
+
+        return ReservationResource::collection(
+            $member->reservationsNotFinished()
+                ->with('studio')
+                ->orderBy('start_at')
+                ->orderBy('studio_id')
+                ->get()
+        );
     }
 }
