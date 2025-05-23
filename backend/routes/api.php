@@ -8,6 +8,7 @@ use App\Http\Controllers\Member\Auth\EmailUpdateController;
 use App\Http\Controllers\Member\Auth\MemberController as AuthMemberController;
 use App\Http\Controllers\Member\Auth\PasswordResetController;
 use App\Http\Controllers\Member\Auth\SignUpEmailVerifiedCodeController;
+use App\Http\Controllers\Member\ReservationController as MemberReservationController;
 use App\Http\Controllers\Owner\BusinessDayController;
 use App\Http\Controllers\Owner\MemberController;
 use App\Http\Controllers\Owner\OwnerAuthController;
@@ -51,6 +52,10 @@ Route::prefix('member-auth')
             Route::patch('/email', [EmailUpdateController::class, 'update'])->name('email.update');
         });
     });
+
+Route::middleware('auth:api_member')->group(function () {
+    Route::get('/reservation_availability/date/{date}', [MemberReservationController::class, 'getAvailabilityByDate'])->name('reservation_availability.date');
+});
 
 Route::prefix('owner-auth')
     ->name('owner-auth.')

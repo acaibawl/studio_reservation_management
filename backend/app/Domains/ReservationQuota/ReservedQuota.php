@@ -2,16 +2,21 @@
 
 declare(strict_types=1);
 
-namespace App\Domains\Owner\ReservationQuota;
+namespace App\Domains\ReservationQuota;
 
 use App\Enums\Reservation\ReservationQuota\Status;
 
-readonly class Reserved implements ReservationQuotaInterface
+readonly class ReservedQuota implements ReservationQuotaInterface
 {
     public function __construct(
         private int $hour,
         private int $reservationId,
     ) {}
+
+    public function getHour(): int
+    {
+        return $this->hour;
+    }
 
     public function toArray(): array
     {

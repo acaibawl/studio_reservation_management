@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Services\Owner\Reservation;
 
-use App\Domains\Owner\ReservationQuota\Available;
-use App\Domains\Owner\ReservationQuota\NotAvailable;
-use App\Domains\Owner\ReservationQuota\ReservationQuotaInterface;
-use App\Domains\Owner\ReservationQuota\Reserved;
+use App\Domains\ReservationQuota\AvailableQuota;
+use App\Domains\ReservationQuota\NotAvailableQuota;
+use App\Domains\ReservationQuota\ReservationQuotaInterface;
+use App\Domains\ReservationQuota\ReservedQuota;
 use App\Enums\Studio\StartAt;
 use App\Models\BusinessTime;
 use App\Models\RegularHoliday;
@@ -35,57 +35,51 @@ class ReservationQuotaFactory
         Collection $temporaryClosingDays,
         ?int $ignoreReservationId = null
     ): ReservationQuotaInterface {
-        // 日付を跨ぐ営業日か
-        $isCrossDateOperation = $this->isCrossDateOperation($businessTime);
-        // 適用営業日
-        $applicableDate = $this->getApplicableDate($date, $hour, $businessTime, $isCrossDateOperation);
-
-        // 現在日時より前ではないか
-        if ($this->isPastTime($date, $hour, $studio->start_at)) {
-            return new NotAvailable($hour);
-        }
-
-        // 現在日付より60日先までしか予約不可
-        if ($this->isOverMaxReservationPeriod($applicableDate)) {
-            return new NotAvailable($hour);
-        }
-
-        // 定休日の曜日か判定
-        if ($this->isRegularHoliday($applicableDate, $regularHolidays)) {
-            return new NotAvailable($hour);
-        }
-
-        // 臨時休業日か判定
-        if ($this->isTemporaryClosingDay($applicableDate, $temporaryClosingDays)) {
-            return new NotAvailable($hour);
-        }
-
-        // 営業時間外ではないか
-        if ($this->isOutOfBusinessHours($hour, $businessTime, $isCrossDateOperation)) {
-            return new NotAvailable($hour);
+        if ($this->hasNotAvailableIssues($date, $hour, $studio, $regularHolidays, $temporaryClosingDays, $businessTime)) {
+            return new NotAvailableQuota($hour);
         }
 
         // 既に他の予約が入っているか
         $dateTime = Carbon::create($date->year, $date->month, $date->day, $hour, $studio->start_at->value);
-        $alreadyReservation = $this->findConflictingReservation($dateTime, $studio, $ignoreReservationId);
+        $alreadyReservation = $this->findAlreadyReservation($dateTime, $studio, $ignoreReservationId);
         if ($alreadyReservation) {
-            return new Reserved($hour, $alreadyReservation->id);
+            return new ReservedQuota($hour, $alreadyReservation->id);
         }
 
-        return new Available($hour);
+        return new AvailableQuota($hour);
     }
 
     private function getApplicableDate(
         CarbonImmutable $date,
         int $hour,
         BusinessTime $businessTime,
-        bool $isCrossDateOperation
     ): CarbonImmutable {
-        if ($isCrossDateOperation && $businessTime->close_time->isAfter(Carbon::createFromTime($hour))) {
+        if ($businessTime->is_cross_date_operation && $businessTime->close_time->isAfter(Carbon::createFromTime($hour))) {
             return $date->subDay();
         } else {
             return $date;
         }
+    }
+
+    /**
+     * @param Collection<int, RegularHoliday> $regularHolidays
+     * @param Collection<int, TemporaryClosingDay> $temporaryClosingDays
+     */
+    private function hasNotAvailableIssues(
+        CarbonImmutable $date,
+        int $hour,
+        Studio $studio,
+        Collection $regularHolidays,
+        Collection $temporaryClosingDays,
+        BusinessTime $businessTime
+    ): bool {
+        $applicableDate = $this->getApplicableDate($date, $hour, $businessTime);
+
+        return $this->isPastTime($date, $hour, $studio->start_at)
+            || $this->isOverMaxReservationPeriod($applicableDate)
+            || $this->isRegularHoliday($applicableDate, $regularHolidays)
+            || $this->isTemporaryClosingDay($applicableDate, $temporaryClosingDays)
+            || $this->isOutOfBusinessHours($hour, $businessTime);
     }
 
     private function isPastTime(CarbonImmutable $date, int $hour, StartAt $studioStartAt): bool
@@ -93,6 +87,11 @@ class ReservationQuotaFactory
         $targetDateTime = Carbon::create($date->year, $date->month, $date->day, $hour, $studioStartAt->value);
 
         return $targetDateTime->lessThanOrEqualTo(Carbon::now());
+    }
+
+    private function isOverMaxReservationPeriod(CarbonImmutable $applicableDate): bool
+    {
+        return Carbon::now()->diffInDays($applicableDate) > self::MAX_RESERVATION_PERIOD_DAYS;
     }
 
     /**
@@ -119,10 +118,10 @@ class ReservationQuotaFactory
         );
     }
 
-    private function isOutOfBusinessHours(int $hour, BusinessTime $businessTime, bool $isCrossDateOperation): bool
+    private function isOutOfBusinessHours(int $hour, BusinessTime $businessTime): bool
     {
         $hourCarbon = Carbon::createFromTime($hour);
-        if ($isCrossDateOperation) {
+        if ($businessTime->is_cross_date_operation) {
             // 例：open = 10:00, close = 5:00, hour = 5:00 の場合 true
             return $businessTime->open_time->isAfter($hourCarbon) &&
                 $businessTime->close_time->lessThanOrEqualTo($hourCarbon);
@@ -133,7 +132,7 @@ class ReservationQuotaFactory
         }
     }
 
-    private function findConflictingReservation(Carbon $dateTime, Studio $studio, ?int $ignoreReservationId): ?Reservation
+    private function findAlreadyReservation(Carbon $dateTime, Studio $studio, ?int $ignoreReservationId): ?Reservation
     {
         $query = $studio->reservations()->where('start_at', '<=', $dateTime)->where('finish_at', '>=', $dateTime);
         if ($ignoreReservationId) {
@@ -141,15 +140,5 @@ class ReservationQuotaFactory
         }
 
         return $query->first();
-    }
-
-    private function isOverMaxReservationPeriod(CarbonImmutable $applicableDate): bool
-    {
-        return Carbon::now()->diffInDays($applicableDate) > self::MAX_RESERVATION_PERIOD_DAYS;
-    }
-
-    private function isCrossDateOperation(BusinessTime $businessTime): bool
-    {
-        return $businessTime->close_time->lessThanOrEqualTo($businessTime->open_time);
     }
 }
