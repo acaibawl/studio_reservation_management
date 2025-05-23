@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,17 +21,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read \App\Models\Member $member
  * @property-read \App\Models\Studio $studio
  * @method static \Database\Factories\ReservationFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation whereFinishAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation whereMemberId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation whereMemo($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation whereStartAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation whereStudioId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation whereUpdatedAt($value)
+ * @method static Builder<static>|Reservation newModelQuery()
+ * @method static Builder<static>|Reservation newQuery()
+ * @method static Builder<static>|Reservation notFinished()
+ * @method static Builder<static>|Reservation query()
+ * @method static Builder<static>|Reservation whereCreatedAt($value)
+ * @method static Builder<static>|Reservation whereFinishAt($value)
+ * @method static Builder<static>|Reservation whereId($value)
+ * @method static Builder<static>|Reservation whereMemberId($value)
+ * @method static Builder<static>|Reservation whereMemo($value)
+ * @method static Builder<static>|Reservation whereStartAt($value)
+ * @method static Builder<static>|Reservation whereStudioId($value)
+ * @method static Builder<static>|Reservation whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Reservation extends Model
@@ -50,6 +52,11 @@ class Reservation extends Model
         'start_at' => 'datetime:Y-m-d H:i:s',
         'finish_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+    public function scopeNotFinished(Builder $query): Builder
+    {
+        return $query->where('finish_at', '>=', now());
+    }
 
     /**
      * @return BelongsTo<Member, $this>

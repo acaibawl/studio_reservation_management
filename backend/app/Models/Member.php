@@ -20,8 +20,6 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Reservation> $reservations
  * @property-read int|null $reservations_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Reservation> $reservationsNotFinished
- * @property-read int|null $reservations_not_finished_count
  * @method static \Database\Factories\MemberFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Member newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Member newQuery()
@@ -61,20 +59,9 @@ class Member extends Authenticatable implements JWTSubject
             ->isNotEmpty();
     }
 
-    /**
-     * @return HasMany<Reservation, $this>
-     */
-    public function reservations(): HasMany
+    public function reservations(): HasMany|Reservation
     {
         return $this->hasMany(Reservation::class);
-    }
-
-    /**
-     * @return HasMany<Reservation, $this>
-     */
-    public function reservationsNotFinished(): HasMany
-    {
-        return $this->hasMany(Reservation::class)->where('finish_at', '>=', now());
     }
 
     public function getJWTIdentifier(): mixed
