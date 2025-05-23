@@ -25,6 +25,7 @@ class MaxAvailableHourResource extends JsonResource
         return [
             'studio_id' => $this->resource->studio->id,
             'studio_name' => $this->resource->studio->name,
+            'studio_start_at' => $this->resource->studio->start_at,
             'date' => $this->resource->date->toDateString(),
             'hour' => $this->resource->hour,
             'max_available_hour' => $this->resource->maxAvailableHour,

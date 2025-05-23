@@ -42,6 +42,7 @@ class ReservationControllerMaxAvailableHourTest extends TestCase
         $response->assertExactJson([
             'studio_id' => $studio->id,
             'studio_name' => $studio->name,
+            'studio_start_at' => $studio->start_at->value,
             'date' => '2025-05-18',
             'hour' => 18,
             'max_available_hour' => 4,
@@ -76,6 +77,7 @@ class ReservationControllerMaxAvailableHourTest extends TestCase
         $response->assertExactJson([
             'studio_id' => $studio->id,
             'studio_name' => $studio->name,
+            'studio_start_at' => $studio->start_at->value,
             'date' => '2025-05-18',
             'hour' => 3,
             'max_available_hour' => 2,
@@ -110,6 +112,7 @@ class ReservationControllerMaxAvailableHourTest extends TestCase
         $response->assertExactJson([
             'studio_id' => $studio->id,
             'studio_name' => $studio->name,
+            'studio_start_at' => $studio->start_at->value,
             'date' => '2025-05-18',
             'hour' => 3,
             'max_available_hour' => 2,
@@ -141,6 +144,7 @@ class ReservationControllerMaxAvailableHourTest extends TestCase
         $response->assertExactJson([
             'studio_id' => $studio->id,
             'studio_name' => $studio->name,
+            'studio_start_at' => $studio->start_at->value,
             'date' => '2025-07-17',
             'hour' => 3,
             'max_available_hour' => 2,
@@ -177,6 +181,7 @@ class ReservationControllerMaxAvailableHourTest extends TestCase
         $response->assertExactJson([
             'studio_id' => $studio->id,
             'studio_name' => $studio->name,
+            'studio_start_at' => $studio->start_at->value,
             'date' => '2025-05-18',
             'hour' => 3,
             'max_available_hour' => 2,
@@ -207,6 +212,7 @@ class ReservationControllerMaxAvailableHourTest extends TestCase
         $response->assertExactJson([
             'studio_id' => $studio->id,
             'studio_name' => $studio->name,
+            'studio_start_at' => $studio->start_at->value,
             'date' => '2025-05-18',
             'hour' => 22,
             'max_available_hour' => 6,
@@ -237,6 +243,7 @@ class ReservationControllerMaxAvailableHourTest extends TestCase
         $response->assertExactJson([
             'studio_id' => $studio->id,
             'studio_name' => $studio->name,
+            'studio_start_at' => $studio->start_at->value,
             'date' => '2025-05-18',
             'hour' => 8,
             'max_available_hour' => 6,
@@ -267,6 +274,7 @@ class ReservationControllerMaxAvailableHourTest extends TestCase
         $response->assertExactJson([
             'studio_id' => $studio->id,
             'studio_name' => $studio->name,
+            'studio_start_at' => $studio->start_at->value,
             'date' => '2025-05-17',
             'hour' => 18,
             'max_available_hour' => 0,
