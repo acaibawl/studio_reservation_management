@@ -54,7 +54,10 @@ Route::prefix('member-auth')
     });
 
 Route::middleware('auth:api_member')->group(function () {
-    Route::get('/reservation_availability/date/{date}', [MemberReservationController::class, 'getAvailabilityByDate'])->name('reservation_availability.date');
+    Route::get('/reservation_availability/date/{date}', [MemberReservationController::class, 'getAvailabilityByDate'])->name('reservation-availability.date');
+    Route::prefix('reservations')->name('reservations.')->group(function () {
+        Route::get('/studios/{studio}/{date}/{hour}/max-available-hour', [MemberReservationController::class, 'getMaxAvailableHour'])->name('get-max-available-hour');
+    });
 });
 
 Route::prefix('owner-auth')
