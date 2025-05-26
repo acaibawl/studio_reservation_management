@@ -12,4 +12,9 @@ export default defineNuxtConfig({
       allowedHosts: ['front.local'],
     },
   },
+  runtimeConfig: {
+    public: {
+      apiBaseUrl: '',
+    },
+  },
 });
