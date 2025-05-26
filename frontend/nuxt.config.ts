@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   css: ['modern-css-reset'],
   modules: [
     '@nuxt/eslint',
-    'vuetify-nuxt-module'
+    'vuetify-nuxt-module',
   ],
   vite: {
     server: {
