@@ -7,6 +7,10 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    networks:
+      default:
+        aliases:
+          - back.local
     volumes:
       - ./docker/nginx/logs:/logs
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
@@ -35,7 +39,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - NUXT_API_BASE_URL=http://localhost/api
+      - NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/studio_reservation_management.local.crt
 
   mysql:
     image: mysql:8.0.37

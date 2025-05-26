@@ -12,6 +12,10 @@ WORKDIR /app
 RUN apk update \
     && apk add --no-cache bash
 
+RUN apk add --no-cache ca-certificates
+COPY studio_reservation_management.local.crt /usr/local/share/ca-certificates/studio_reservation_management.local.crt
+RUN update-ca-certificates
+
 # ポート3000を開放
 EXPOSE 3000
 
