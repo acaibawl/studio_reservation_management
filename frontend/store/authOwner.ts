@@ -8,10 +8,7 @@ interface State {
  * リロード時のログイン状態判定
  */
 const isDefaultLogin = () => {
-  const token = useCookie('owner_token', {
-    secure: true,
-    sameSite: 'strict',
-  });
+  const token = useCookie('owner_token');
   return !!token.value;
 };
 
@@ -25,6 +22,8 @@ export const useAuthOwnerStore = defineStore('auth_owner', {
     loginAsOwner(tokenValue: string) {
       const token = useCookie('owner_token', {
         maxAge: 60 * 60, // 1時間
+        secure: true,
+        sameSite: 'strict',
       });
       token.value = tokenValue;
       this.isLogin = true;

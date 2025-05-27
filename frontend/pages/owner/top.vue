@@ -13,21 +13,23 @@ const handleLogoutClick = () => {
 </script>
 
 <template>
-  <h1>管理画面トップ</h1>
+  <div>
+    <h1>管理画面トップ</h1>
 
-  <p>ようこそ、オーナーさん</p>
-  <v-btn type="button" @click="handleLogoutClick">ログアウト</v-btn>
-  <ul>
-    <li>
-      <NuxtLink to="/owner/1">管理者1</NuxtLink>
-    </li>
-    <li>
-      <NuxtLink to="/owner/2">管理者2</NuxtLink>
-    </li>
-    <li>
-      <NuxtLink to="/owner/3">管理者3</NuxtLink>
-    </li>
-  </ul>
+    <p>ようこそ、オーナーさん</p>
+    <v-btn type="button" @click="handleLogoutClick">ログアウト</v-btn>
+    <ul>
+      <li>
+        <NuxtLink to="/owner/1">管理者1</NuxtLink>
+      </li>
+      <li>
+        <NuxtLink to="/owner/2">管理者2</NuxtLink>
+      </li>
+      <li>
+        <NuxtLink to="/owner/3">管理者3</NuxtLink>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <style scoped>
