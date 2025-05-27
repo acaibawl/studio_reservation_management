@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import { useAuthOwnerStore } from '~/store/authOwner';
 import { FetchError } from 'ofetch';
 
-const visiblePassword = ref(false);
+const isPasswordVisible = ref(false);
 const loginLoading = ref(false);
 
 const schema = yup.object({
@@ -72,10 +72,10 @@ const onSubmit = handleSubmit(async (values) => {
       v-model="password"
       v-bind="passwordProps"
       label="パスワード"
-      :append-inner-icon="visiblePassword ? 'mdi-eye-off' : 'mdi-eye'"
-      :type="visiblePassword ? 'text' : 'password'"
+      :append-inner-icon="isPasswordVisible ? 'mdi-eye-off' : 'mdi-eye'"
+      :type="isPasswordVisible ? 'text' : 'password'"
       prepend-inner-icon="mdi-lock-outline"
-      @click:append-inner="visiblePassword = !visiblePassword"
+      @click:append-inner="isPasswordVisible = !isPasswordVisible"
     />
 
     <v-btn color="primary" type="submit" :loading="loginLoading">ログイン</v-btn>

@@ -3,8 +3,7 @@ import { useDisplay } from 'vuetify';
 
 // サイドメニューはモバイルの場合はしまっておく
 const { mobile } = useDisplay();
-const drawerPermanent = !mobile.value;
-const drawer = ref(!mobile.value);
+const isDrawerOpen = ref(!mobile.value);
 </script>
 
 <template>
@@ -14,16 +13,16 @@ const drawer = ref(!mobile.value);
     </v-system-bar>
 
     <v-app-bar color="primary">
-      <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"/>
+      <v-app-bar-nav-icon variant="text" @click.stop="isDrawerOpen = !isDrawerOpen"/>
       <v-app-bar-title>
         Application Bar
       </v-app-bar-title>
     </v-app-bar>
 
     <v-navigation-drawer
-      v-model="drawer"
+      v-model="isDrawerOpen"
       :location="$vuetify.display.mobile ? 'bottom' : undefined"
-      :permanent="drawerPermanent"
+      :permanent="!mobile"
     >
       Navigation Drawer
     </v-navigation-drawer>
