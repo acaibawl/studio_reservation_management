@@ -1,18 +1,22 @@
 <script setup lang="ts">
-import { useForm } from 'vee-validate';
+import { type InputBindsConfig, type LazyInputBindsConfig, useForm } from 'vee-validate';
 import * as yup from 'yup';
 import { useAuthOwnerStore } from '~/store/authOwner';
+import { FetchError } from 'ofetch';
+
+const visiblePassword = ref(false);
+const loginLoading = ref(false);
 
 const schema = yup.object({
   email: yup.string().email().required().label('メールアドレス'),
   password: yup.string().required().min(8).max(32).label('パスワード'),
 });
 
-const { defineField, handleSubmit, resetForm } = useForm({
+const { defineField, handleSubmit, setErrors } = useForm({
   validationSchema: schema,
 });
 
-const vuetifyConfig = state => ({
+const vuetifyConfig: InputBindsConfig | LazyInputBindsConfig = state => ({
   props: {
     'error-messages': state.errors,
   },
@@ -20,20 +24,38 @@ const vuetifyConfig = state => ({
 
 const [email, emailProps] = defineField('email', vuetifyConfig);
 const [password, passwordProps] = defineField('password', vuetifyConfig);
+const errorMessage = ref('');
 
 const onSubmit = handleSubmit(async (values) => {
-  const { $api } = useNuxtApp();
-  const response = await $api('/owner-auth/login', {
-    method: 'POST',
-    body: values,
-  });
+  try {
+    loginLoading.value = true;
+    errorMessage.value = '';
 
-  const { loginAsOwner } = useAuthOwnerStore();
-  loginAsOwner(response.owner_access_token);
-  const route = useRoute();
-  const redirectedFrom = route.query.redirectedFrom;
-  const to = redirectedFrom || '/owner/top';
-  navigateTo(to);
+    const { $api } = useNuxtApp();
+    const response = await $api<any>('/owner-auth/login', {
+      method: 'POST',
+      body: values,
+    });
+
+    const { loginAsOwner } = useAuthOwnerStore();
+    loginAsOwner(response.owner_access_token);
+    const route = useRoute();
+    const redirectedFrom = route.query.redirectedFrom;
+    const to = (redirectedFrom || '/owner/top') as string;
+    navigateTo(to);
+  } catch (e: unknown) {
+    if (e instanceof FetchError) {
+      if (e.status === 401) {
+        errorMessage.value = 'メールアドレス又はパスワードが違います。';
+      } else if (e.status === 422) {
+        setErrors(e.data.errors);
+      } else {
+        errorMessage.value = e.message;
+      }
+    }
+  } finally {
+    loginLoading.value = false;
+  }
 });
 </script>
 
@@ -44,15 +66,19 @@ const onSubmit = handleSubmit(async (values) => {
       v-bind="emailProps"
       label="メールアドレス"
       type="email"
+      prepend-inner-icon="mdi-email-outline"
     />
     <v-text-field
       v-model="password"
       v-bind="passwordProps"
       label="パスワード"
-      type="password"
+      :append-inner-icon="visiblePassword ? 'mdi-eye-off' : 'mdi-eye'"
+      :type="visiblePassword ? 'text' : 'password'"
+      prepend-inner-icon="mdi-lock-outline"
+      @click:append-inner="visiblePassword = !visiblePassword"
     />
 
-    <v-btn color="primary" type="submit"> Submit </v-btn>
-    <v-btn color="outline" class="ml-4" @click="resetForm()"> Reset </v-btn>
+    <v-btn color="primary" type="submit" :loading="loginLoading">ログイン</v-btn>
+    <v-messages :messages="errorMessage" color="red" :active="!!errorMessage" class="mt-5 text-body-1 font-weight-bold"/>
   </v-form>
 </template>
