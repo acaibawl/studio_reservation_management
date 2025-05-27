@@ -1,4 +1,4 @@
-export default defineNuxtPlugin((nuxtApp) => {
+export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig();
 
   const api = $fetch.create({
@@ -9,11 +9,11 @@ export default defineNuxtPlugin((nuxtApp) => {
     //   options.headers.set('Authorization', `Bearer ${session.value?.token}`)
     // }
     // },
-    async onResponseError({ response }) {
-      // if (response.status === 401) {
-      //   await nuxtApp.runWithContext(() => navigateTo('/login'));
-      // }
-    },
+    // async onResponseError({ response }) {
+    // if (response.status === 401) {
+    //   await nuxtApp.runWithContext(() => navigateTo('/login'));
+    // }
+    // },
   });
 
   // Expose to useNuxtApp().$api

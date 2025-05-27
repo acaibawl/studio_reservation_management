@@ -1,5 +1,5 @@
-import { setLocale } from "yup";
-import {descriptive, suggestive} from "yup-locale-ja";
+import { setLocale } from 'yup';
+import { descriptive } from 'yup-locale-ja';
 import { configure } from 'vee-validate';
 
 // yupのエラーメッセージを日本語化
@@ -11,7 +11,7 @@ configure({
   validateOnChange: false,
   validateOnInput: false,
   validateOnModelUpdate: false,
-})
+});
 
-export default defineNuxtPlugin((nuxtApp) => {
+export default defineNuxtPlugin(() => {
 });

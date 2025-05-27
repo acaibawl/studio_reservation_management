@@ -24,10 +24,10 @@ const { defineField, handleSubmit, resetForm } = useForm({
 
 // Refer to the docs for how to make advanced validation behaviors with dynamic configs
 // TODO: Add link
-const vuetifyConfig = (state) => ({
+const vuetifyConfig = state => ({
   props: {
     'error-messages': state.errors,
-  }
+  },
 });
 
 const [name, nameProps] = defineField('name', vuetifyConfig);
@@ -37,12 +37,13 @@ const [passwordConfirm, confirmProps] = defineField('passwordConfirm', vuetifyCo
 const [terms, termsProps] = defineField('terms', vuetifyConfig);
 
 const onSubmit = handleSubmit((values) => {
+  // eslint-disable-next-line
   console.log('Submitted with', values);
 });
 </script>
 
 <template>
-  <v-form @submit="onSubmit" class="px-4">
+  <v-form class="px-4" @submit="onSubmit">
     <v-text-field v-model="name" v-bind="nameProps" label="Name" />
     <v-text-field
       v-model="email"

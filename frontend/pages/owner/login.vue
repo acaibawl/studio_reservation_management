@@ -13,7 +13,7 @@ const { defineField, handleSubmit, resetForm } = useForm({
 
 // Refer to the docs for how to make advanced validation behaviors with dynamic configs
 // TODO: Add link
-const vuetifyConfig = (state) => ({
+const vuetifyConfig = state => ({
   props: {
     'error-messages': state.errors,
   },
@@ -27,13 +27,12 @@ const onSubmit = handleSubmit((values) => {
   $api('/owner-auth/login', {
     method: 'POST',
     body: values,
-  })
-  console.log('Submitted with', values);
+  });
 });
 </script>
 
 <template>
-  <v-form @submit="onSubmit" class="px-4">
+  <v-form class="px-4" @submit="onSubmit">
     <v-text-field
       v-model="email"
       v-bind="emailProps"
