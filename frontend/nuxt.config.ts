@@ -6,6 +6,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
     'vuetify-nuxt-module',
+    '@pinia/nuxt',
   ],
   vite: {
     server: {

@@ -1,6 +1,7 @@
 <script setup>
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
+import { useAuthOwnerStore } from '~/store/authOwner';
 
 const schema = yup.object({
   email: yup.string().email().required().label('メールアドレス'),
@@ -11,8 +12,6 @@ const { defineField, handleSubmit, resetForm } = useForm({
   validationSchema: schema,
 });
 
-// Refer to the docs for how to make advanced validation behaviors with dynamic configs
-// TODO: Add link
 const vuetifyConfig = state => ({
   props: {
     'error-messages': state.errors,
@@ -22,12 +21,19 @@ const vuetifyConfig = state => ({
 const [email, emailProps] = defineField('email', vuetifyConfig);
 const [password, passwordProps] = defineField('password', vuetifyConfig);
 
-const onSubmit = handleSubmit((values) => {
+const onSubmit = handleSubmit(async (values) => {
   const { $api } = useNuxtApp();
-  $api('/owner-auth/login', {
+  const response = await $api('/owner-auth/login', {
     method: 'POST',
     body: values,
   });
+
+  const { loginAsOwner } = useAuthOwnerStore();
+  loginAsOwner(response.owner_access_token);
+  const route = useRoute();
+  const redirectedFrom = route.query.redirectedFrom;
+  const to = redirectedFrom || '/owner/top';
+  navigateTo(to);
 });
 </script>
 
