@@ -1,4 +1,4 @@
-export default defineNuxtPlugin(() => {
+export default defineNuxtPlugin((nuxtApp) => {
   const config = useRuntimeConfig();
 
   const api = $fetch.create({
@@ -16,10 +16,26 @@ export default defineNuxtPlugin(() => {
     // },
   });
 
+  const ownerApi = $fetch.create({
+    baseURL: config.public.apiBaseUrl,
+    onRequest({ request, options, error }) {
+      const token = useCookie('owner_token');
+      if (token.value) {
+        options.headers.set('Authorization', `Bearer ${token.value}`);
+      }
+    },
+    async onResponseError({ response }) {
+      if (response.status === 401) {
+        await nuxtApp.runWithContext(() => navigateTo('/owner/login'));
+      }
+    },
+  });
+
   // Expose to useNuxtApp().$api
   return {
     provide: {
       api,
+      ownerApi
     },
   };
 });
