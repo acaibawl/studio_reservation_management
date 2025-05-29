@@ -3,6 +3,7 @@ import { getWeekDay } from '~/utils/weekDay';
 import { FetchError } from 'ofetch';
 import { padDateAndMonth } from '~/utils/padDateAndMonth';
 import {useLoadingOverlayStore} from "~/store/loadingOverlay";
+import {useNotifyBottomSheetStore} from "~/store/notifyBottomSheet";
 
 interface TemporaryClosingDay {
   date: string;
@@ -11,8 +12,7 @@ interface TemporaryClosingDay {
 
 const selectedNewDate = ref(new Date());
 const loadingOverlayStore = useLoadingOverlayStore();
-const isNotifyMessageVisible = ref(false);
-const notifyMessage = ref('');
+const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const { $ownerApi } = useNuxtApp();
 
 const { data, error } = await useAsyncData<TemporaryClosingDay[]>('/owner/temporary-closing-days', () => $ownerApi('/owner/temporary-closing-days'));
@@ -43,12 +43,10 @@ const handleAddClick = async () => {
     });
     data.value!.push(newTemporaryClosingDay);
     data.value?.sort((a, b) => a.date.localeCompare(b.date));
-    notifyMessage.value = `${newTemporaryClosingDay.date} を追加しました。`;
-    isNotifyMessageVisible.value = true;
+    notifyBottomSheetStore.setMessage(`${newTemporaryClosingDay.date} を追加しました。`)
   } catch (e: unknown) {
     if (e instanceof FetchError) {
-      notifyMessage.value = e.message;
-      isNotifyMessageVisible.value = true;
+      notifyBottomSheetStore.setMessage(e.message);
     } else {
       console.error(e);
     }
@@ -67,8 +65,7 @@ const handleDeleteClick = async (date: string) => {
       method: 'DELETE',
     });
     data.value = data.value!.filter(day => day.date !== date);
-    notifyMessage.value = `${date} を臨時休業日から削除しました。`;
-    isNotifyMessageVisible.value = true;
+    notifyBottomSheetStore.setMessage(`${date} を臨時休業日から削除しました。`);
   } catch (e: unknown) {
     console.error(e);
   } finally {
@@ -130,13 +127,6 @@ const handleDeleteClick = async (date: string) => {
       </tr>
       </tbody>
     </v-table>
-    <v-bottom-sheet
-      v-model="isNotifyMessageVisible"
-    >
-      <v-card
-        :text="notifyMessage"
-      />
-    </v-bottom-sheet>
   </div>
 </template>
 
