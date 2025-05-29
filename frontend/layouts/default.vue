@@ -4,6 +4,11 @@ import { useDisplay } from 'vuetify';
 // サイドメニューはモバイルの場合はしまっておく
 const { mobile } = useDisplay();
 const isDrawerOpen = ref(!mobile.value);
+
+const isUrlLeftHandMatch = (url: string) => {
+  const currentUrl = useRoute().path;
+  return currentUrl.startsWith(url);
+}
 </script>
 
 <template>
@@ -26,11 +31,11 @@ const isDrawerOpen = ref(!mobile.value);
     >
       <v-list-item title="オーナー"/>
       <v-divider/>
-      <v-list-item title="予約" to="/owner/business-day"/>
-      <v-list-item title="部屋" to="/owner/business-day"/>
-      <v-list-item title="ユーザー" to="/owner/business-day"/>
-      <v-list-item title="営業時間・定休日" to="/owner/business-day"/>
-      <v-list-item title="臨時休業日" to="/owner/temporary-closing-days"/>
+      <v-list-item title="予約" to="/owner" :active="isUrlLeftHandMatch('/owner')"/>
+      <v-list-item title="スタジオ" to="/owner/studios" :active="isUrlLeftHandMatch('/owner/studios')"/>
+      <v-list-item title="ユーザー" to="/owner/business-day" :active="isUrlLeftHandMatch('/owner/business-day')"/>
+      <v-list-item title="営業時間・定休日" to="/owner/business-day" :active="isUrlLeftHandMatch('/owner/business-day')"/>
+      <v-list-item title="臨時休業日" to="/owner/temporary-closing-days" :active="isUrlLeftHandMatch('/owner/temporary-closing-days')"/>
     </v-navigation-drawer>
 
     <v-main>
