@@ -29,19 +29,17 @@ class TemporaryClosingDayControllerTest extends TestCase
         $response = $this->getJson('/owner/temporary-closing-days');
         $response->assertOk();
         $response->assertExactJson([
-            'temporary_closing_days' => [
-                [
-                    'id' => $days[0]->id,
-                    'date' => $days[0]->date->format('Y-m-d'),
-                ],
-                [
-                    'id' => $days[1]->id,
-                    'date' => $days[1]->date->format('Y-m-d'),
-                ],
-                [
-                    'id' => $days[2]->id,
-                    'date' => $days[2]->date->format('Y-m-d'),
-                ],
+            [
+                'id' => $days[0]->id,
+                'date' => $days[0]->date->format('Y-m-d'),
+            ],
+            [
+                'id' => $days[1]->id,
+                'date' => $days[1]->date->format('Y-m-d'),
+            ],
+            [
+                'id' => $days[2]->id,
+                'date' => $days[2]->date->format('Y-m-d'),
             ],
         ]);
     }
@@ -53,12 +51,19 @@ class TemporaryClosingDayControllerTest extends TestCase
     public function test_store_success(): void
     {
         $this->loginAsOwner();
+
         $response = $this->postJson('/owner/temporary-closing-days', [
             'date' => '2025-05-14',
         ]);
+
         $response->assertCreated();
         $this->assertDatabaseHas('temporary_closing_days', [
             'date' => '2025-05-14',
+        ]);
+        $temporaryClosingDay = TemporaryClosingDay::first();
+        $response->assertExactJson([
+            'id' => $temporaryClosingDay->id,
+            'date' => $temporaryClosingDay->date->format('Y-m-d'),
         ]);
     }
 
