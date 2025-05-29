@@ -15,7 +15,7 @@ const isDrawerOpen = ref(!mobile.value);
     <v-app-bar color="primary">
       <v-app-bar-nav-icon variant="text" @click.stop="isDrawerOpen = !isDrawerOpen"/>
       <v-app-bar-title>
-        Application Bar
+        スタジオ予約管理
       </v-app-bar-title>
     </v-app-bar>
 
@@ -24,11 +24,17 @@ const isDrawerOpen = ref(!mobile.value);
       :location="$vuetify.display.mobile ? 'bottom' : undefined"
       :permanent="!mobile"
     >
-      Navigation Drawer
+      <v-list-item title="オーナー"/>
+      <v-divider/>
+      <v-list-item title="予約" to="/owner/studio/business-day"/>
+      <v-list-item title="部屋" to="/owner/studio/business-day"/>
+      <v-list-item title="ユーザー" to="/owner/studio/business-day"/>
+      <v-list-item title="営業時間・定休日" to="/owner/studio/business-day"/>
+      <v-list-item title="臨時休業日" to="/owner/temporary-closing-days"/>
     </v-navigation-drawer>
 
     <v-main>
-      <v-container>
+      <v-container class="d-flex align-center justify-center fill-height">
         <slot />
       </v-container>
     </v-main>
@@ -44,5 +50,7 @@ const isDrawerOpen = ref(!mobile.value);
 </template>
 
 <style scoped>
-
+.v-container {
+  min-width: 390px;
+}
 </style>

@@ -60,25 +60,38 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <v-form class="px-4" @submit="onSubmit">
-    <v-text-field
-      v-model="email"
-      v-bind="emailProps"
-      label="メールアドレス"
-      type="email"
-      prepend-inner-icon="mdi-email-outline"
-    />
-    <v-text-field
-      v-model="password"
-      v-bind="passwordProps"
-      label="パスワード"
-      :append-inner-icon="isPasswordVisible ? 'mdi-eye-off' : 'mdi-eye'"
-      :type="isPasswordVisible ? 'text' : 'password'"
-      prepend-inner-icon="mdi-lock-outline"
-      @click:append-inner="isPasswordVisible = !isPasswordVisible"
-    />
-
+  <v-form @submit="onSubmit">
+    <v-row>
+      <v-col cols="12">
+        <v-text-field
+          v-model="email"
+          v-bind="emailProps"
+          label="メールアドレス"
+          type="email"
+          prepend-inner-icon="mdi-email-outline"
+        />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="12">
+        <v-text-field
+          v-model="password"
+          v-bind="passwordProps"
+          label="パスワード"
+          :append-inner-icon="isPasswordVisible ? 'mdi-eye-off' : 'mdi-eye'"
+          :type="isPasswordVisible ? 'text' : 'password'"
+          prepend-inner-icon="mdi-lock-outline"
+          @click:append-inner="isPasswordVisible = !isPasswordVisible"
+        />
+      </v-col>
+    </v-row>
     <v-btn color="primary" type="submit" :loading="loginLoading">ログイン</v-btn>
     <v-messages :messages="errorMessage" color="red" :active="!!errorMessage" class="mt-5 text-body-1 font-weight-bold"/>
   </v-form>
 </template>
+
+<style scoped>
+.v-form {
+  width: 100%;
+}
+</style>

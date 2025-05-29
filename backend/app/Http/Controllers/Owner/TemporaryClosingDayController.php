@@ -6,10 +6,12 @@ namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Owner\TemporaryClosingDay\StorePost;
+use App\Http\Resources\Owner\TemporaryClosingDay\TemporaryClosingDayResource;
 use App\Models\TemporaryClosingDay;
 use App\Services\Owner\TemporaryClosingDayService;
 use DB;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
@@ -19,16 +21,11 @@ class TemporaryClosingDayController extends Controller
         private readonly TemporaryClosingDayService $temporaryClosingDayService,
     ) {}
 
-    public function index(): JsonResponse
+    public function index(): AnonymousResourceCollection
     {
         $days = $this->temporaryClosingDayService->getAll();
 
-        return response()->json([
-            'temporary_closing_days' => $days->map(fn (TemporaryClosingDay $day) => [
-                'id' => $day->id,
-                'date' => $day->date->toDateString(),
-            ]),
-        ]);
+        return TemporaryClosingDayResource::collection($days);
     }
 
     /**
@@ -38,7 +35,7 @@ class TemporaryClosingDayController extends Controller
     {
         DB::beginTransaction();
         try {
-            $this->temporaryClosingDayService->create($request->validated());
+            $temporaryClosingDay = $this->temporaryClosingDayService->create($request->validated());
             DB::commit();
         } catch (\Exception $e) {
             \Log::error($e->getMessage(), $e->getTrace());
@@ -46,7 +43,9 @@ class TemporaryClosingDayController extends Controller
             throw $e;
         }
 
-        return response()->json(['message' => '臨時休業日を登録しました。'], Response::HTTP_CREATED);
+        return new TemporaryClosingDayResource($temporaryClosingDay)
+            ->response()
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**
