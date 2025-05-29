@@ -26,10 +26,10 @@ const isDrawerOpen = ref(!mobile.value);
     >
       <v-list-item title="オーナー"/>
       <v-divider/>
-      <v-list-item title="予約" to="/owner/studio/business-day"/>
-      <v-list-item title="部屋" to="/owner/studio/business-day"/>
-      <v-list-item title="ユーザー" to="/owner/studio/business-day"/>
-      <v-list-item title="営業時間・定休日" to="/owner/studio/business-day"/>
+      <v-list-item title="予約" to="/owner/business-day"/>
+      <v-list-item title="部屋" to="/owner/business-day"/>
+      <v-list-item title="ユーザー" to="/owner/business-day"/>
+      <v-list-item title="営業時間・定休日" to="/owner/business-day"/>
       <v-list-item title="臨時休業日" to="/owner/temporary-closing-days"/>
     </v-navigation-drawer>
 

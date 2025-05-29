@@ -28,7 +28,7 @@ const allowedDates = (calendarDate: any) => {
   }
   // 月は0始まりなので、1加える
   calDate.setMonth(calDate.getMonth() + 1);
-  return !data.value!.some(day => `${calDate.getFullYear()}-${padDateAndMonth(calDate.getMonth())}-${padDateAndMonth(calDate.getDate())}` == day.date);
+  return !data.value?.some(day => `${calDate.getFullYear()}-${padDateAndMonth(calDate.getMonth())}-${padDateAndMonth(calDate.getDate())}` == day.date);
 };
 
 const handleAddClick = async () => {
