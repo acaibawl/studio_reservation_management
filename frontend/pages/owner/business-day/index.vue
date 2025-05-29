@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import { weekDays } from '~/utils/weekDay';
-import { formatTimeToHi } from '~/utils/formatTimeToHi';
+import { formatTimeToHHmm } from '~/utils/formatTimeToHHmm';
 import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 import type { BusinessDay } from '~/types/owner/BusinessDay';
 
@@ -31,13 +31,13 @@ if (error.value) {
     <h5 class="text-h5 mt-5">営業時間</h5>
     <div class="mt-5">
       <span class="ml-5">
-        {{ formatTimeToHi(data?.business_time.open_time) }}
+        {{ formatTimeToHHmm(data?.business_time?.open_time) }}
       </span>
       <span>
         〜
       </span>
       <span>
-        {{ formatTimeToHi(data?.business_time.close_time) }}
+        {{ formatTimeToHHmm(data?.business_time?.close_time) }}
       </span>
     </div>
     <v-btn

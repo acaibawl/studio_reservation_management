@@ -14,15 +14,16 @@ import NotifyBottomSheet from '~/components/NotifyBottomSheet.vue';
 </template>
 
 <style>
+/* Vuetifyと同じBreakpointsを設定 */
 html {
   font-size: 90%;
   @media only screen and (min-width: 600px) {
     font-size: 93%;
   }
-  @media only screen and (min-width: 1000px) {
+  @media only screen and (min-width: 960px) {
     font-size: 97%;
   }
-  @media only screen and (min-width: 1200px) {
+  @media only screen and (min-width: 1280px) {
     font-size: 100%;
   }
 }

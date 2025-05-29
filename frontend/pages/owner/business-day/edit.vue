@@ -1,12 +1,11 @@
 <script setup lang="ts">
-
 import { weekDays } from '~/utils/weekDay';
 import * as yup from 'yup';
 import { ErrorMessage, type InputBindsConfig, type LazyInputBindsConfig, useForm } from 'vee-validate';
 import { FetchError } from 'ofetch';
 import { useLoadingOverlayStore } from '~/store/loadingOverlay';
 import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
-import { formatTimeToHi } from '~/utils/formatTimeToHi';
+import { formatTimeToHHmm } from '~/utils/formatTimeToHHmm';
 import type { BusinessDay } from '~/types/owner/BusinessDay';
 
 const loadingOverlayStore = useLoadingOverlayStore();
@@ -28,11 +27,11 @@ const schema = yup.object({
 const { defineField, handleSubmit, setErrors } = useForm({
   validationSchema: schema,
   initialValues: {
-    regular_holidays: data.value?.regular_holidays.map(holiday => holiday.code),
+    regular_holidays: data.value?.regular_holidays?.map(holiday => holiday.code) ?? [],
     business_time: {
       // もしDBに12:30:30 のように秒まで入っていても、分までしか使わない
-      open_time: formatTimeToHi(data.value?.business_time.open_time),
-      close_time: formatTimeToHi(data.value?.business_time.close_time),
+      open_time: formatTimeToHHmm(data.value?.business_time?.open_time),
+      close_time: formatTimeToHHmm(data.value?.business_time?.close_time),
     },
   },
 });
