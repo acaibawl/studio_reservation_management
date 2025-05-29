@@ -18,7 +18,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   const ownerApi = $fetch.create({
     baseURL: config.public.apiBaseUrl,
-    onRequest({ request, options, error }) {
+    onRequest({ options }) {
       const token = useCookie('owner_token');
       if (token.value) {
         options.headers.set('Authorization', `Bearer ${token.value}`);
@@ -35,7 +35,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   return {
     provide: {
       api,
-      ownerApi
+      ownerApi,
     },
   };
 });

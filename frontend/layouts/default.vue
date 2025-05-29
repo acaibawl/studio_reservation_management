@@ -24,13 +24,13 @@ const isDrawerOpen = ref(!mobile.value);
       :location="$vuetify.display.mobile ? 'bottom' : undefined"
       :permanent="!mobile"
     >
-      <v-list-item title="オーナー"></v-list-item>
-      <v-divider></v-divider>
-      <v-list-item title="予約" to="/owner/studio/business-day"></v-list-item>
-      <v-list-item title="部屋" to="/owner/studio/business-day"></v-list-item>
-      <v-list-item title="ユーザー" to="/owner/studio/business-day"></v-list-item>
-      <v-list-item title="営業時間・定休日" to="/owner/studio/business-day"></v-list-item>
-      <v-list-item title="臨時休業日" to="/owner/temporary-closing-days"></v-list-item>
+      <v-list-item title="オーナー"/>
+      <v-divider/>
+      <v-list-item title="予約" to="/owner/studio/business-day"/>
+      <v-list-item title="部屋" to="/owner/studio/business-day"/>
+      <v-list-item title="ユーザー" to="/owner/studio/business-day"/>
+      <v-list-item title="営業時間・定休日" to="/owner/studio/business-day"/>
+      <v-list-item title="臨時休業日" to="/owner/temporary-closing-days"/>
     </v-navigation-drawer>
 
     <v-main>

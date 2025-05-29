@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {getWeekDay} from "~/utils/weekDay";
-import {FetchError} from "ofetch";
-import {padDateAndMonth} from "~/utils/padDateAndMonth";
+import { getWeekDay } from '~/utils/weekDay';
+import { FetchError } from 'ofetch';
+import { padDateAndMonth } from '~/utils/padDateAndMonth';
 
 interface TemporaryClosingDay {
   date: string;
@@ -14,19 +14,21 @@ const isNotifyMessageVisible = ref(false);
 const notifyMessage = ref('');
 const { $ownerApi } = useNuxtApp();
 
-const { data, error } = await useAsyncData<TemporaryClosingDay[]>('/owner/temporary-closing-days', () => $ownerApi('/owner/temporary-closing-days'))
+const { data, error } = await useAsyncData<TemporaryClosingDay[]>('/owner/temporary-closing-days', () => $ownerApi('/owner/temporary-closing-days'));
 if (error.value) {
   console.error(error.value);
 }
 const allowedDates = (calendarDate: any) => {
   const calDate: Date = new Date(calendarDate);
-  if (calDate < new Date()) {
+  const todayNormalized = new Date();
+  todayNormalized.setHours(0, 0, 0, 0);
+  if (calDate < todayNormalized) {
     return false;
   }
   // 月は0始まりなので、1加える
   calDate.setMonth(calDate.getMonth() + 1);
-  return !data.value!.some(day => `${calDate.getFullYear()}-${padDateAndMonth(calDate.getMonth())}-${padDateAndMonth(calDate.getDate())}` == day.date)
-}
+  return !data.value!.some(day => `${calDate.getFullYear()}-${padDateAndMonth(calDate.getMonth())}-${padDateAndMonth(calDate.getDate())}` == day.date);
+};
 
 const handleAddClick = async () => {
   try {
@@ -40,11 +42,11 @@ const handleAddClick = async () => {
     });
     data.value!.push(newTemporaryClosingDay);
     data.value?.sort((a, b) => a.date.localeCompare(b.date));
-    notifyMessage.value = `${newTemporaryClosingDay.date} を追加しました。`
+    notifyMessage.value = `${newTemporaryClosingDay.date} を追加しました。`;
     isNotifyMessageVisible.value = true;
-  }catch (e: unknown) {
+  } catch (e: unknown) {
     if (e instanceof FetchError) {
-      notifyMessage.value = e.message
+      notifyMessage.value = e.message;
       isNotifyMessageVisible.value = true;
     } else {
       console.error(e);
@@ -52,7 +54,7 @@ const handleAddClick = async () => {
   } finally {
     isLoading.value = false;
   }
-}
+};
 
 const handleDeleteClick = async (date: string) => {
   if (!confirm(`${date} を削除しますか？`)) {
@@ -62,7 +64,7 @@ const handleDeleteClick = async (date: string) => {
     isLoading.value = true;
     await $ownerApi(`/owner/temporary-closing-days/${date}`, {
       method: 'DELETE',
-    })
+    });
     data.value = data.value!.filter(day => day.date !== date);
     notifyMessage.value = `${date} を臨時休業日から削除しました。`;
     isNotifyMessageVisible.value = true;
@@ -71,7 +73,7 @@ const handleDeleteClick = async (date: string) => {
   } finally {
     isLoading.value = false;
   }
-}
+};
 </script>
 
 <template>
@@ -79,21 +81,21 @@ const handleDeleteClick = async (date: string) => {
     <h3 class="text-h3">臨時休業日</h3>
     <v-locale-provider locale="ja">
       <v-date-picker
+        v-model="selectedNewDate"
         show-adjacent-months
         elevation="24"
         bg-color="blue-lighten-5"
         :allowed-dates="allowedDates"
         hide-header
-        v-model="selectedNewDate"
         class="mt-5"
-      ></v-date-picker>
+      />
     </v-locale-provider>
 
     <v-btn
       class="mt-5"
-      @click="handleAddClick"
       base-color="blue-lighten-5"
       :disabled="!allowedDates(selectedNewDate)"
+      @click="handleAddClick"
     >
       休業日を追加
     </v-btn>
@@ -123,7 +125,7 @@ const handleDeleteClick = async (date: string) => {
       >
         <td>{{ temporaryClosingDay.date }}</td>
         <td>{{ getWeekDay(temporaryClosingDay.date) }}</td>
-        <td><v-icon icon="mdi-delete" @click="handleDeleteClick(temporaryClosingDay.date)" color="red-darken-4"></v-icon></td>
+        <td><v-icon icon="mdi-delete" color="red-darken-4" @click="handleDeleteClick(temporaryClosingDay.date)"/></td>
       </tr>
       </tbody>
     </v-table>
@@ -132,7 +134,7 @@ const handleDeleteClick = async (date: string) => {
     >
       <v-card
         :text="notifyMessage"
-      ></v-card>
+      />
     </v-bottom-sheet>
     <v-overlay
       :model-value="isLoading"
@@ -143,7 +145,7 @@ const handleDeleteClick = async (date: string) => {
         color="primary"
         size="64"
         indeterminate
-      ></v-progress-circular>
+      />
     </v-overlay>
   </div>
 </template>
