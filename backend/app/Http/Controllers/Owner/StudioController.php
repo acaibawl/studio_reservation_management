@@ -8,10 +8,12 @@ use App\Exceptions\UserDisplayableException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Owner\Studio\StorePost;
 use App\Http\Requests\Owner\Studio\UpdatePut;
+use App\Http\Resources\Owner\StudioResource;
 use App\Models\Studio;
 use App\Services\Owner\StudioService;
 use DB;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
@@ -21,17 +23,11 @@ class StudioController extends Controller
         private readonly StudioService $studioService,
     ) {}
 
-    public function index(): JsonResponse
+    public function index(): AnonymousResourceCollection
     {
         $studios = $this->studioService->getAll();
 
-        return response()->json([
-            'studios' => $studios->map(fn (Studio $studio) => [
-                'id' => $studio->id,
-                'name' => $studio->name,
-                'start_at' => $studio->start_at,
-            ]),
-        ]);
+        return StudioResource::collection($studios);
     }
 
     public function store(StorePost $request): JsonResponse
@@ -43,15 +39,9 @@ class StudioController extends Controller
         ], Response::HTTP_CREATED);
     }
 
-    public function show(Studio $studio): JsonResponse
+    public function show(Studio $studio): StudioResource
     {
-        return response()->json([
-            'studio' => [
-                'id' => $studio->id,
-                'name' => $studio->name,
-                'start_at' => $studio->start_at,
-            ],
-        ]);
+        return new StudioResource($studio);
     }
 
     /**
