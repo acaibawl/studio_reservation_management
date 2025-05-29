@@ -2,6 +2,7 @@
 import { getWeekDay } from '~/utils/weekDay';
 import { FetchError } from 'ofetch';
 import { padDateAndMonth } from '~/utils/padDateAndMonth';
+import {useLoadingOverlayStore} from "~/store/loadingOverlay";
 
 interface TemporaryClosingDay {
   date: string;
@@ -9,7 +10,7 @@ interface TemporaryClosingDay {
 }
 
 const selectedNewDate = ref(new Date());
-const isLoading = ref(false);
+const loadingOverlayStore = useLoadingOverlayStore();
 const isNotifyMessageVisible = ref(false);
 const notifyMessage = ref('');
 const { $ownerApi } = useNuxtApp();
@@ -32,7 +33,7 @@ const allowedDates = (calendarDate: any) => {
 
 const handleAddClick = async () => {
   try {
-    isLoading.value = true;
+    loadingOverlayStore.setActive();
     const date = selectedNewDate.value;
     const newTemporaryClosingDay = await $ownerApi<TemporaryClosingDay>('/owner/temporary-closing-days', {
       method: 'POST',
@@ -52,7 +53,7 @@ const handleAddClick = async () => {
       console.error(e);
     }
   } finally {
-    isLoading.value = false;
+    loadingOverlayStore.resetLoading();
   }
 };
 
@@ -61,7 +62,7 @@ const handleDeleteClick = async (date: string) => {
     return;
   }
   try {
-    isLoading.value = true;
+    loadingOverlayStore.setActive();
     await $ownerApi(`/owner/temporary-closing-days/${date}`, {
       method: 'DELETE',
     });
@@ -71,7 +72,7 @@ const handleDeleteClick = async (date: string) => {
   } catch (e: unknown) {
     console.error(e);
   } finally {
-    isLoading.value = false;
+    loadingOverlayStore.resetLoading();
   }
 };
 </script>
@@ -136,17 +137,6 @@ const handleDeleteClick = async (date: string) => {
         :text="notifyMessage"
       />
     </v-bottom-sheet>
-    <v-overlay
-      :model-value="isLoading"
-      class="align-center justify-center"
-      persistent
-    >
-      <v-progress-circular
-        color="primary"
-        size="64"
-        indeterminate
-      />
-    </v-overlay>
   </div>
 </template>
 
