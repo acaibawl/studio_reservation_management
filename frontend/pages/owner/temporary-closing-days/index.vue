@@ -2,6 +2,8 @@
 import { getWeekDay } from '~/utils/weekDay';
 import { FetchError } from 'ofetch';
 import { padDateAndMonth } from '~/utils/padDateAndMonth';
+import { useLoadingOverlayStore } from '~/store/loadingOverlay';
+import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 
 interface TemporaryClosingDay {
   date: string;
@@ -9,9 +11,8 @@ interface TemporaryClosingDay {
 }
 
 const selectedNewDate = ref(new Date());
-const isLoading = ref(false);
-const isNotifyMessageVisible = ref(false);
-const notifyMessage = ref('');
+const loadingOverlayStore = useLoadingOverlayStore();
+const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const { $ownerApi } = useNuxtApp();
 
 const { data, error } = await useAsyncData<TemporaryClosingDay[]>('/owner/temporary-closing-days', () => $ownerApi('/owner/temporary-closing-days'));
@@ -32,7 +33,7 @@ const allowedDates = (calendarDate: any) => {
 
 const handleAddClick = async () => {
   try {
-    isLoading.value = true;
+    loadingOverlayStore.setActive();
     const date = selectedNewDate.value;
     const newTemporaryClosingDay = await $ownerApi<TemporaryClosingDay>('/owner/temporary-closing-days', {
       method: 'POST',
@@ -42,17 +43,15 @@ const handleAddClick = async () => {
     });
     data.value!.push(newTemporaryClosingDay);
     data.value?.sort((a, b) => a.date.localeCompare(b.date));
-    notifyMessage.value = `${newTemporaryClosingDay.date} を追加しました。`;
-    isNotifyMessageVisible.value = true;
+    notifyBottomSheetStore.setMessage(`${newTemporaryClosingDay.date} を追加しました。`);
   } catch (e: unknown) {
     if (e instanceof FetchError) {
-      notifyMessage.value = e.message;
-      isNotifyMessageVisible.value = true;
+      notifyBottomSheetStore.setMessage(e.message);
     } else {
       console.error(e);
     }
   } finally {
-    isLoading.value = false;
+    loadingOverlayStore.resetLoading();
   }
 };
 
@@ -61,17 +60,16 @@ const handleDeleteClick = async (date: string) => {
     return;
   }
   try {
-    isLoading.value = true;
+    loadingOverlayStore.setActive();
     await $ownerApi(`/owner/temporary-closing-days/${date}`, {
       method: 'DELETE',
     });
     data.value = data.value!.filter(day => day.date !== date);
-    notifyMessage.value = `${date} を臨時休業日から削除しました。`;
-    isNotifyMessageVisible.value = true;
+    notifyBottomSheetStore.setMessage(`${date} を臨時休業日から削除しました。`);
   } catch (e: unknown) {
     console.error(e);
   } finally {
-    isLoading.value = false;
+    loadingOverlayStore.resetLoading();
   }
 };
 </script>
@@ -129,24 +127,6 @@ const handleDeleteClick = async (date: string) => {
       </tr>
       </tbody>
     </v-table>
-    <v-bottom-sheet
-      v-model="isNotifyMessageVisible"
-    >
-      <v-card
-        :text="notifyMessage"
-      />
-    </v-bottom-sheet>
-    <v-overlay
-      :model-value="isLoading"
-      class="align-center justify-center"
-      persistent
-    >
-      <v-progress-circular
-        color="primary"
-        size="64"
-        indeterminate
-      />
-    </v-overlay>
   </div>
 </template>
 
