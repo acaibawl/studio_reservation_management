@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {useNotifyBottomSheetStore} from "~/store/notifyBottomSheet";
+import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 
-const notifyBottomSheet = useNotifyBottomSheetStore()
+const notifyBottomSheet = useNotifyBottomSheetStore();
 </script>
 
 <template>

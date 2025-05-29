@@ -2,8 +2,8 @@
 import { getWeekDay } from '~/utils/weekDay';
 import { FetchError } from 'ofetch';
 import { padDateAndMonth } from '~/utils/padDateAndMonth';
-import {useLoadingOverlayStore} from "~/store/loadingOverlay";
-import {useNotifyBottomSheetStore} from "~/store/notifyBottomSheet";
+import { useLoadingOverlayStore } from '~/store/loadingOverlay';
+import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 
 interface TemporaryClosingDay {
   date: string;
@@ -43,7 +43,7 @@ const handleAddClick = async () => {
     });
     data.value!.push(newTemporaryClosingDay);
     data.value?.sort((a, b) => a.date.localeCompare(b.date));
-    notifyBottomSheetStore.setMessage(`${newTemporaryClosingDay.date} を追加しました。`)
+    notifyBottomSheetStore.setMessage(`${newTemporaryClosingDay.date} を追加しました。`);
   } catch (e: unknown) {
     if (e instanceof FetchError) {
       notifyBottomSheetStore.setMessage(e.message);

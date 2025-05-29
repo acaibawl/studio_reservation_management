@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {useLoadingOverlayStore} from "~/store/loadingOverlay";
+import { useLoadingOverlayStore } from '~/store/loadingOverlay';
 
 const loadingOverlayStore = useLoadingOverlayStore();
 </script>

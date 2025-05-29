@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import LoadingOverlay from "~/components/LoadingOverlay.vue";
-import NotifyBottomSheet from "~/components/NotifyBottomSheet.vue";
+import LoadingOverlay from '~/components/LoadingOverlay.vue';
+import NotifyBottomSheet from '~/components/NotifyBottomSheet.vue';
 </script>
 
 <template>
