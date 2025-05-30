@@ -3,7 +3,7 @@ import { useForm } from 'vee-validate';
 import * as yup from 'yup';
 import { useAuthOwnerStore } from '~/store/authOwner';
 import { FetchError } from 'ofetch';
-import { yupFieldVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
+import { yupFieldLazyVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
 
 const isPasswordVisible = ref(false);
 const loginLoading = ref(false);
@@ -17,8 +17,8 @@ const { defineField, handleSubmit, setErrors } = useForm({
   validationSchema: schema,
 });
 
-const [email, emailProps] = defineField('email', yupFieldVuetifyConfig);
-const [password, passwordProps] = defineField('password', yupFieldVuetifyConfig);
+const [email, emailProps] = defineField('email', yupFieldLazyVuetifyConfig);
+const [password, passwordProps] = defineField('password', yupFieldLazyVuetifyConfig);
 const errorMessage = ref('');
 
 const onSubmit = handleSubmit(async (values) => {

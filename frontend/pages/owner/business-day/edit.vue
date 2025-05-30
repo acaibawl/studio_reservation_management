@@ -7,7 +7,7 @@ import { useLoadingOverlayStore } from '~/store/loadingOverlay';
 import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 import { formatTimeToHHmm } from '~/utils/formatTimeToHHmm';
 import type { BusinessDay } from '~/types/owner/BusinessDay';
-import { yupFieldVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
+import { yupFieldLazyVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
 
 const loadingOverlayStore = useLoadingOverlayStore();
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
@@ -37,8 +37,8 @@ const { defineField, handleSubmit, setErrors } = useForm({
   },
 });
 const [regularHolidays, regularHolidaysProps] = defineField('regular_holidays', { validateOnModelUpdate: true });
-const [openTime, openTimeProps] = defineField('business_time.open_time', yupFieldVuetifyConfig);
-const [closeTime, closeTimeProps] = defineField('business_time.close_time', yupFieldVuetifyConfig);
+const [openTime, openTimeProps] = defineField('business_time.open_time', yupFieldLazyVuetifyConfig);
+const [closeTime, closeTimeProps] = defineField('business_time.close_time', yupFieldLazyVuetifyConfig);
 
 const onSubmit = handleSubmit(async (values) => {
   try {

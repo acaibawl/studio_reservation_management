@@ -4,7 +4,7 @@ import { useLoadingOverlayStore } from '~/store/loadingOverlay';
 import type { Studio } from '~/types/owner/Studio';
 import * as yup from 'yup';
 import { ErrorMessage, useForm } from 'vee-validate';
-import { yupFieldVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
+import { yupFieldLazyVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
 import { handleFetchError } from '~/utils/handleFetchError';
 
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
@@ -32,8 +32,8 @@ const { defineField, handleSubmit, setErrors } = useForm({
   },
 });
 // idはフィールドを用意せず、テキストとして表示する。
-const [name, nameProps] = defineField('name', yupFieldVuetifyConfig);
-const [startAt, startAtProps] = defineField('start_at', yupFieldVuetifyConfig);
+const [name, nameProps] = defineField('name', yupFieldLazyVuetifyConfig);
+const [startAt, startAtProps] = defineField('start_at', yupFieldLazyVuetifyConfig);
 
 const onSubmit = handleSubmit(async (values) => {
   try {
