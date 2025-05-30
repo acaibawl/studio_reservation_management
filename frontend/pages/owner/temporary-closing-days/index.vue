@@ -18,6 +18,7 @@ const { $ownerApi } = useNuxtApp();
 const { data, error } = await useAsyncData<TemporaryClosingDay[]>('/owner/temporary-closing-days', () => $ownerApi('/owner/temporary-closing-days'));
 if (error.value) {
   console.error(error.value);
+  notifyBottomSheetStore.setMessage(error.value.message);
 }
 const allowedDates = (calendarDate: any) => {
   const calDate: Date = new Date(calendarDate);

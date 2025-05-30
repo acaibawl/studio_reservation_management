@@ -8,7 +8,7 @@ const isDrawerOpen = ref(!mobile.value);
 const isUrlLeftHandMatch = (url: string) => {
   const currentUrl = useRoute().path;
   return currentUrl.startsWith(url);
-}
+};
 </script>
 
 <template>
