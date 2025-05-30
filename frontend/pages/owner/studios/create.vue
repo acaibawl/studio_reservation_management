@@ -4,7 +4,6 @@ import { useLoadingOverlayStore } from '~/store/loadingOverlay';
 import * as yup from 'yup';
 import { useForm } from 'vee-validate';
 import { yupFieldVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
-import { FetchError } from 'ofetch';
 
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const loadingOverlayStore = useLoadingOverlayStore();
@@ -34,16 +33,7 @@ const onSubmit = handleSubmit(async (values) => {
     navigateTo('/owner/studios');
     notifyBottomSheetStore.setMessage('スタジオを登録しました。');
   } catch (e: unknown) {
-    if (e instanceof FetchError) {
-      if (e.status === 400 || e.status === 401 || e.status === 404) {
-        notifyBottomSheetStore.setMessage(e.data.message);
-      } else if (e.status === 422) {
-        setErrors(e.data.errors);
-      } else {
-        notifyBottomSheetStore.setMessage(e.message);
-        console.error(e);
-      }
-    }
+    handleFetchError(e, setErrors);
   } finally {
     loadingOverlayStore.resetLoading();
   }

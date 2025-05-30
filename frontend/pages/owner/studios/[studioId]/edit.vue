@@ -4,16 +4,15 @@ import { useLoadingOverlayStore } from '~/store/loadingOverlay';
 import type { Studio } from '~/types/owner/Studio';
 import * as yup from 'yup';
 import { ErrorMessage, useForm } from 'vee-validate';
-import { FetchError } from 'ofetch';
 import { yupFieldVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
+import { handleFetchError } from '~/utils/handleFetchError';
 
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const loadingOverlayStore = useLoadingOverlayStore();
 const { $ownerApi } = useNuxtApp();
 const route = useRoute();
-const studioId = route.params.studioId as string;
 
-const { data: studio, error } = await useAsyncData<Studio>(`/owner/studios/${studioId}`, () => $ownerApi(`/owner/studios/${studioId}`));
+const { data: studio, error } = await useAsyncData<Studio>(`/owner/studios/${route.params.studioId}`, () => $ownerApi(`/owner/studios/${route.params.studioId}`));
 if (error.value) {
   console.error(error.value);
   notifyBottomSheetStore.setMessage(error.value.message);
@@ -39,7 +38,6 @@ const [startAt, startAtProps] = defineField('start_at', yupFieldVuetifyConfig);
 const onSubmit = handleSubmit(async (values) => {
   try {
     loadingOverlayStore.setActive();
-    const { $ownerApi } = useNuxtApp();
     await $ownerApi<any>(`/owner/studios/${studio.value?.id}`, {
       method: 'PUT',
       body: values,
@@ -47,16 +45,7 @@ const onSubmit = handleSubmit(async (values) => {
     navigateTo('/owner/studios');
     notifyBottomSheetStore.setMessage('スタジオを更新しました。');
   } catch (e: unknown) {
-    if (e instanceof FetchError) {
-      if (e.status === 400 || e.status === 401 || e.status === 404) {
-        notifyBottomSheetStore.setMessage(e.data.message);
-      } else if (e.status === 422) {
-        setErrors(e.data.errors);
-      } else {
-        notifyBottomSheetStore.setMessage(e.message);
-        console.error(e);
-      }
-    }
+    handleFetchError(e, setErrors);
   } finally {
     loadingOverlayStore.resetLoading();
   }
