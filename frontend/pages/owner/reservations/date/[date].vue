@@ -1,20 +1,33 @@
 <script setup lang="ts">
 import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 import { useLoadingOverlayStore } from '~/store/loadingOverlay';
-import { type ReservationQuotaStatus, reservationQuotaStatusLabel } from '~/types/reservation/ReservationQuotaStatus';
 import { isValidDateString } from '~/utils/isValidDateString';
+import {
+  ReservationQuotaStatusEnum,
+  reservationQuotaStatusEnumLabel
+} from "~/types/reservation/ReservationQuotaStatusEnum";
 
 interface Reservations {
   date: string;
-  studios: {
-    id: number;
-    name: string;
-    start_at: number;
-    reservation_quotas: {
-      hour: number;
-      status: ReservationQuotaStatus;
-    }[];
-  }[];
+  studios: Studio[]
+}
+
+interface ReservationQuotaNotReserved {
+  hour: number;
+  status: ReservationQuotaStatusEnum.NOT_AVAILABLE | ReservationQuotaStatusEnum.AVAILABLE;
+}
+
+interface ReservationQuotaReserved {
+  hour: number;
+  status: ReservationQuotaStatusEnum.RESERVED;
+  reservation_id: number;
+}
+
+interface Studio {
+  id: number;
+  name: string;
+  start_at: number;
+  reservation_quotas: (ReservationQuotaNotReserved | ReservationQuotaReserved)[];
 }
 
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
@@ -35,7 +48,8 @@ if (error.value) {
   console.error(error.value);
   notifyBottomSheetStore.setMessage(error.value.message);
 }
-const hours = Array.from(Array(24).keys());
+// スタジオをidの昇順に並び替え
+reservations.value?.studios.sort((a: Studio, b: Studio) => a.id - b.id);
 </script>
 
 <template>
@@ -58,13 +72,13 @@ const hours = Array.from(Array(24).keys());
           :key="studio.id"
           class="text-left with-divider"
         >
-          {{ studio.name }}
+          {{ studio.name }} （{{ studio.start_at }} 分開始）
         </th>
       </tr>
       </thead>
       <tbody>
       <tr
-        v-for="hour in hours"
+        v-for="hour in Array.from(Array(24).keys())"
         :key="hour"
       >
         <td>
@@ -75,7 +89,15 @@ const hours = Array.from(Array(24).keys());
           :key="`${studio.id}-${hour}`"
           class="with-divider"
         >
-          {{ reservationQuotaStatusLabel(studio.reservation_quotas[hour].status) }}
+          <template v-if="studio.reservation_quotas[hour].status === ReservationQuotaStatusEnum.NOT_AVAILABLE">
+            {{ reservationQuotaStatusEnumLabel(studio.reservation_quotas[hour].status) }}
+          </template>
+          <template v-else-if="studio.reservation_quotas[hour].status === ReservationQuotaStatusEnum.AVAILABLE">
+            {{ reservationQuotaStatusEnumLabel(studio.reservation_quotas[hour].status) }}
+          </template>
+          <template v-else-if="studio.reservation_quotas[hour].status === ReservationQuotaStatusEnum.RESERVED">
+            <NuxtLink :to="`/owner/reservations/${studio.reservation_quotas[hour].reservation_id}`">{{ reservationQuotaStatusEnumLabel(studio.reservation_quotas[hour].status) }}</NuxtLink>
+          </template>
         </td>
       </tr>
       </tbody>
