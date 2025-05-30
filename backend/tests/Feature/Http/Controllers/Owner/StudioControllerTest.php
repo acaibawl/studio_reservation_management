@@ -208,10 +208,10 @@ class StudioControllerTest extends TestCase
 
         $response = $this->getJson("/owner/studios/{$studio->id}");
         $response->assertOk();
-        $response->assertJson(fn (AssertableJson $json) => $json->has('studio')
-            ->where('studio.id', $studio->id)
-            ->where('studio.name', $studio->name)
-            ->where('studio.start_at', $studio->start_at)
+        $response->assertJson(fn (AssertableJson $json) => $json
+            ->where('id', $studio->id)
+            ->where('name', $studio->name)
+            ->where('start_at', $studio->start_at)
         );
     }
 
