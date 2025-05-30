@@ -35,15 +35,16 @@ class ReservationQuotaFactory
         Collection $temporaryClosingDays,
         ?int $ignoreReservationId = null
     ): ReservationQuotaInterface {
-        if ($this->hasNotAvailableIssues($date, $hour, $studio, $regularHolidays, $temporaryClosingDays, $businessTime)) {
-            return new NotAvailableQuota($hour);
-        }
-
         // 既に他の予約が入っているか
         $dateTime = Carbon::create($date->year, $date->month, $date->day, $hour, $studio->start_at->value);
         $alreadyReservation = $this->findAlreadyReservation($dateTime, $studio, $ignoreReservationId);
         if ($alreadyReservation) {
             return new ReservedQuota($hour, $alreadyReservation->id);
+        }
+
+        // 予約不可の枠か
+        if ($this->hasNotAvailableIssues($date, $hour, $studio, $regularHolidays, $temporaryClosingDays, $businessTime)) {
+            return new NotAvailableQuota($hour);
         }
 
         return new AvailableQuota($hour);
