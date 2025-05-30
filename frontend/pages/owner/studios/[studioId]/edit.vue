@@ -3,8 +3,9 @@ import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 import { useLoadingOverlayStore } from '~/store/loadingOverlay';
 import type { Studio } from '~/types/owner/Studio';
 import * as yup from 'yup';
-import { ErrorMessage, type InputBindsConfig, type LazyInputBindsConfig, useForm } from 'vee-validate';
+import { ErrorMessage, useForm } from 'vee-validate';
 import { FetchError } from 'ofetch';
+import { yupFieldVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
 
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const loadingOverlayStore = useLoadingOverlayStore();
@@ -31,14 +32,9 @@ const { defineField, handleSubmit, setErrors } = useForm({
     start_at: studio.value?.start_at,
   },
 });
-const vuetifyConfig: InputBindsConfig | LazyInputBindsConfig = state => ({
-  props: {
-    'error-messages': state.errors,
-  },
-});
 // idはフィールドを用意せず、テキストとして表示する。
-const [name, nameProps] = defineField('name', vuetifyConfig);
-const [startAt, startAtProps] = defineField('start_at', vuetifyConfig);
+const [name, nameProps] = defineField('name', yupFieldVuetifyConfig);
+const [startAt, startAtProps] = defineField('start_at', yupFieldVuetifyConfig);
 
 const onSubmit = handleSubmit(async (values) => {
   try {
