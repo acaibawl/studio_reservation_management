@@ -10,9 +10,9 @@ const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const loadingOverlayStore = useLoadingOverlayStore();
 const { $ownerApi } = useNuxtApp();
 const route = useRoute();
-const id = route.params.id;
+const studioId = route.params.studioId as string;
 
-const { data: studio, error } = await useAsyncData<Studio>(`/owner/studios/${id}`, () => $ownerApi(`/owner/studios/${id}`));
+const { data: studio, error } = await useAsyncData<Studio>(`/owner/studios/${studioId}`, () => $ownerApi(`/owner/studios/${studioId}`));
 if (error.value) {
   console.error(error.value);
   notifyBottomSheetStore.setMessage(error.value.message);
