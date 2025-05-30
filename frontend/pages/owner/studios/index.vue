@@ -43,6 +43,7 @@ const handleDeleteClick = async (studio: Studio) => {
 <template>
   <div>
     <h3 class="text-h3">スタジオ一覧</h3>
+    <v-btn to="/owner/studios/create" class="mt-5" color="primary">スタジオ登録</v-btn>
     <v-table
       fixed-header
       hover
