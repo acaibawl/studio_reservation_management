@@ -2,10 +2,7 @@
 import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 import { useLoadingOverlayStore } from '~/store/loadingOverlay';
 import { isValidDateString } from '~/utils/isValidDateString';
-import {
-  ReservationQuotaStatusEnum,
-  reservationQuotaStatusEnumLabel
-} from "~/types/reservation/ReservationQuotaStatusEnum";
+import { ReservationQuotaStatusEnum } from "~/types/reservation/ReservationQuotaStatusEnum";
 
 interface Reservations {
   date: string;
@@ -90,13 +87,13 @@ reservations.value?.studios.sort((a: Studio, b: Studio) => a.id - b.id);
           class="with-divider"
         >
           <template v-if="studio.reservation_quotas[hour].status === ReservationQuotaStatusEnum.NOT_AVAILABLE">
-            {{ reservationQuotaStatusEnumLabel(studio.reservation_quotas[hour].status) }}
+            <v-icon icon="mdi-close" color="blue-grey-lighten-3"/>
           </template>
           <template v-else-if="studio.reservation_quotas[hour].status === ReservationQuotaStatusEnum.AVAILABLE">
-            {{ reservationQuotaStatusEnumLabel(studio.reservation_quotas[hour].status) }}
+            <v-icon icon="mdi-circle-outline" color="light-blue-darken-3"/>
           </template>
           <template v-else-if="studio.reservation_quotas[hour].status === ReservationQuotaStatusEnum.RESERVED">
-            <NuxtLink :to="`/owner/reservations/${studio.reservation_quotas[hour].reservation_id}`">{{ reservationQuotaStatusEnumLabel(studio.reservation_quotas[hour].status) }}</NuxtLink>
+            <NuxtLink :to="`/owner/reservations/${studio.reservation_quotas[hour].reservation_id}`"><v-icon icon="mdi-check" color="teal-darken-4"/></NuxtLink>
           </template>
         </td>
       </tr>
