@@ -28,13 +28,13 @@ class StudioControllerTest extends TestCase
         $response = $this->getJson('/owner/studios');
 
         $response->assertOk();
-        $response->assertJson(fn (AssertableJson $json) => $json->has('studios')
-            ->where('studios.0.id', $studios[0]->id)
-            ->where('studios.0.name', $studios[0]->name)
-            ->where('studios.1.id', $studios[1]->id)
-            ->where('studios.1.name', $studios[1]->name)
-            ->where('studios.2.id', $studios[2]->id)
-            ->where('studios.2.name', $studios[2]->name)
+        $response->assertJson(fn (AssertableJson $json) => $json
+            ->where('0.id', $studios[0]->id)
+            ->where('0.name', $studios[0]->name)
+            ->where('1.id', $studios[1]->id)
+            ->where('1.name', $studios[1]->name)
+            ->where('2.id', $studios[2]->id)
+            ->where('2.name', $studios[2]->name)
         );
     }
 
@@ -208,10 +208,10 @@ class StudioControllerTest extends TestCase
 
         $response = $this->getJson("/owner/studios/{$studio->id}");
         $response->assertOk();
-        $response->assertJson(fn (AssertableJson $json) => $json->has('studio')
-            ->where('studio.id', $studio->id)
-            ->where('studio.name', $studio->name)
-            ->where('studio.start_at', $studio->start_at)
+        $response->assertJson(fn (AssertableJson $json) => $json
+            ->where('id', $studio->id)
+            ->where('name', $studio->name)
+            ->where('start_at', $studio->start_at)
         );
     }
 

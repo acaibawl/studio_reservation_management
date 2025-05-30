@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { type InputBindsConfig, type LazyInputBindsConfig, useForm } from 'vee-validate';
+import { useForm } from 'vee-validate';
 import * as yup from 'yup';
 import { useAuthOwnerStore } from '~/store/authOwner';
 import { FetchError } from 'ofetch';
+import { yupFieldVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
 
 const isPasswordVisible = ref(false);
 const loginLoading = ref(false);
@@ -16,14 +17,8 @@ const { defineField, handleSubmit, setErrors } = useForm({
   validationSchema: schema,
 });
 
-const vuetifyConfig: InputBindsConfig | LazyInputBindsConfig = state => ({
-  props: {
-    'error-messages': state.errors,
-  },
-});
-
-const [email, emailProps] = defineField('email', vuetifyConfig);
-const [password, passwordProps] = defineField('password', vuetifyConfig);
+const [email, emailProps] = defineField('email', yupFieldVuetifyConfig);
+const [password, passwordProps] = defineField('password', yupFieldVuetifyConfig);
 const errorMessage = ref('');
 
 const onSubmit = handleSubmit(async (values) => {

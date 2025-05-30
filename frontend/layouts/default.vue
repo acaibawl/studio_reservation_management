@@ -4,6 +4,19 @@ import { useDisplay } from 'vuetify';
 // サイドメニューはモバイルの場合はしまっておく
 const { mobile } = useDisplay();
 const isDrawerOpen = ref(!mobile.value);
+
+const isCurrentUrlMatching = (url: string) => {
+  const currentUrl = useRoute().path;
+  return currentUrl.startsWith(url);
+};
+
+const menuItems = [
+  { title: '予約', path: '/owner' },
+  { title: 'スタジオ', path: '/owner/studios' },
+  { title: 'ユーザー', path: '/owner/business-day' },
+  { title: '営業時間・定休日', path: '/owner/business-day' },
+  { title: '臨時休業日', path: '/owner/temporary-closing-days' },
+];
 </script>
 
 <template>
@@ -26,11 +39,13 @@ const isDrawerOpen = ref(!mobile.value);
     >
       <v-list-item title="オーナー"/>
       <v-divider/>
-      <v-list-item title="予約" to="/owner/business-day"/>
-      <v-list-item title="部屋" to="/owner/business-day"/>
-      <v-list-item title="ユーザー" to="/owner/business-day"/>
-      <v-list-item title="営業時間・定休日" to="/owner/business-day"/>
-      <v-list-item title="臨時休業日" to="/owner/temporary-closing-days"/>
+      <v-list-item
+        v-for="item in menuItems"
+        :key="item.path"
+        :title="item.title"
+        :to="item.path"
+        :active="isCurrentUrlMatching(item.path)"
+      />
     </v-navigation-drawer>
 
     <v-main>

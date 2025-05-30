@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { weekDays } from '~/utils/weekDay';
 import * as yup from 'yup';
-import { ErrorMessage, type InputBindsConfig, type LazyInputBindsConfig, useForm } from 'vee-validate';
+import { ErrorMessage, useForm } from 'vee-validate';
 import { FetchError } from 'ofetch';
 import { useLoadingOverlayStore } from '~/store/loadingOverlay';
 import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 import { formatTimeToHHmm } from '~/utils/formatTimeToHHmm';
 import type { BusinessDay } from '~/types/owner/BusinessDay';
+import { yupFieldVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
 
 const loadingOverlayStore = useLoadingOverlayStore();
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
@@ -35,14 +36,9 @@ const { defineField, handleSubmit, setErrors } = useForm({
     },
   },
 });
-const vuetifyConfig: InputBindsConfig | LazyInputBindsConfig = state => ({
-  props: {
-    'error-messages': state.errors,
-  },
-});
 const [regularHolidays, regularHolidaysProps] = defineField('regular_holidays', { validateOnModelUpdate: true });
-const [openTime, openTimeProps] = defineField('business_time.open_time', vuetifyConfig);
-const [closeTime, closeTimeProps] = defineField('business_time.close_time', vuetifyConfig);
+const [openTime, openTimeProps] = defineField('business_time.open_time', yupFieldVuetifyConfig);
+const [closeTime, closeTimeProps] = defineField('business_time.close_time', yupFieldVuetifyConfig);
 
 const onSubmit = handleSubmit(async (values) => {
   try {
