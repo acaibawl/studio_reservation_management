@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {useNotifyBottomSheetStore} from "~/store/notifyBottomSheet";
-import {useLoadingOverlayStore} from "~/store/loadingOverlay";
-import * as yup from "yup";
-import {useForm} from "vee-validate";
+import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
+import { useLoadingOverlayStore } from '~/store/loadingOverlay';
+import * as yup from 'yup';
+import { useForm } from 'vee-validate';
 
 interface ReservationQuota {
   date: string;
@@ -24,7 +24,7 @@ const hourString = route.params.hour as string;
 loadingOverlayStore.setActive();
 const { data: quotaData, error } = await useAsyncData<ReservationQuota>(
   `/owner/studios/${studioId}/reservation-quota/${dateString}/${hourString}`,
-  () => $ownerApi(`/owner/studios/${studioId}/reservation-quota/${dateString}/${hourString}`,),
+  () => $ownerApi(`/owner/studios/${studioId}/reservation-quota/${dateString}/${hourString}`),
 );
 loadingOverlayStore.resetLoading();
 if (error.value) {
@@ -73,8 +73,8 @@ const onSubmit = handleSubmit(async (values) => {
   <v-form @submit="onSubmit">
     <h3 class="text-h3">予約登録</h3>
 
-    <p class="text-body-1 mt-5">{{ startAt.startAtDateToJaLocale }}</p>
-    <p class="text-body-1">{{ startAt.startAtTimeToJaLocale }}開始</p>
+    <p class="text-body-1 mt-5">{{ startAt.toLocaleDateString('ja-JP', {year: 'numeric', month: 'short', day: 'numeric', weekday: 'short'}) }}</p>
+    <p class="text-body-1">{{ startAt.getHours().toString().padStart(2, '0') }}時{{ startAt.getMinutes().toString().padStart(2, '0') }}分開始</p>
     <p class="text-body-1 mt-5">{{ quotaData?.studio_name }}</p>
     <!-- @vue-ignore -->
     <v-select
