@@ -39,7 +39,7 @@ const reservation = new Reservation(reservationData.value!);
     <p class="text-body-1 mt-5">メモ</p>
     <p class="text-body-1 ml-5">{{ reservation.memo }}</p>
     <v-row class="mt-5">
-      <v-btn @click="$router.go(-1)">戻る</v-btn>
+      <v-btn :to="`/owner/reservations/date/${reservation.startAtDateToYYYYMMDDKebab}`">戻る</v-btn>
       <v-btn :to="`/owner/studios/${studioId}/reservations/${reservationId}/edit`" class="ml-5" color="primary">修正</v-btn>
     </v-row>
   </div>

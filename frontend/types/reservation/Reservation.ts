@@ -79,6 +79,15 @@ export class Reservation {
     })
   }
 
+  get startAtDateToYYYYMMDDKebab(): string {
+    // sv-SEロケールはYYYY-MM-DD形式の日付文字列を戻す
+    return this._startAt.toLocaleDateString('sv-SE',  {
+      year:'numeric',
+      month:'2-digit',
+      day:'2-digit',
+    });
+  }
+
   /**
    * x時x分の形式で取得
    */
