@@ -70,13 +70,13 @@ const isChangeDateDialogOpen = ref(false);
       <h3 class="text-h3">予約状況確認</h3>
       <h5 class="text-h5">{{ date.getFullYear() }}年{{ date.getMonth() + 1 }}月{{ date.getDate() }}日({{ weekDays[date.getDay()] }})</h5>
       <v-btn
-        @click="isChangeDateDialogOpen = true"
         color="primary"
         text="日付変更"
         class="ml-5"
         size="x-small"
+        @click="isChangeDateDialogOpen = true"
       />
-      <v-dialog max-width="500" v-model="isChangeDateDialogOpen">
+      <v-dialog v-model="isChangeDateDialogOpen" max-width="500">
         <v-card title="日付変更">
           <v-text-field
             v-model="selectDate"
@@ -85,7 +85,13 @@ const isChangeDateDialogOpen = ref(false);
             type="date"
             prepend-inner-icon="mdi-calendar-edit"
           />
-          <v-btn color="primary" :to="`/owner/reservations/date/${selectDate}`" :disabled="selectDate === undefined">確定</v-btn>
+          <v-btn
+            color="primary"
+            :to="`/owner/reservations/date/${selectDate}`"
+            :disabled="!selectDate || selectDate === dateString"
+          >
+            確定
+          </v-btn>
         </v-card>
       </v-dialog>
     </v-row>
