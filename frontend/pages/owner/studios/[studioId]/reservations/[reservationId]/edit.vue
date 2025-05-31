@@ -73,7 +73,6 @@ const onSubmit = handleSubmit(async (values) => {
     <p class="text-body-1 ml-5">{{ reservation.memberId }}</p>
     <p class="text-body-1 mt-5">{{ reservation.memberName }}様</p>
     <p class="text-body-1 mt-5">メモ</p>
-    <p class="text-body-1 ml-5">{{ reservation.memo }}</p>
     <v-textarea
       v-model="memo"
       v-bind="memoProps"
