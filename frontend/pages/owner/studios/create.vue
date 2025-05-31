@@ -3,7 +3,7 @@ import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 import { useLoadingOverlayStore } from '~/store/loadingOverlay';
 import * as yup from 'yup';
 import { useForm } from 'vee-validate';
-import { yupFieldVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
+import { yupFieldLazyVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
 
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const loadingOverlayStore = useLoadingOverlayStore();
@@ -20,8 +20,8 @@ const { defineField, handleSubmit, setErrors } = useForm({
     start_at: 0,
   },
 });
-const [name, nameProps] = defineField('name', yupFieldVuetifyConfig);
-const [startAt, startAtProps] = defineField('start_at', yupFieldVuetifyConfig);
+const [name, nameProps] = defineField('name', yupFieldLazyVuetifyConfig);
+const [startAt, startAtProps] = defineField('start_at', yupFieldLazyVuetifyConfig);
 
 const onSubmit = handleSubmit(async (values) => {
   try {

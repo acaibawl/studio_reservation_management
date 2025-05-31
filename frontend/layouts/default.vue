@@ -11,11 +11,11 @@ const isCurrentUrlMatching = (url: string) => {
 };
 
 const menuItems = [
-  { title: '予約', path: '/owner' },
-  { title: 'スタジオ', path: '/owner/studios' },
-  { title: 'ユーザー', path: '/owner/business-day' },
-  { title: '営業時間・定休日', path: '/owner/business-day' },
-  { title: '臨時休業日', path: '/owner/temporary-closing-days' },
+  { title: '予約', path: `/owner/reservations/date/${new Date().toISOString().slice(0, 10)}`, activePath: '/owner/reservations' },
+  { title: 'スタジオ', path: '/owner/studios', activePath: '/owner/studios' },
+  { title: 'ユーザー', path: '/owner/business-day', activePath: '/owner/business-day' },
+  { title: '営業時間・定休日', path: '/owner/business-day', activePath: '/owner/business-day' },
+  { title: '臨時休業日', path: '/owner/temporary-closing-days', activePath: '/owner/temporary-closing-days' },
 ];
 </script>
 
@@ -44,7 +44,7 @@ const menuItems = [
         :key="item.path"
         :title="item.title"
         :to="item.path"
-        :active="isCurrentUrlMatching(item.path)"
+        :active="isCurrentUrlMatching(item.activePath)"
       />
     </v-navigation-drawer>
 
