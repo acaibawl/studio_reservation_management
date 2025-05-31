@@ -35,7 +35,7 @@ export const useNotifyBottomSheetStore = defineStore('notify_bottom_sheet', {
           this.setMessage(e.data.message);
           break;
         case 422:
-          if (setErrors === null) {
+          if (!setErrors) {
             console.error(e);
             this.setMessage(e.message);
             return;
