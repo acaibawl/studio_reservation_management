@@ -5,7 +5,6 @@ import type { Studio } from '~/types/owner/Studio';
 import * as yup from 'yup';
 import { ErrorMessage, useForm } from 'vee-validate';
 import { yupFieldLazyVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
-import { handleFetchError } from '~/utils/handleFetchError';
 
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const loadingOverlayStore = useLoadingOverlayStore();
@@ -45,7 +44,7 @@ const onSubmit = handleSubmit(async (values) => {
     navigateTo('/owner/studios');
     notifyBottomSheetStore.setMessage('スタジオを更新しました。');
   } catch (e: unknown) {
-    handleFetchError(e, setErrors);
+    notifyBottomSheetStore.handleFetchError(e, setErrors);
   } finally {
     loadingOverlayStore.resetLoading();
   }
@@ -75,6 +74,7 @@ const onSubmit = handleSubmit(async (values) => {
 
     <v-row class="mt-5">
       <v-col>
+        <!-- @vue-ignore -->
         <v-select
           v-model="startAt"
           v-bind="startAtProps"

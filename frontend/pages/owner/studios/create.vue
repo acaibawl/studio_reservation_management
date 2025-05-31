@@ -33,7 +33,7 @@ const onSubmit = handleSubmit(async (values) => {
     navigateTo('/owner/studios');
     notifyBottomSheetStore.setMessage('スタジオを登録しました。');
   } catch (e: unknown) {
-    handleFetchError(e, setErrors);
+    notifyBottomSheetStore.handleFetchError(e, setErrors);
   } finally {
     loadingOverlayStore.resetLoading();
   }
@@ -57,6 +57,7 @@ const onSubmit = handleSubmit(async (values) => {
 
     <v-row class="mt-5">
       <v-col>
+        <!-- @vue-ignore -->
         <v-select
           v-model="startAt"
           v-bind="startAtProps"
