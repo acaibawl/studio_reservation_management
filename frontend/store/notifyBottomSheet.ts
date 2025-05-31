@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
-import type {FlattenAndSetPathsType} from "vee-validate";
-import {FetchError} from "ofetch";
+import type { FlattenAndSetPathsType } from 'vee-validate';
+import { FetchError } from 'ofetch';
 
 interface State {
   isVisible: boolean;
@@ -46,6 +46,6 @@ export const useNotifyBottomSheetStore = defineStore('notify_bottom_sheet', {
           console.error(e);
           this.setMessage(e.message);
       }
-    }
+    },
   },
 });

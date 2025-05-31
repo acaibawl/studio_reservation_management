@@ -1,4 +1,3 @@
-
 export interface ReservationResponse {
   reservation: {
     id: number;
@@ -10,7 +9,7 @@ export interface ReservationResponse {
     member_id: number;
     member_name: string;
     memo: string;
-  }
+  };
 }
 
 export class Reservation {
@@ -34,6 +33,7 @@ export class Reservation {
     this._memberName = json.reservation.member_name;
     this._memo = json.reservation.memo;
   }
+
   get id(): number {
     return this._id;
   }
@@ -71,20 +71,20 @@ export class Reservation {
   }
 
   get startAtDateToJaLocale(): string {
-    return this._startAt.toLocaleDateString('ja-JP',  {
-      year:'numeric',
-      month:'short',
-      day:'numeric',
-      weekday:'short'
-    })
+    return this._startAt.toLocaleDateString('ja-JP', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      weekday: 'short',
+    });
   }
 
   get startAtDateToYYYYMMDDKebab(): string {
     // sv-SEロケールはYYYY-MM-DD形式の日付文字列を戻す
-    return this._startAt.toLocaleDateString('sv-SE',  {
-      year:'numeric',
-      month:'2-digit',
-      day:'2-digit',
+    return this._startAt.toLocaleDateString('sv-SE', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
     });
   }
 

@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import {useNotifyBottomSheetStore} from "~/store/notifyBottomSheet";
-import {useLoadingOverlayStore} from "~/store/loadingOverlay";
-import {date} from "yup";
-import {Reservation, type ReservationResponse} from "~/types/reservation/Reservation";
-
+import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
+import { useLoadingOverlayStore } from '~/store/loadingOverlay';
+import { Reservation, type ReservationResponse } from '~/types/reservation/Reservation';
 
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const loadingOverlayStore = useLoadingOverlayStore();
@@ -15,7 +13,7 @@ const reservationId = route.params.reservationId as string;
 loadingOverlayStore.setActive();
 const { data: reservationData, error } = await useAsyncData<ReservationResponse>(
   `/owner/studios/${studioId}/reservations/${reservationId}`,
-  () => $ownerApi(`/owner/studios/${studioId}/reservations/${reservationId}`)
+  () => $ownerApi(`/owner/studios/${studioId}/reservations/${reservationId}`),
 );
 loadingOverlayStore.resetLoading();
 if (error.value) {

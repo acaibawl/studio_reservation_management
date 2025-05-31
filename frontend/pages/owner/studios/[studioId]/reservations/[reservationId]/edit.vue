@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import {useNotifyBottomSheetStore} from "~/store/notifyBottomSheet";
-import {useLoadingOverlayStore} from "~/store/loadingOverlay";
-import type {Studio} from "~/types/owner/Studio";
-import {Reservation, type ReservationResponse} from "~/types/reservation/Reservation";
-import * as yup from "yup";
-import {useForm} from "vee-validate";
+import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
+import { useLoadingOverlayStore } from '~/store/loadingOverlay';
+import { Reservation, type ReservationResponse } from '~/types/reservation/Reservation';
+import * as yup from 'yup';
+import { useForm } from 'vee-validate';
 
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const loadingOverlayStore = useLoadingOverlayStore();
@@ -16,7 +15,7 @@ const reservationId = route.params.reservationId as string;
 loadingOverlayStore.setActive();
 const { data: reservationData, error } = await useAsyncData<ReservationResponse>(
   `/owner/studios/${studioId}/reservations/${reservationId}`,
-  () => $ownerApi(`/owner/studios/${studioId}/reservations/${reservationId}`)
+  () => $ownerApi(`/owner/studios/${studioId}/reservations/${reservationId}`),
 );
 loadingOverlayStore.resetLoading();
 if (error.value) {
@@ -63,6 +62,7 @@ const onSubmit = handleSubmit(async (values) => {
     <p class="text-body-1 mt-5">{{ reservation.startAtDateToJaLocale }}</p>
     <p class="text-body-1">{{ reservation.startAtTimeToJaLocale }}開始</p>
     <p class="text-body-1 mt-5">{{ reservation.studioName }}</p>
+    <!-- @vue-ignore -->
     <v-select
       v-model="usageHour"
       v-bind="usageHourProps"
