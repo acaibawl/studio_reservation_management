@@ -61,7 +61,7 @@ const { defineField } = useForm({
 });
 const [selectDate, selectDateProps] = defineField('selectDate', yupFieldImmediateVuetifyConfig);
 
-const isChangeDateDialogOpen = ref(false);
+const showDateDialog = ref(false);
 </script>
 
 <template>
@@ -71,12 +71,12 @@ const isChangeDateDialogOpen = ref(false);
       <h5 class="text-h5">{{ date.getFullYear() }}年{{ date.getMonth() + 1 }}月{{ date.getDate() }}日({{ weekDays[date.getDay()] }})</h5>
       <v-btn
         color="primary"
+        size="x-small"
         text="日付変更"
         class="ml-5"
-        size="x-small"
-        @click="isChangeDateDialogOpen = true"
+        @click="showDateDialog = true"
       />
-      <v-dialog v-model="isChangeDateDialogOpen" max-width="500">
+      <v-dialog v-model="showDateDialog" max-width="500">
         <v-card title="日付変更">
           <v-text-field
             v-model="selectDate"
