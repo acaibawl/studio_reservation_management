@@ -21,11 +21,33 @@ if (error.value) {
   notifyBottomSheetStore.setMessage(error.value.message);
 }
 const reservation = new Reservation(reservationData.value!);
+
+const handleDeleteClick = async () => {
+  if (!confirm('予約を取り消しますか？')) {
+    return;
+  }
+  try {
+    loadingOverlayStore.setActive();
+    await $ownerApi(`/owner/studios/${reservation.studioId}/reservations/${reservation.id}`, {
+      method: 'DELETE',
+    });
+    navigateTo(`/owner/reservations/date/${reservation.startAtDateToYYYYMMDDKebab}`);
+    notifyBottomSheetStore.setMessage(`${reservation.startAtDateToJaLocale} ${reservation.startAtTimeToJaLocale}の予約を取り消しました。`);
+  } catch (e: unknown) {
+    notifyBottomSheetStore.handleFetchError(e);
+  } finally {
+    loadingOverlayStore.resetLoading();
+  }
+};
 </script>
 
 <template>
   <div>
     <h3 class="text-h3">予約確認</h3>
+
+    <v-row class="mt-4 justify-end">
+      <p class="text-red text-caption cursor-pointer" @click="handleDeleteClick">予約を取り消す</p>
+    </v-row>
     <p class="text-body-1 mt-5">{{ reservation.startAtDateToJaLocale }}</p>
     <p class="text-body-1">{{ reservation.startAtTimeToJaLocale }}開始</p>
     <p class="text-body-1 mt-5">{{ reservation.studioName }}</p>

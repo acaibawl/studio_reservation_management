@@ -123,7 +123,7 @@ class ReservationController extends Controller
     {
         DB::beginTransaction();
         try {
-            $this->reservationCreateService->create(
+            $reservation = $this->reservationCreateService->create(
                 Member::findOrFail(self::OWNER_MEMBER_ID),
                 $studio,
                 $request->validated()
@@ -140,6 +140,7 @@ class ReservationController extends Controller
 
         return response()->json([
             'message' => '予約を登録しました。',
+            'reservation_id' => $reservation->id,
         ], Response::HTTP_CREATED);
     }
 }
