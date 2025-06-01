@@ -22,7 +22,7 @@ const dateString = route.params.date as string;
 const hourString = route.params.hour as string;
 
 loadingOverlayStore.setActive();
-const { data: quotaData, error } = await useAsyncData<ReservationQuota>(
+const { data: fetchedReservationQuota, error } = await useAsyncData<ReservationQuota>(
   `/owner/studios/${studioId}/reservation-quota/${dateString}/${hourString}`,
   () => $ownerApi(`/owner/studios/${studioId}/reservation-quota/${dateString}/${hourString}`),
 );
@@ -32,9 +32,9 @@ if (error.value) {
   notifyBottomSheetStore.setMessage(error.value.message);
 }
 
-const startAt = new Date(dateString);
-startAt.setHours(parseInt(hourString));
-startAt.setMinutes(quotaData.value!.studio_start_at);
+const startDate = new Date(dateString);
+startDate.setHours(parseInt(hourString));
+startDate.setMinutes(fetchedReservationQuota.value!.studio_start_at);
 
 const schema = yup.object({
   start_at: yup.string().required().label('利用開始時間'),
@@ -44,7 +44,7 @@ const schema = yup.object({
 const { defineField, handleSubmit, setErrors } = useForm({
   validationSchema: schema,
   initialValues: {
-    start_at: startAt.toLocaleString('sv-SE'),
+    start_at: startDate.toLocaleString('sv-SE'),
     usage_hour: 1,
     memo: '',
   },
@@ -55,7 +55,7 @@ const [memo, memoProps] = defineField('memo', yupFieldLazyVuetifyConfig);
 const onSubmit = handleSubmit(async (values) => {
   try {
     loadingOverlayStore.setActive();
-    const { reservation_id } = await $ownerApi<{ reservation_id: number }>(`/owner/studios/${quotaData.value?.studio_id}/reservations`, {
+    const { reservation_id } = await $ownerApi<{ reservation_id: number }>(`/owner/studios/${fetchedReservationQuota.value?.studio_id}/reservations`, {
       method: 'POST',
       body: values,
     });
@@ -73,15 +73,24 @@ const onSubmit = handleSubmit(async (values) => {
   <v-form @submit="onSubmit">
     <h3 class="text-h3">予約登録</h3>
 
-    <p class="text-body-1 mt-5">{{ startAt.toLocaleDateString('ja-JP', {year: 'numeric', month: 'short', day: 'numeric', weekday: 'short'}) }}</p>
-    <p class="text-body-1">{{ startAt.getHours().toString().padStart(2, '0') }}時{{ startAt.getMinutes().toString().padStart(2, '0') }}分開始</p>
-    <p class="text-body-1 mt-5">{{ quotaData?.studio_name }}</p>
+    <p class="text-body-1 mt-5">{{
+        startDate.toLocaleDateString('ja-JP', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          weekday: 'short'
+        })
+      }}</p>
+    <p class="text-body-1">{{
+        startDate.getHours().toString().padStart(2, '0')
+      }}時{{ startDate.getMinutes().toString().padStart(2, '0') }}分開始</p>
+    <p class="text-body-1 mt-5">{{ fetchedReservationQuota?.studio_name }}</p>
     <!-- @vue-ignore -->
     <v-select
       v-model="usageHour"
       v-bind="usageHourProps"
       label="利用時間"
-      :items="[...Array(quotaData?.max_available_hour).keys()].map(i => i + 1)"
+      :items="[...Array(fetchedReservationQuota?.max_available_hour).keys()].map(i => i + 1)"
     />
     <p class="text-body-1 mt-5">会員ID</p>
     <p class="text-body-1 ml-5">9999999（オーナー予約用）</p>
