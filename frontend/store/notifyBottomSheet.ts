@@ -22,7 +22,7 @@ export const useNotifyBottomSheetStore = defineStore('notify_bottom_sheet', {
       this.message = message;
       this.isVisible = true;
     },
-    handleFetchError(e: unknown, setErrors: (fields: Partial<FlattenAndSetPathsType<any, any>>) => void) {
+    handleFetchError(e: unknown, setErrors?: (fields: Partial<FlattenAndSetPathsType<any, any>>) => void) {
       if (!(e instanceof FetchError)) {
         console.error(e);
         return;
