@@ -20,7 +20,7 @@ const loadingOverlayStore = useLoadingOverlayStore();
 const { $ownerApi } = useNuxtApp();
 const route = useRoute();
 const router = useRouter();
-const currentPage = computed(() => route.query.page ? Number(route.query.page) : 1);
+const currentPage = computed(() => Number(route.query.page ?? 1));
 
 const { data, error, refresh } = await useAsyncData<Members>(`/owner/members`, () => $ownerApi('/owner/members', {
   query: {

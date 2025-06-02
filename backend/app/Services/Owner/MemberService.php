@@ -26,6 +26,9 @@ class MemberService
 
         $members = $query->get();
 
-        return [$members, $pageSize];
+        return [
+            'members' => $members,
+            'pageSize' => $pageSize,
+        ];
     }
 }

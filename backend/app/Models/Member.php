@@ -60,14 +60,15 @@ class Member extends Authenticatable implements JWTSubject
             ->isNotEmpty();
     }
 
+    /**
+     * @return Collection<int, Reservation>
+     */
     public function upcomingReservations(): Collection
     {
         return $this->reservations()
             ->with('studio')
             ->where('finish_at', '>=', now())
-            ->orderBy('start_at')
-            ->orderBy('finish_at')
-            ->orderByRaw('studio_id')
+            ->orderByRaw('start_at ASC, finish_at ASC, studio_id ASC')
             ->get();
     }
 

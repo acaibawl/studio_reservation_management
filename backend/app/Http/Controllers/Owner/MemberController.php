@@ -10,7 +10,6 @@ use App\Http\Resources\Onwer\Member\MemberCollection;
 use App\Models\Member;
 use App\Models\Reservation;
 use App\Services\Owner\MemberService;
-use Arr;
 use Illuminate\Http\JsonResponse;
 
 class MemberController extends Controller
@@ -22,12 +21,15 @@ class MemberController extends Controller
     public function index(IndexGet $request): JsonResponse
     {
         $attributes = $request->validated();
-        [$members, $pageSize] = $this->memberService->fetchPaginatedMembers($attributes);
+        [
+            'members' => $members,
+            'pageSize' => $pageSize
+        ] = $this->memberService->fetchPaginatedMembers($attributes);
 
         return response()->json([
             'members' => new MemberCollection($members),
             'page_size' => $pageSize,
-            'current_page' => (int) Arr::get($attributes, 'page', 1),
+            'current_page' => (int) ($attributes['page'] ?? 1),
         ]);
     }
 

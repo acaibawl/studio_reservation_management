@@ -9,10 +9,10 @@ const props = defineProps<{
 const range = (start: number, stop: number, step: number = 1) =>
   Array(Math.ceil((stop - start) / step)).fill(start).map((x, y) => x + y * step);
 const totalVisible = computed(() => props.totalVisible - 2 < 0 ? 3 : props.totalVisible - 2);
-const total = ref(Math.floor(totalVisible.value / 2));
-const start = ref(props.currentPage - total.value);
-const end = ref(props.currentPage + total.value);
-let pages = reactive(range(start.value, end.value));
+const total = ref(0);
+const start = ref(0);
+const end = ref(0);
+let pages = reactive([] as number[]);
 
 watch(
   props,
@@ -32,7 +32,7 @@ watch(
         start.value = 1;
       }
     }
-    pages = [] as number[];
+
     // もし先頭ページと末尾ページが同じ1なら配列は[1]だけにする
     if (start.value === 1 && end.value === 1) {
       pages = [1];
