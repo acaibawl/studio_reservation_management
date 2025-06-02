@@ -13,7 +13,7 @@ const isCurrentUrlMatching = (url: string) => {
 const menuItems = [
   { title: '予約', path: `/owner/reservations/date/${new Date().toISOString().slice(0, 10)}`, activePath: '/owner/reservations' },
   { title: 'スタジオ', path: '/owner/studios', activePath: '/owner/studios' },
-  { title: 'ユーザー', path: '/owner/business-day', activePath: '/owner/business-day' },
+  { title: '会員', path: '/owner/members', activePath: '/owner/members' },
   { title: '営業時間・定休日', path: '/owner/business-day', activePath: '/owner/business-day' },
   { title: '臨時休業日', path: '/owner/temporary-closing-days', activePath: '/owner/temporary-closing-days' },
 ];
@@ -48,11 +48,13 @@ const menuItems = [
       />
     </v-navigation-drawer>
 
-    <v-main>
-      <v-container class="d-flex align-center justify-center fill-height">
-        <slot />
-      </v-container>
-    </v-main>
+    <v-responsive>
+      <v-main>
+        <v-container class="d-flex align-center justify-center fill-height">
+          <slot />
+        </v-container>
+      </v-main>
+    </v-responsive>
 
     <v-bottom-navigation>
       Button Navigation
