@@ -6,13 +6,17 @@ const props = defineProps<{
   to: (page: number) => { path: string; query: Record<string, string> };
 }>();
 
-const range = (start: number, stop: number, step: number = 1) =>
-  Array(Math.ceil((stop - start) / step)).fill(start).map((x, y) => x + y * step);
 const totalVisible = computed(() => props.totalVisible - 2 < 0 ? 3 : props.totalVisible - 2);
 const total = ref(0);
 const start = ref(0);
 const end = ref(0);
 let pages = reactive([] as number[]);
+
+const isSinglePageRange = (start: number, end: number): boolean => {
+  return start === 1 && end === 1;
+};
+const range = (start: number, stop: number, step: number = 1) =>
+  Array(Math.ceil((stop - start) / step)).fill(start).map((x, y) => x + y * step);
 
 watch(
   props,
@@ -34,7 +38,7 @@ watch(
     }
 
     // もし先頭ページと末尾ページが同じ1なら配列は[1]だけにする
-    if (start.value === 1 && end.value === 1) {
+    if (isSinglePageRange(start.value, end.value)) {
       pages = [1];
     } else {
       pages = range(start.value, end.value);
