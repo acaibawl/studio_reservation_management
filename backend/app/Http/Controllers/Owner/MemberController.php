@@ -11,7 +11,6 @@ use App\Models\Member;
 use App\Models\Reservation;
 use App\Services\Owner\MemberService;
 use Arr;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 
 class MemberController extends Controller

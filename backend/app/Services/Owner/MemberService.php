@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Services\Owner;
 
 use App\Models\Member;
-use App\Models\Reservation;
-use Illuminate\Database\Eloquent\Collection;
 
 class MemberService
 {
