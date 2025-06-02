@@ -30,18 +30,4 @@ class MemberService
 
         return [$members, $pageSize];
     }
-
-    /**
-     * @return Collection<int, Reservation>
-     */
-    public function getFutureReservations(Member $member): Collection
-    {
-        return $member->reservations()
-            ->with('studio')
-            ->where('finish_at', '>=', now())
-            ->orderBy('start_at')
-            ->orderBy('finish_at')
-            ->orderByRaw('studio_id')
-            ->get();
-    }
 }

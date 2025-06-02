@@ -34,8 +34,6 @@ class MemberController extends Controller
 
     public function show(Member $member): JsonResponse
     {
-        $reservations = $this->memberService->getFutureReservations($member);
-
         return response()->json([
             'member' => [
                 'id' => $member->id,
@@ -43,7 +41,7 @@ class MemberController extends Controller
                 'email' => $member->email,
                 'address' => $member->address,
                 'tel' => $member->tel,
-                'reservations' => $reservations->map(fn (Reservation $reservation) => [
+                'reservations' => $member->upcomingReservations()->map(fn (Reservation $reservation) => [
                     'id' => $reservation->id,
                     'member_id' => $reservation->member_id,
                     'studio_id' => $reservation->studio_id,
