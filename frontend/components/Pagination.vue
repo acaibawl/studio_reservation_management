@@ -1,49 +1,64 @@
 <script setup lang="ts">
-import { VPagination } from 'vuetify/components/VPagination'
 const props = defineProps<{
-  currentPage: number,
-  length: number,
-  totalVisible: number,
-  to: Function
-}>()
+  currentPage: number;
+  length: number;
+  totalVisible: number;
+  to: (page: number) => { path: string; query: Record<string, string> };
+}>();
+
 const range = (start: number, stop: number, step: number = 1) =>
-  Array(Math.ceil((stop - start) / step)).fill(start).map((x, y) => x + y * step)
-let totalVisible = props.totalVisible - 2;
-if (totalVisible < 0) {
-  totalVisible = 3
-}
-let total = Math.floor(totalVisible/2)
-let start = props.currentPage - total
-if (start <= 0) {
-  total = 0
-  start = 1
-}
-total = totalVisible - total
-let end = props.currentPage + total
-if (end > props.length) {
-  end = props.length
-  start -= total
-  if (start <= 0) {
-    start = 1
-  }
-}
-let pages = range(start, end)
-if (pages[0] != 1) {
-  pages.unshift(1)
-  if (pages[1] != 2) {
-    pages.splice(1, 0, 0);
-  }
-}
-if (pages[pages.length - 1] != props.length) {
-  pages.push(props.length)
-  if (pages[pages.length - 2] != props.length-1) {
-    pages.splice(pages.length-1, 0, 0);
-  }
-}
+  Array(Math.ceil((stop - start) / step)).fill(start).map((x, y) => x + y * step);
+const totalVisible = computed(() => props.totalVisible - 2 < 0 ? 3 : props.totalVisible - 2);
+const total = ref(Math.floor(totalVisible.value / 2));
+const start = ref(props.currentPage - total.value);
+const end = ref(props.currentPage + total.value);
+let pages = reactive(range(start.value, end.value));
+
+watch(
+  props,
+  () => {
+    total.value = Math.floor(totalVisible.value / 2);
+    start.value = props.currentPage - total.value;
+    if (start.value <= 0) {
+      total.value = 0;
+      start.value = 1;
+    }
+    total.value = totalVisible.value - total.value;
+    end.value = props.currentPage + total.value;
+    if (end.value > props.length) {
+      end.value = props.length;
+      start.value -= total.value;
+      if (start.value <= 0) {
+        start.value = 1;
+      }
+    }
+    pages = [] as number[];
+    // もし先頭ページと末尾ページが同じ1なら配列は[1]だけにする
+    if (start.value === 1 && end.value === 1) {
+      pages = [1];
+    } else {
+      pages = range(start.value, end.value);
+      // ページの先頭が1じゃない場合は1を先頭に追加し、さらに2番目が2じゃなければ0（...にレンダリングする）を追加
+      if (pages[0] != 1) {
+        pages.unshift(1);
+        if (pages[1] != 2) {
+          pages.splice(1, 0, 0);
+        }
+      }
+      // 末尾ページが全ページ数と一致しない場合は全ページ数を末尾に追加し、さらに末尾から2番目が全ページ数-1でないなら0（...にレンダリングする）を追加
+      if (pages[pages.length - 1] != props.length) {
+        pages.push(props.length);
+        if (pages[pages.length - 2] != props.length - 1) {
+          pages.splice(pages.length - 1, 0, 0);
+        }
+      }
+    }
+  },
+  { immediate: true },
+);
 </script>
+
 <template>
-  <!-- need this to trigger dynamic import due to treeshaking, or import VPagination.sass -->
-  <v-pagination v-show="false" />
   <nav class="v-pagination" role="navigation" aria-label="Pagination Navigation">
     <ul class="v-pagination__list">
       <li class="v-pagination__prev">
@@ -87,6 +102,3 @@ if (pages[pages.length - 1] != props.length) {
     </ul>
   </nav>
 </template>
-<style>
-/* @import 'vuetify/lib/components/VPagination/VPagination.sass'; */
-</style>
