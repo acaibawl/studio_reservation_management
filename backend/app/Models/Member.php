@@ -52,14 +52,14 @@ class Member extends Authenticatable implements JWTSubject
     ];
 
     /** 終了時間が未来の予約をもつ場合はtrue */
-    public function hasReservation(): bool
+    public function hasUpcomingReservation(): bool
     {
         return $this->reservations
             ->where('finish_at', '>=', now())
             ->isNotEmpty();
     }
 
-    public function reservations(): HasMany|Reservation
+    public function reservations(): HasMany
     {
         return $this->hasMany(Reservation::class);
     }
