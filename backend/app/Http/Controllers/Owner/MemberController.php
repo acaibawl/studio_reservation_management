@@ -18,17 +18,23 @@ class MemberController extends Controller
         private readonly MemberService $memberService,
     ) {}
 
-    public function index(IndexGet $request): MemberCollection
+    public function index(IndexGet $request): JsonResponse
     {
-        $members = $this->memberService->fetchPaginatedMembers($request->validated())->load('reservations');
+        $attributes = $request->validated();
+        [
+            'members' => $members,
+            'pageSize' => $pageSize
+        ] = $this->memberService->fetchPaginatedMembers($attributes);
 
-        return new MemberCollection($members);
+        return response()->json([
+            'members' => new MemberCollection($members),
+            'page_size' => $pageSize,
+            'current_page' => (int) ($attributes['page'] ?? 1),
+        ]);
     }
 
     public function show(Member $member): JsonResponse
     {
-        $reservations = $this->memberService->getFutureReservations($member);
-
         return response()->json([
             'member' => [
                 'id' => $member->id,
@@ -36,7 +42,7 @@ class MemberController extends Controller
                 'email' => $member->email,
                 'address' => $member->address,
                 'tel' => $member->tel,
-                'reservations' => $reservations->map(fn (Reservation $reservation) => [
+                'reservations' => $member->upcomingReservations()->map(fn (Reservation $reservation) => [
                     'id' => $reservation->id,
                     'member_id' => $reservation->member_id,
                     'studio_id' => $reservation->studio_id,

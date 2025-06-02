@@ -5,40 +5,30 @@ declare(strict_types=1);
 namespace App\Services\Owner;
 
 use App\Models\Member;
-use App\Models\Reservation;
-use Illuminate\Database\Eloquent\Collection;
 
 class MemberService
 {
-    private const int PAGE_SIZE = 20;
+    private const int PER_PAGE_COUNT = 20;
 
-    /**
-     * @return Collection<int, Member>
-     */
-    public function fetchPaginatedMembers(array $attributes): Collection
+    public function fetchPaginatedMembers(array $attributes): array
     {
-        $query = Member::orderBy('id')->take(self::PAGE_SIZE);
-        if (isset($attributes['page'])) {
-            $query->offset(($attributes['page'] - 1) * self::PAGE_SIZE);
-        }
+        $query = Member::with('reservations')->orderBy('id');
         if (isset($attributes['name'])) {
             $query->where('name', 'like', "%{$attributes['name']}%");
         }
+        // ページサイズはページ番号指定クエリの適用前の総数に対して計算する必要がある
+        $pageSize = ceil($query->count() / self::PER_PAGE_COUNT);
 
-        return $query->get();
-    }
+        if (isset($attributes['page'])) {
+            $query->offset(($attributes['page'] - 1) * self::PER_PAGE_COUNT);
+        }
+        $query = $query->take(self::PER_PAGE_COUNT);
 
-    /**
-     * @return Collection<int, Reservation>
-     */
-    public function getFutureReservations(Member $member): Collection
-    {
-        return $member->reservations()
-            ->with('studio')
-            ->where('finish_at', '>=', now())
-            ->orderBy('start_at')
-            ->orderBy('finish_at')
-            ->orderByRaw('studio_id')
-            ->get();
+        $members = $query->get();
+
+        return [
+            'members' => $members,
+            'pageSize' => $pageSize,
+        ];
     }
 }

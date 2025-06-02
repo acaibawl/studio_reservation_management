@@ -50,6 +50,8 @@ class MemberControllerTest extends TestCase
                 'email' => $member->email,
                 'has_reservation' => false,
             ])->toArray(),
+            'page_size' => 5,
+            'current_page' => 1,
         ];
         $expect['members'][0]['has_reservation'] = true;
         $expect['members'][1]['has_reservation'] = true;
@@ -76,6 +78,8 @@ class MemberControllerTest extends TestCase
                 'email' => $member->email,
                 'has_reservation' => false,
             ])->values()->toArray(),
+            'page_size' => 5,
+            'current_page' => 3,
         ];
         $response->assertExactJson($expect);
     }
@@ -110,6 +114,8 @@ class MemberControllerTest extends TestCase
                     'has_reservation' => false,
                 ],
             ],
+            'page_size' => 1,
+            'current_page' => 1,
         ]);
     }
 
@@ -128,7 +134,11 @@ class MemberControllerTest extends TestCase
         $response = $this->getJson('/owner/members?name=あああ');
 
         $response->assertOk();
-        $response->assertExactJson(['members' => []]);
+        $response->assertExactJson([
+            'members' => [],
+            'page_size' => 0,
+            'current_page' => 1,
+        ]);
     }
 
     /**

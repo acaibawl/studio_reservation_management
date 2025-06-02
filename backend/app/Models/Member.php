@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -18,7 +19,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property string $password パスワード
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Reservation> $reservations
+ * @property-read Collection<int, \App\Models\Reservation> $reservations
  * @property-read int|null $reservations_count
  * @method static \Database\Factories\MemberFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Member newModelQuery()
@@ -52,14 +53,26 @@ class Member extends Authenticatable implements JWTSubject
     ];
 
     /** 終了時間が未来の予約をもつ場合はtrue */
-    public function hasReservation(): bool
+    public function hasUpcomingReservation(): bool
     {
         return $this->reservations
             ->where('finish_at', '>=', now())
             ->isNotEmpty();
     }
 
-    public function reservations(): HasMany|Reservation
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function upcomingReservations(): Collection
+    {
+        return $this->reservations()
+            ->with('studio')
+            ->where('finish_at', '>=', now())
+            ->orderByRaw('start_at ASC, finish_at ASC, studio_id ASC')
+            ->get();
+    }
+
+    public function reservations(): HasMany
     {
         return $this->hasMany(Reservation::class);
     }
