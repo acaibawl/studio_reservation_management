@@ -36,7 +36,9 @@ const onSubmit = handleSubmit(async (values) => {
     loginAsOwner(response.owner_access_token);
     const route = useRoute();
     const redirectedFrom = route.query.redirectedFrom;
-    const to = (redirectedFrom || '/owner/top') as string;
+    const date = new Date();
+    // リダイレクト先がない場合は当日の予約状況一覧に遷移
+    const to = (redirectedFrom || `/owner/reservations/date/${date.toLocaleDateString('sv-SE')}`) as string;
     navigateTo(to);
   } catch (e: unknown) {
     if (e instanceof FetchError) {
@@ -55,34 +57,38 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <v-form @submit="onSubmit">
-    <v-row>
-      <v-col cols="12">
-        <v-text-field
-          v-model="email"
-          v-bind="emailProps"
-          label="メールアドレス"
-          type="email"
-          prepend-inner-icon="mdi-email-outline"
-        />
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12">
-        <v-text-field
-          v-model="password"
-          v-bind="passwordProps"
-          label="パスワード"
-          :append-inner-icon="isPasswordVisible ? 'mdi-eye-off' : 'mdi-eye'"
-          :type="isPasswordVisible ? 'text' : 'password'"
-          prepend-inner-icon="mdi-lock-outline"
-          @click:append-inner="isPasswordVisible = !isPasswordVisible"
-        />
-      </v-col>
-    </v-row>
-    <v-btn color="primary" type="submit" :loading="loginLoading">ログイン</v-btn>
-    <v-messages :messages="errorMessage" color="red" :active="!!errorMessage" class="mt-5 text-body-1 font-weight-bold"/>
-  </v-form>
+  <v-card class="mx-auto px-6 py-8 mt-10 d-flex align-center justify-center fill-height" max-width="344">
+    <v-form @submit="onSubmit">
+      <h3 class="text-h3">スタジオ予約管理システム</h3>
+      <h4 class="text-h4"><span class="text-red">オーナー</span>ログイン</h4>
+      <v-row class="mt-5">
+        <v-col cols="12">
+          <v-text-field
+            v-model="email"
+            v-bind="emailProps"
+            label="メールアドレス"
+            type="email"
+            prepend-inner-icon="mdi-email-outline"
+          />
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12">
+          <v-text-field
+            v-model="password"
+            v-bind="passwordProps"
+            label="パスワード"
+            :append-inner-icon="isPasswordVisible ? 'mdi-eye-off' : 'mdi-eye'"
+            :type="isPasswordVisible ? 'text' : 'password'"
+            prepend-inner-icon="mdi-lock-outline"
+            @click:append-inner="isPasswordVisible = !isPasswordVisible"
+          />
+        </v-col>
+      </v-row>
+      <v-btn color="primary" type="submit" :loading="loginLoading">ログイン</v-btn>
+      <v-messages :messages="errorMessage" color="red" :active="!!errorMessage" class="mt-5 text-body-1 font-weight-bold"/>
+    </v-form>
+  </v-card>
 </template>
 
 <style scoped>

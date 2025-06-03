@@ -6,6 +6,10 @@ import * as yup from 'yup';
 import { ErrorMessage, useForm } from 'vee-validate';
 import { yupFieldLazyVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
 
+definePageMeta({
+  layout: 'owner',
+});
+
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const loadingOverlayStore = useLoadingOverlayStore();
 const { $ownerApi } = useNuxtApp();

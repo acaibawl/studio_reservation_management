@@ -4,6 +4,10 @@ import type { Studio } from '~/types/owner/Studio';
 import { useLoadingOverlayStore } from '~/store/loadingOverlay';
 import { FetchError } from 'ofetch';
 
+definePageMeta({
+  layout: 'owner',
+});
+
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const loadingOverlayStore = useLoadingOverlayStore();
 const { $ownerApi } = useNuxtApp();

@@ -5,6 +5,10 @@ import { padDateAndMonth } from '~/utils/padDateAndMonth';
 import { useLoadingOverlayStore } from '~/store/loadingOverlay';
 import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 
+definePageMeta({
+  layout: 'owner',
+});
+
 interface TemporaryClosingDay {
   date: string;
   id: number;

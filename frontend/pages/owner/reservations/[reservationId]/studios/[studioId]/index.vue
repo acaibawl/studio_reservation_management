@@ -3,6 +3,10 @@ import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 import { useLoadingOverlayStore } from '~/store/loadingOverlay';
 import { Reservation, type ReservationResponse } from '~/types/reservation/Reservation';
 
+definePageMeta({
+  layout: 'owner',
+});
+
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const loadingOverlayStore = useLoadingOverlayStore();
 const { $ownerApi } = useNuxtApp();

@@ -4,6 +4,10 @@ import { useLoadingOverlayStore } from '~/store/loadingOverlay';
 import * as yup from 'yup';
 import { useForm } from 'vee-validate';
 
+definePageMeta({
+  layout: 'owner',
+});
+
 interface Members {
   members: {
     id: number;

@@ -3,6 +3,10 @@ import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 import { useLoadingOverlayStore } from '~/store/loadingOverlay';
 import { Reservation } from '~/types/reservation/Reservation';
 
+definePageMeta({
+  layout: 'owner',
+});
+
 interface Member {
   member: {
     id: number;

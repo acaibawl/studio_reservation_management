@@ -1,9 +1,12 @@
 <script setup lang="ts">
-
 import { weekDays } from '~/utils/weekDay';
 import { formatTimeToHHmm } from '~/utils/formatTimeToHHmm';
 import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 import type { BusinessDay } from '~/types/owner/BusinessDay';
+
+definePageMeta({
+  layout: 'owner',
+});
 
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const { $ownerApi } = useNuxtApp();

@@ -9,6 +9,10 @@ import { formatTimeToHHmm } from '~/utils/formatTimeToHHmm';
 import type { BusinessDay } from '~/types/owner/BusinessDay';
 import { yupFieldLazyVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
 
+definePageMeta({
+  layout: 'owner',
+});
+
 const loadingOverlayStore = useLoadingOverlayStore();
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const { $ownerApi } = useNuxtApp();
