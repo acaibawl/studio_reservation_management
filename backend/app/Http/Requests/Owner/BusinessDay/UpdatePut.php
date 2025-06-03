@@ -25,7 +25,7 @@ class UpdatePut extends FormRequest
     public function rules(): array
     {
         return [
-            'regular_holidays' => ['required', 'array'],
+            'regular_holidays' => ['nullable', 'array'],
             'regular_holidays.*' => ['nullable', Rule::enum(WeekDay::class)],
             'business_time' => ['required', 'array'],
             'business_time.open_time' => ['required', 'date_format:H:i'],

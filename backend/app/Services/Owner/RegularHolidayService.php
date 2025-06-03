@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Owner;
 
 use App\Models\RegularHoliday;
+use Arr;
 use Illuminate\Database\Eloquent\Collection;
 
 class RegularHolidayService
@@ -22,7 +23,8 @@ class RegularHolidayService
      */
     public function update(array $attribute): int
     {
-        $regularHolidayCodes = $attribute['regular_holidays'];
+        // regular_holidaysが存在しない場合を考慮
+        $regularHolidayCodes = Arr::get($attribute, 'regular_holidays', []) ;
         RegularHoliday::whereNotIn('code', $regularHolidayCodes)->delete();
 
         return RegularHoliday::upsert(
