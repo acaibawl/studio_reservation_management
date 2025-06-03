@@ -29,8 +29,10 @@ export const useNotifyBottomSheetStore = defineStore('notify_bottom_sheet', {
       }
 
       switch (e.status) {
-        case 400:
         case 401:
+          this.setMessage('認証に失敗しました。');
+          break;
+        case 400:
         case 404:
           this.setMessage(e.data.message);
           break;
