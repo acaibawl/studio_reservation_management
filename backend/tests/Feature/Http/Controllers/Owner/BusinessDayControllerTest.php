@@ -93,6 +93,59 @@ class BusinessDayControllerTest extends TestCase
         ]);
     }
 
+    /**
+     * update成功のテスト
+     * 定休日が空配列
+     */
+    #[Test]
+    public function test_update_success_with_regular_holidays_is_empty(): void
+    {
+        RegularHoliday::factory()->createMany([
+            ['code' => WeekDay::Saturday],
+            ['code' => WeekDay::Sunday],
+        ]);
+        BusinessTime::factory()->create();
+        $this->loginAsOwner();
+        $requestBody = [
+            ...self::VALID_PUT_ATTRIBUTE,
+            'regular_holidays' => [],
+        ];
+
+        $response = $this->putJson('/owner/business-day', $requestBody);
+
+        $response->assertOk();
+        $this->assertDatabaseCount('regular_holidays', 0);
+        $this->assertDatabaseHas('business_times', [
+            'open_time' => '09:00',
+            'close_time' => '18:00',
+        ]);
+    }
+
+    /**
+     * update成功のテスト
+     * 定休日がない
+     */
+    #[Test]
+    public function test_update_success_without_regular_holidays_key(): void
+    {
+        RegularHoliday::factory()->createMany([
+            ['code' => WeekDay::Saturday],
+            ['code' => WeekDay::Sunday],
+        ]);
+        BusinessTime::factory()->create();
+        $this->loginAsOwner();
+        $requestBody = Arr::except(self::VALID_PUT_ATTRIBUTE, ['regular_holidays']);
+
+        $response = $this->putJson('/owner/business-day', $requestBody);
+
+        $response->assertOk();
+        $this->assertDatabaseCount('regular_holidays', 0);
+        $this->assertDatabaseHas('business_times', [
+            'open_time' => '09:00',
+            'close_time' => '18:00',
+        ]);
+    }
+
     #[Test]
     #[DataProvider('dataProviderUpdateInvalidParameter')]
     public function test_update_failed_by_validation_error(array $requestBody, array $expectedError): void
@@ -115,12 +168,6 @@ class BusinessDayControllerTest extends TestCase
     public static function dataProviderUpdateInvalidParameter(): array
     {
         return [
-            '定休日は必須' => [
-                'requestBody' => Arr::except(self::VALID_PUT_ATTRIBUTE, ['regular_holidays']),
-                'expectedError' => [
-                    'regular_holidays' => '定休日は必須項目です。',
-                ],
-            ],
             '定休日に無効な値' => [
                 'requestBody' => [
                     ...self::VALID_PUT_ATTRIBUTE,

@@ -8,7 +8,9 @@ import type { BusinessDay } from '~/types/owner/BusinessDay';
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const { $ownerApi } = useNuxtApp();
 
-const { data, error } = await useAsyncData<BusinessDay>('/owner/business-day', () => $ownerApi('/owner/business-day'));
+const { data, error } = await useAsyncData<BusinessDay>('/owner/business-day', () => $ownerApi('/owner/business-day'), {
+  getCachedData: () => undefined,
+});
 if (error.value) {
   notifyBottomSheetStore.setMessage(error.value.message);
   console.error(error.value);
