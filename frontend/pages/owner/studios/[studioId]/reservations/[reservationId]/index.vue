@@ -20,7 +20,17 @@ if (error.value) {
   console.error(error.value);
   notifyBottomSheetStore.setMessage(error.value.message);
 }
-const reservation = new Reservation(reservationData.value!);
+const reservation = new Reservation(
+  reservationData.value!.reservation.id,
+  reservationData.value!.reservation.studio_id,
+  reservationData.value!.reservation.studio_name,
+  reservationData.value!.reservation.start_at,
+  reservationData.value!.reservation.finish_at,
+  reservationData.value!.reservation.max_usage_hour,
+  reservationData.value!.reservation.member_id,
+  reservationData.value!.reservation.member_name,
+  reservationData.value!.reservation.memo,
+);
 
 const handleDeleteClick = async () => {
   if (!confirm('予約を取り消しますか？')) {

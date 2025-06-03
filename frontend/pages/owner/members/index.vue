@@ -125,15 +125,15 @@ const [name, nameProps] = defineField('name', yupFieldImmediateVuetifyConfig);
       </tr>
       </thead>
       <tbody>
-      <tr
-        v-for="member in data?.members"
-        :key="member.id"
-      >
-        <td>{{ member.id }}</td>
-        <td>{{ member.name }}</td>
-        <td>{{ member.email }}</td>
-        <td class="font-weight-bold text-primary">{{ member.has_reservation ? '有' : '' }}</td>
-      </tr>
+        <tr
+          v-for="member in data?.members"
+          :key="member.id"
+        >
+          <td><NuxtLink :to="`/owner/members/${member.id}`" class="text-primary">{{ member.id }}</NuxtLink></td>
+          <td>{{ member.name }}</td>
+          <td>{{ member.email }}</td>
+          <td class="font-weight-bold text-primary">{{ member.has_reservation ? '有' : '' }}</td>
+        </tr>
       </tbody>
     </v-table>
     <Pagination class="mt-3" :current-page="currentPage" :length="pageSize" :total-visible="6" :to="generatePaginationLink" />
@@ -141,5 +141,7 @@ const [name, nameProps] = defineField('name', yupFieldImmediateVuetifyConfig);
 </template>
 
 <style scoped>
-
+a {
+  text-decoration: none;
+}
 </style>
