@@ -47,6 +47,8 @@ const reservations = data.value?.member.reservations.map(reservation => new Rese
 ),
 );
 loadingOverlayStore.resetLoading();
+
+const hasReservations = reservations!.length > 0;
 </script>
 
 <template>
@@ -57,25 +59,28 @@ loadingOverlayStore.resetLoading();
     <p class="text-body-1 mt-5">住所：{{ data?.member.address }}</p>
     <p class="text-body-1 mt-5">電話：{{ data?.member.tel }}</p>
     <h5 class="text-h5 mt-5">予約</h5>
-    <v-card
-      v-for="reservation in reservations" :key="reservation.id"
-      class="mt-5"
-      hover
-      prepend-icon="mdi-guitar-electric"
-      append-icon="mdi-piano"
-      :to="`/owner/studios/${reservation.studioId}/reservations/${reservation.id}`"
-    >
-      <template #title>
-        {{ reservation.startAtDateToJaLocale }}
-      </template>
-      <template #text>
-        <p>{{ reservation.studioName }}</p>
-        <p>{{ reservation.startAtTimeToJaLocale }}開始</p>
-        <p class="mt-3">利用時間</p>
-        <p>{{ reservation.usageHour }}時間</p>
-        <p class="mt-3">メモ：{{ reservation.memo }}</p>
-      </template>
-    </v-card>
+    <div v-if="hasReservations">
+      <v-card
+        v-for="reservation in reservations" :key="reservation.id"
+        class="mt-5"
+        hover
+        prepend-icon="mdi-guitar-electric"
+        append-icon="mdi-piano"
+        :to="`/owner/studios/${reservation.studioId}/reservations/${reservation.id}`"
+      >
+        <template #title>
+          {{ reservation.startAtDateToJaLocale }}
+        </template>
+        <template #text>
+          <p>{{ reservation.studioName }}</p>
+          <p>{{ reservation.startAtTimeToJaLocale }}開始</p>
+          <p class="mt-3">利用時間</p>
+          <p>{{ reservation.usageHour }}時間</p>
+          <p class="mt-3">メモ：{{ reservation.memo }}</p>
+        </template>
+      </v-card>
+    </div>
+    <p v-else class="mt-5">予約情報がありません。</p>
   </div>
 </template>
 

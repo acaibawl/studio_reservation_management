@@ -30,6 +30,7 @@ export class Reservation {
     this._startAt = new Date(_startAt);
     this._finishAt = new Date(_finishAt);
   }
+
   get startAt(): Date {
     return this._startAt;
   }
