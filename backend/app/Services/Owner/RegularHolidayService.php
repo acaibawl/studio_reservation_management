@@ -24,7 +24,7 @@ class RegularHolidayService
     public function update(array $attribute): int
     {
         // regular_holidaysが存在しない場合を考慮
-        $regularHolidayCodes = Arr::get($attribute, 'regular_holidays', []) ;
+        $regularHolidayCodes = Arr::get($attribute, 'regular_holidays', []);
         RegularHoliday::whereNotIn('code', $regularHolidayCodes)->delete();
 
         return RegularHoliday::upsert(

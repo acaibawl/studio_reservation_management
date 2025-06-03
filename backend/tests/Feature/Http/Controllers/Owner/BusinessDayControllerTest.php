@@ -108,7 +108,7 @@ class BusinessDayControllerTest extends TestCase
         $this->loginAsOwner();
         $requestBody = [
             ...self::VALID_PUT_ATTRIBUTE,
-            'regular_holidays' => []
+            'regular_holidays' => [],
         ];
 
         $response = $this->putJson('/owner/business-day', $requestBody);
