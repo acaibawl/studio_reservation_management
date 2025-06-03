@@ -84,6 +84,13 @@ const handleLogoutClick = async () => {
         </v-container>
       </v-main>
     </v-responsive>
+
+    <v-bottom-navigation>
+      Button Navigation
+    </v-bottom-navigation>
+    <v-footer color="primary" app>
+      Footer
+    </v-footer>
   </default>
 </template>
 

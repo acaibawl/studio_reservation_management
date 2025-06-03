@@ -13,11 +13,13 @@ const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const loadingOverlayStore = useLoadingOverlayStore();
 const { $ownerApi } = useNuxtApp();
 
+loadingOverlayStore.setActive();
 const { data, error } = await useAsyncData<Studio[]>('/owner/studios', () => $ownerApi('/owner/studios'));
 if (error.value) {
   console.error(error.value);
   notifyBottomSheetStore.setMessage(error.value.message);
 }
+loadingOverlayStore.resetLoading();
 
 const handleDeleteClick = async (studio: Studio) => {
   if (!confirm(`${studio.name} を削除しますか？`)) {
@@ -31,14 +33,7 @@ const handleDeleteClick = async (studio: Studio) => {
     data.value = data.value!.filter(iterateStudio => iterateStudio.id !== studio.id);
     notifyBottomSheetStore.setMessage(`${studio.name} を削除しました。`);
   } catch (e: unknown) {
-    if (e instanceof FetchError) {
-      if (e.status === 400 || e.status === 401 || e.status === 404 || e.status === 422) {
-        notifyBottomSheetStore.setMessage(e.data.message);
-      } else {
-        notifyBottomSheetStore.setMessage(e.message);
-        console.error(e);
-      }
-    }
+    notifyBottomSheetStore.handleFetchError(e);
   } finally {
     loadingOverlayStore.resetLoading();
   }

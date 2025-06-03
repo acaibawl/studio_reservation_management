@@ -17,11 +17,14 @@ definePageMeta({
 const loadingOverlayStore = useLoadingOverlayStore();
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const { $ownerApi } = useNuxtApp();
+
+loadingOverlayStore.setActive();
 const { data, error } = await useAsyncData<BusinessDay>('/owner/business-day', () => $ownerApi('/owner/business-day'));
 if (error.value) {
   console.error(error.value);
   notifyBottomSheetStore.setMessage(error.value.message);
 }
+loadingOverlayStore.resetLoading();
 
 const schema = yup.object({
   regular_holidays: yup.array().of(yup.number().min(0).max(6).label('定休日')).label('定休日'),
@@ -48,7 +51,6 @@ const [closeTime, closeTimeProps] = defineField('business_time.close_time', yupF
 const onSubmit = handleSubmit(async (values) => {
   try {
     loadingOverlayStore.setActive();
-    const { $ownerApi } = useNuxtApp();
     await $ownerApi<any>('/owner/business-day', {
       method: 'PUT',
       body: values,
@@ -56,14 +58,7 @@ const onSubmit = handleSubmit(async (values) => {
     navigateTo('/owner/business-day');
     notifyBottomSheetStore.setMessage('営業時間・定休日を更新しました。');
   } catch (e: unknown) {
-    if (e instanceof FetchError) {
-      if (e.status === 422) {
-        setErrors(e.data.errors);
-      } else {
-        console.error(e);
-        notifyBottomSheetStore.setMessage(e.message);
-      }
-    }
+    notifyBottomSheetStore.handleFetchError(e, setErrors);
   } finally {
     loadingOverlayStore.resetLoading();
   }

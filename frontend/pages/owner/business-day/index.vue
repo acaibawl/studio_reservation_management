@@ -3,15 +3,18 @@ import { weekDays } from '~/utils/weekDay';
 import { formatTimeToHHmm } from '~/utils/formatTimeToHHmm';
 import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 import type { BusinessDay } from '~/types/owner/BusinessDay';
+import {useLoadingOverlayStore} from "~/store/loadingOverlay";
 
 definePageMeta({
   layout: 'owner',
   middleware: ['only-owner'],
 });
 
+const loadingOverlayStore = useLoadingOverlayStore();
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const { $ownerApi } = useNuxtApp();
 
+loadingOverlayStore.setActive();
 const { data, error } = await useAsyncData<BusinessDay>('/owner/business-day', () => $ownerApi('/owner/business-day'), {
   getCachedData: () => undefined,
 });
@@ -19,6 +22,7 @@ if (error.value) {
   notifyBottomSheetStore.setMessage(error.value.message);
   console.error(error.value);
 }
+loadingOverlayStore.resetLoading();
 </script>
 
 <template>

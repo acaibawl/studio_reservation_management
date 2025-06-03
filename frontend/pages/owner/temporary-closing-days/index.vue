@@ -15,16 +15,19 @@ interface TemporaryClosingDay {
   id: number;
 }
 
-const selectedNewDate = ref(new Date());
 const loadingOverlayStore = useLoadingOverlayStore();
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const { $ownerApi } = useNuxtApp();
+const selectedNewDate = ref(new Date());
 
+loadingOverlayStore.setActive();
 const { data, error } = await useAsyncData<TemporaryClosingDay[]>('/owner/temporary-closing-days', () => $ownerApi('/owner/temporary-closing-days'));
 if (error.value) {
   console.error(error.value);
   notifyBottomSheetStore.setMessage(error.value.message);
 }
+loadingOverlayStore.resetLoading();
+
 const allowedDates = (calendarDate: any) => {
   const calDate: Date = new Date(calendarDate);
   const todayNormalized = new Date();
@@ -51,11 +54,7 @@ const handleAddClick = async () => {
     data.value?.sort((a, b) => a.date.localeCompare(b.date));
     notifyBottomSheetStore.setMessage(`${newTemporaryClosingDay.date} を追加しました。`);
   } catch (e: unknown) {
-    if (e instanceof FetchError) {
-      notifyBottomSheetStore.setMessage(e.message);
-    } else {
-      console.error(e);
-    }
+    notifyBottomSheetStore.handleFetchError(e);
   } finally {
     loadingOverlayStore.resetLoading();
   }

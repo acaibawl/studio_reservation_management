@@ -7,16 +7,7 @@
     <v-system-bar color="secondary">
       System Bar
     </v-system-bar>
-
     <slot />
-
-    <v-bottom-navigation>
-      Button Navigation
-    </v-bottom-navigation>
-    <v-footer color="primary" app>
-      Footer
-    </v-footer>
-
   </div>
 </template>
 
