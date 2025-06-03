@@ -25,8 +25,10 @@ class RegularHolidayService
     {
         // regular_holidaysが存在しない場合を考慮
         $regularHolidayCodes = Arr::get($attribute, 'regular_holidays', []);
+        // データベースに存在するが、リクエスト内容に含まれない`code`を削除
         RegularHoliday::whereNotIn('code', $regularHolidayCodes)->delete();
 
+        // 定休日の新規登録、またはデータの更新
         return RegularHoliday::upsert(
             collect($regularHolidayCodes)->map(fn (int $code) => [
                 'code' => $code,
