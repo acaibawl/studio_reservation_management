@@ -70,7 +70,7 @@ const handleDeleteClick = async () => {
     <p class="text-body-1 ml-5">{{ reservation.memo }}</p>
     <v-row class="mt-5">
       <v-btn :to="`/owner/reservations/date/${reservation.startAtDateToYYYYMMDDKebab}`">この日の予約一覧へ</v-btn>
-      <v-btn :to="`/owner/studios/${studioId}/reservations/${reservationId}/edit`" class="ml-5" color="primary">修正</v-btn>
+      <v-btn :to="`/owner/reservations/${reservationId}/studios/${studioId}/edit`" class="ml-5" color="primary">修正</v-btn>
     </v-row>
   </div>
 </template>

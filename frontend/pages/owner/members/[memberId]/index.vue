@@ -66,7 +66,7 @@ const hasReservations = reservations!.length > 0;
         hover
         prepend-icon="mdi-guitar-electric"
         append-icon="mdi-piano"
-        :to="`/owner/studios/${reservation.studioId}/reservations/${reservation.id}`"
+        :to="`/owner/reservations/${reservation.id}/studios/${reservation.studioId}`"
       >
         <template #title>
           {{ reservation.startAtDateToJaLocale }}

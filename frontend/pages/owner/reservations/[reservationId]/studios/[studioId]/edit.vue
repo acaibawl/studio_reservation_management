@@ -55,7 +55,7 @@ const onSubmit = handleSubmit(async (values) => {
       method: 'PATCH',
       body: values,
     });
-    navigateTo(`/owner/studios/${studioId}/reservations/${reservationId}`);
+    navigateTo(`/owner/reservations/${reservationId}/studios/${studioId}`);
     notifyBottomSheetStore.setMessage('予約を修正しました。');
   } catch (e: unknown) {
     notifyBottomSheetStore.handleFetchError(e, setErrors);
