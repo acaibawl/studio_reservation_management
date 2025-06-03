@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { getWeekDay } from '~/utils/weekDay';
-import { FetchError } from 'ofetch';
 import { padDateAndMonth } from '~/utils/padDateAndMonth';
 import { useLoadingOverlayStore } from '~/store/loadingOverlay';
 import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';

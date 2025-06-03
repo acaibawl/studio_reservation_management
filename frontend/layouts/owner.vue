@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useDisplay } from 'vuetify';
-import Default from "~/layouts/default.vue";
-import {useAuthOwnerStore} from "~/store/authOwner";
-import {useLoadingOverlayStore} from "~/store/loadingOverlay";
-import {useNotifyBottomSheetStore} from "~/store/notifyBottomSheet";
+import Default from '~/layouts/default.vue';
+import { useAuthOwnerStore } from '~/store/authOwner';
+import { useLoadingOverlayStore } from '~/store/loadingOverlay';
+import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 
 const loadingOverlayStore = useLoadingOverlayStore();
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
@@ -29,7 +29,7 @@ const menuItems = [
 const handleLogoutClick = async () => {
   try {
     loadingOverlayStore.setActive();
-    const response = await $ownerApi<any>('/owner-auth/logout', {method: 'POST'});
+    await $ownerApi<any>('/owner-auth/logout', { method: 'POST' });
     authOwnerStore.logout();
     navigateTo('/owner/login');
   } catch (e: unknown) {
@@ -48,8 +48,8 @@ const handleLogoutClick = async () => {
         スタジオ予約管理
       </v-app-bar-title>
       <v-menu>
-        <template v-slot:activator="{ props }">
-          <v-btn icon="mdi-dots-vertical" variant="text" v-bind="props"></v-btn>
+        <template #activator="{ props }">
+          <v-btn icon="mdi-dots-vertical" variant="text" v-bind="props"/>
         </template>
 
         <v-list>

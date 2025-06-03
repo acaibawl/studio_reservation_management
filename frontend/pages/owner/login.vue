@@ -3,8 +3,8 @@ import { useForm } from 'vee-validate';
 import * as yup from 'yup';
 import { useAuthOwnerStore } from '~/store/authOwner';
 import { yupFieldLazyVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
-import {useLoadingOverlayStore} from "~/store/loadingOverlay";
-import {useNotifyBottomSheetStore} from "~/store/notifyBottomSheet";
+import { useLoadingOverlayStore } from '~/store/loadingOverlay';
+import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 
 interface LoginResponse {
   expires_in: number;
@@ -18,7 +18,6 @@ const { loginAsOwner } = useAuthOwnerStore();
 
 const { $api } = useNuxtApp();
 const route = useRoute();
-
 
 const isPasswordVisible = ref(false);
 

@@ -3,7 +3,7 @@ import { weekDays } from '~/utils/weekDay';
 import { formatTimeToHHmm } from '~/utils/formatTimeToHHmm';
 import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 import type { BusinessDay } from '~/types/owner/BusinessDay';
-import {useLoadingOverlayStore} from "~/store/loadingOverlay";
+import { useLoadingOverlayStore } from '~/store/loadingOverlay';
 
 definePageMeta({
   layout: 'owner',

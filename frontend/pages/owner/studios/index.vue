@@ -2,7 +2,6 @@
 import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 import type { Studio } from '~/types/owner/Studio';
 import { useLoadingOverlayStore } from '~/store/loadingOverlay';
-import { FetchError } from 'ofetch';
 
 definePageMeta({
   layout: 'owner',

@@ -2,7 +2,6 @@
 import { weekDays } from '~/utils/weekDay';
 import * as yup from 'yup';
 import { ErrorMessage, useForm } from 'vee-validate';
-import { FetchError } from 'ofetch';
 import { useLoadingOverlayStore } from '~/store/loadingOverlay';
 import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 import { formatTimeToHHmm } from '~/utils/formatTimeToHHmm';

@@ -24,7 +24,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         options.headers.set('Authorization', `Bearer ${token.value}`);
       }
     },
-    async onResponseError({ response}) {
+    async onResponseError({ response }) {
       if (response.status === 401) {
         await nuxtApp.runWithContext(() => navigateTo('/owner/login'));
       }
