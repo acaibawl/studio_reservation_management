@@ -3,7 +3,7 @@ const props = defineProps<{
   currentPage: number;
   length: number;
   totalVisible: number;
-  to: (page: number) => { path: string; query: Record<string, string> };
+  to: (page: number) => { path: string; query: { page: number; name?: LocationQueryValue | LocationQueryValue[] } };
 }>();
 
 const totalVisible = computed(() => props.totalVisible - 2 < 0 ? 3 : props.totalVisible - 2);
@@ -106,3 +106,15 @@ watch(
     </ul>
   </nav>
 </template>
+
+<style scoped>
+ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+}
+li {
+  margin: 0 3px;
+}
+
+</style>
