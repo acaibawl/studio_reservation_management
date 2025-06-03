@@ -6,16 +6,23 @@ import * as yup from 'yup';
 import { ErrorMessage, useForm } from 'vee-validate';
 import { yupFieldLazyVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
 
+definePageMeta({
+  layout: 'owner',
+  middleware: ['only-owner'],
+});
+
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const loadingOverlayStore = useLoadingOverlayStore();
 const { $ownerApi } = useNuxtApp();
 const route = useRoute();
 
+loadingOverlayStore.setActive();
 const { data: studio, error } = await useAsyncData<Studio>(`/owner/studios/${route.params.studioId}`, () => $ownerApi(`/owner/studios/${route.params.studioId}`));
 if (error.value) {
   console.error(error.value);
   notifyBottomSheetStore.setMessage(error.value.message);
 }
+loadingOverlayStore.resetLoading();
 
 const schema = yup.object({
   id: yup.number().required().label('id'),

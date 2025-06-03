@@ -8,6 +8,11 @@ import * as yup from 'yup';
 import { useForm } from 'vee-validate';
 import { yupFieldImmediateVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
 
+definePageMeta({
+  layout: 'owner',
+  middleware: ['only-owner'],
+});
+
 interface Reservations {
   date: string;
   studios: Studio[];

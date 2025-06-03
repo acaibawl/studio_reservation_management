@@ -4,6 +4,11 @@ import { useLoadingOverlayStore } from '~/store/loadingOverlay';
 import * as yup from 'yup';
 import { useForm } from 'vee-validate';
 
+definePageMeta({
+  layout: 'owner',
+  middleware: ['only-owner'],
+});
+
 interface ReservationQuota {
   date: string;
   hour: number;
@@ -59,7 +64,7 @@ const onSubmit = handleSubmit(async (values) => {
       method: 'POST',
       body: values,
     });
-    navigateTo(`/owner/studios/${studioId}/reservations/${reservation_id}`);
+    navigateTo(`/owner/reservations/${reservation_id}/studios/${studioId}`);
     notifyBottomSheetStore.setMessage('予約を登録しました。');
   } catch (e: unknown) {
     notifyBottomSheetStore.handleFetchError(e, setErrors);

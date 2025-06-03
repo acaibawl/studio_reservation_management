@@ -5,6 +5,11 @@ import { Reservation, type ReservationResponse } from '~/types/reservation/Reser
 import * as yup from 'yup';
 import { useForm } from 'vee-validate';
 
+definePageMeta({
+  layout: 'owner',
+  middleware: ['only-owner'],
+});
+
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const loadingOverlayStore = useLoadingOverlayStore();
 const { $ownerApi } = useNuxtApp();
