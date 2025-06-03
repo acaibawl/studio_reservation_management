@@ -1,7 +1,14 @@
 <script setup lang="ts">
 import { useDisplay } from 'vuetify';
 import Default from "~/layouts/default.vue";
+import {useAuthOwnerStore} from "~/store/authOwner";
+import {useLoadingOverlayStore} from "~/store/loadingOverlay";
+import {useNotifyBottomSheetStore} from "~/store/notifyBottomSheet";
 
+const loadingOverlayStore = useLoadingOverlayStore();
+const notifyBottomSheetStore = useNotifyBottomSheetStore();
+const authOwnerStore = useAuthOwnerStore();
+const { $ownerApi } = useNuxtApp();
 // サイドメニューはモバイルの場合はしまっておく
 const { mobile } = useDisplay();
 const isDrawerOpen = ref(!mobile.value);
@@ -18,6 +25,19 @@ const menuItems = [
   { title: '営業時間・定休日', path: '/owner/business-day', activePath: '/owner/business-day' },
   { title: '臨時休業日', path: '/owner/temporary-closing-days', activePath: '/owner/temporary-closing-days' },
 ];
+
+const handleLogoutClick = async () => {
+  try {
+    loadingOverlayStore.setActive();
+    const response = await $ownerApi<any>('/owner-auth/logout', {method: 'POST'});
+    authOwnerStore.logout();
+    navigateTo('/owner/login');
+  } catch (e: unknown) {
+    notifyBottomSheetStore.handleFetchError(e);
+  } finally {
+    loadingOverlayStore.resetLoading();
+  }
+};
 </script>
 
 <template>
@@ -27,6 +47,17 @@ const menuItems = [
       <v-app-bar-title>
         スタジオ予約管理
       </v-app-bar-title>
+      <v-menu>
+        <template v-slot:activator="{ props }">
+          <v-btn icon="mdi-dots-vertical" variant="text" v-bind="props"></v-btn>
+        </template>
+
+        <v-list>
+          <v-list-item append-icon="mdi-logout" @click="handleLogoutClick">
+            <v-list-item-title>ログアウト</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-app-bar>
 
     <v-navigation-drawer

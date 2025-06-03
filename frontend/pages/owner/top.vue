@@ -1,15 +1,31 @@
 <script setup lang="ts">
 import { useAuthOwnerStore } from '~/store/authOwner';
+import {useLoadingOverlayStore} from "~/store/loadingOverlay";
+import {useNotifyBottomSheetStore} from "~/store/notifyBottomSheet";
+import type {BusinessDay} from "~/types/owner/BusinessDay";
 
 definePageMeta({
   layout: 'owner',
   middleware: ['only-owner'],
 });
 
+const loadingOverlayStore = useLoadingOverlayStore();
+const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const authOwnerStore = useAuthOwnerStore();
-const handleLogoutClick = () => {
-  authOwnerStore.logout();
-  navigateTo('/owner/login');
+const { $ownerApi } = useNuxtApp();
+
+const handleLogoutClick = async () => {
+  try {
+    loadingOverlayStore.setActive();
+    const response = await $ownerApi<any>('/owner-auth/logout', {method: 'POST'});
+    authOwnerStore.logout();
+    navigateTo('/owner/login');
+  } catch (e: unknown) {
+    notifyBottomSheetStore.handleFetchError(e);
+  } finally {
+    loadingOverlayStore.resetLoading();
+  }
+
 };
 </script>
 
