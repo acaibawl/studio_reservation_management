@@ -78,7 +78,7 @@ const handleLogoutClick = async () => {
 
     <v-responsive>
       <v-main>
-        <v-container class="d-flex align-center justify-center fill-height">
+        <v-container class="d-flex align-center justify-center fill-height" max-width="1200px">
           <nuxt-layout v-if="!$slots.default" />
           <slot />
         </v-container>
