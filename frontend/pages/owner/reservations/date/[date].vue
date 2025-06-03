@@ -101,16 +101,17 @@ const showDateDialog = ref(false);
       height="70vh"
       hover
       class="border mt-5"
+      density="compact"
     >
       <thead>
       <tr>
-        <th class="text-left">
+        <th class="text-left pa-0">
           時刻
         </th>
         <th
           v-for="studio in reservations?.studios"
           :key="studio.id"
-          class="text-left with-divider"
+          class="text-left with-divider pa-0"
         >
           {{ studio.name }} （{{ studio.start_at }} 分開始）
         </th>
@@ -121,13 +122,14 @@ const showDateDialog = ref(false);
         v-for="hour in Array.from(Array(24).keys())"
         :key="hour"
       >
-        <td>
+        <td class="text-no-wrap pa-0">
           {{ hour }} 時
         </td>
         <td
           v-for="studio in reservations?.studios"
           :key="`${studio.id}-${hour}`"
-          class="with-divider"
+          class="with-divider pa-0 text-center"
+          :class="{ 'not_available_quota': studio.reservation_quotas[hour].status === ReservationQuotaStatusEnum.NOT_AVAILABLE }"
         >
           <template v-if="studio.reservation_quotas[hour].status === ReservationQuotaStatusEnum.NOT_AVAILABLE">
             <v-icon icon="mdi-close" color="blue-grey-lighten-3"/>
@@ -146,6 +148,9 @@ const showDateDialog = ref(false);
 </template>
 
 <style scoped>
+.not_available_quota {
+  background-color: rgba(0, 0, 0, 0.05);
+}
 .with-divider {
   border-left: 1px solid;
   border-color: rgba(0, 0, 0, 0.12);
