@@ -6,6 +6,7 @@ import type { BusinessDay } from '~/types/owner/BusinessDay';
 
 definePageMeta({
   layout: 'owner',
+  middleware: ['only-owner'],
 });
 
 const notifyBottomSheetStore = useNotifyBottomSheetStore();

@@ -7,6 +7,7 @@ import { useForm } from 'vee-validate';
 
 definePageMeta({
   layout: 'owner',
+  middleware: ['only-owner'],
 });
 
 const notifyBottomSheetStore = useNotifyBottomSheetStore();

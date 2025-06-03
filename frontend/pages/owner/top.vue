@@ -2,6 +2,7 @@
 import { useAuthOwnerStore } from '~/store/authOwner';
 
 definePageMeta({
+  layout: 'owner',
   middleware: ['only-owner'],
 });
 

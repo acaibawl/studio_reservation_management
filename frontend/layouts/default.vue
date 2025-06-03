@@ -10,12 +10,13 @@
 
     <slot />
 
-    <v-footer color="primary" app>
-      Footer
-    </v-footer>
     <v-bottom-navigation>
       Button Navigation
     </v-bottom-navigation>
+    <v-footer color="primary" app>
+      Footer
+    </v-footer>
+
   </div>
 </template>
 

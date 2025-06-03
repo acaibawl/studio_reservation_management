@@ -10,6 +10,7 @@ import { yupFieldImmediateVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
 
 definePageMeta({
   layout: 'owner',
+  middleware: ['only-owner'],
 });
 
 interface Reservations {

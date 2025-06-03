@@ -11,6 +11,7 @@ import { yupFieldLazyVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
 
 definePageMeta({
   layout: 'owner',
+  middleware: ['only-owner'],
 });
 
 const loadingOverlayStore = useLoadingOverlayStore();

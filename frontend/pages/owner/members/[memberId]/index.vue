@@ -5,6 +5,7 @@ import { Reservation } from '~/types/reservation/Reservation';
 
 definePageMeta({
   layout: 'owner',
+  middleware: ['only-owner'],
 });
 
 interface Member {

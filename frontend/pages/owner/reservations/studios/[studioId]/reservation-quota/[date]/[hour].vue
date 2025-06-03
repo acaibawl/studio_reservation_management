@@ -6,6 +6,7 @@ import { useForm } from 'vee-validate';
 
 definePageMeta({
   layout: 'owner',
+  middleware: ['only-owner'],
 });
 
 interface ReservationQuota {

@@ -2,10 +2,6 @@
 import { useDisplay } from 'vuetify';
 import Default from "~/layouts/default.vue";
 
-definePageMeta({
-  middleware: ['only-owner'],
-})
-
 // サイドメニューはモバイルの場合はしまっておく
 const { mobile } = useDisplay();
 const isDrawerOpen = ref(!mobile.value);

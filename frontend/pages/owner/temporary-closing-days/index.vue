@@ -7,6 +7,7 @@ import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 
 definePageMeta({
   layout: 'owner',
+  middleware: ['only-owner'],
 });
 
 interface TemporaryClosingDay {

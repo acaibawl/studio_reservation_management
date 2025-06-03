@@ -6,6 +6,7 @@ import { FetchError } from 'ofetch';
 
 definePageMeta({
   layout: 'owner',
+  middleware: ['only-owner'],
 });
 
 const notifyBottomSheetStore = useNotifyBottomSheetStore();

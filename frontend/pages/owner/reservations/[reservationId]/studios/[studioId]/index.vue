@@ -5,6 +5,7 @@ import { Reservation, type ReservationResponse } from '~/types/reservation/Reser
 
 definePageMeta({
   layout: 'owner',
+  middleware: ['only-owner'],
 });
 
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
