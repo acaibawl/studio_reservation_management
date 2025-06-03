@@ -136,7 +136,7 @@ const showDateDialog = ref(false);
             <NuxtLink :to="`/owner/reservations/studios/${studio.id}/reservation-quota/${date.toLocaleDateString('sv-SE')}/${hour}`"><v-icon icon="mdi-circle-outline" color="light-blue-darken-3"/></NuxtLink>
           </template>
           <template v-else-if="studio.reservation_quotas[hour].status === ReservationQuotaStatusEnum.RESERVED">
-            <NuxtLink :to="`/owner/studios/${studio.id}/reservations/${studio.reservation_quotas[hour].reservation_id}`"><v-icon icon="mdi-check" color="teal-darken-4"/></NuxtLink>
+            <NuxtLink :to="`/owner/reservations/${studio.reservation_quotas[hour].reservation_id}/studios/${studio.id}`"><v-icon icon="mdi-check" color="teal-darken-4"/></NuxtLink>
           </template>
         </td>
       </tr>
