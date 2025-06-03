@@ -136,7 +136,7 @@ const [name, nameProps] = defineField('name', yupFieldImmediateVuetifyConfig);
       </tr>
       </tbody>
     </v-table>
-    <Pagination :current-page="currentPage" :length="pageSize" :total-visible="6" :to="generatePaginationLink" />
+    <Pagination class="mt-3" :current-page="currentPage" :length="pageSize" :total-visible="6" :to="generatePaginationLink" />
   </div>
 </template>
 
