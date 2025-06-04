@@ -31,11 +31,27 @@ export default defineNuxtPlugin((nuxtApp) => {
     },
   });
 
+  const memberApi = $fetch.create({
+    baseURL: config.public.apiBaseUrl,
+    onRequest({ options }) {
+      const token = useCookie('member_token');
+      if (token.value) {
+        options.headers.set('Authorization', `Bearer ${token.value}`);
+      }
+    },
+    async onResponseError({ response }) {
+      if (response.status === 401) {
+        await nuxtApp.runWithContext(() => navigateTo('/member/login'));
+      }
+    },
+  });
+
   // Expose to useNuxtApp().$api
   return {
     provide: {
       api,
       ownerApi,
+      memberApi
     },
   };
 });
