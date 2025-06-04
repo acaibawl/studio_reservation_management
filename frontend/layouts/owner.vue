@@ -19,11 +19,11 @@ const isCurrentUrlMatching = (url: string) => {
 };
 
 const menuItems = [
-  { title: '予約', path: `/owner/reservations/date/${new Date().toISOString().slice(0, 10)}`, activePath: '/owner/reservations' },
-  { title: 'スタジオ', path: '/owner/studios', activePath: '/owner/studios' },
-  { title: '会員', path: '/owner/members', activePath: '/owner/members' },
-  { title: '営業時間・定休日', path: '/owner/business-day', activePath: '/owner/business-day' },
-  { title: '臨時休業日', path: '/owner/temporary-closing-days', activePath: '/owner/temporary-closing-days' },
+  { title: '予約', icon: 'mdi-note-edit', path: `/owner/reservations/date/${new Date().toISOString().slice(0, 10)}`, activePath: '/owner/reservations' },
+  { title: 'スタジオ', icon: 'mdi-home-group', path: '/owner/studios', activePath: '/owner/studios' },
+  { title: '会員', icon: 'mdi-account', path: '/owner/members', activePath: '/owner/members' },
+  { title: '営業時間・定休日', icon: 'mdi-clock', path: '/owner/business-day', activePath: '/owner/business-day' },
+  { title: '臨時休業日', icon: 'mdi-tent', path: '/owner/temporary-closing-days', activePath: '/owner/temporary-closing-days' },
 ];
 
 const handleLogoutClick = async () => {
@@ -73,7 +73,11 @@ const handleLogoutClick = async () => {
         :title="item.title"
         :to="item.path"
         :active="isCurrentUrlMatching(item.activePath)"
-      />
+      >
+        <template #prepend>
+          <v-icon :icon="item.icon"/>
+        </template>
+      </v-list-item>
     </v-navigation-drawer>
 
     <v-responsive>
