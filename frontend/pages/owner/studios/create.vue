@@ -26,7 +26,7 @@ const { defineField, handleSubmit, setErrors } = useForm({
   },
 });
 const [name, nameProps] = defineField('name', yupFieldLazyVuetifyConfig);
-const [startAt, startAtProps] = defineField('start_at', yupFieldLazyVuetifyConfig);
+const [startAt, startAtProps] = defineField<'start_at', number>('start_at', yupFieldLazyVuetifyConfig);
 
 const onSubmit = handleSubmit(async (values) => {
   try {
@@ -62,7 +62,6 @@ const onSubmit = handleSubmit(async (values) => {
 
     <v-row class="mt-5">
       <v-col>
-        <!-- @vue-ignore -->
         <v-select
           v-model="startAt"
           v-bind="startAtProps"
