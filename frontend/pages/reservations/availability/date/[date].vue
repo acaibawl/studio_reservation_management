@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import QuotaTable from "~/components/reservation/QuotaTable.vue";
-import {weekDays} from "~/utils/weekDay";
-import SelectDate from "~/components/reservation/SelectDate.vue";
+import QuotaTable from '~/components/reservation/QuotaTable.vue';
+import { weekDays } from '~/utils/weekDay';
+import SelectDate from '~/components/reservation/SelectDate.vue';
 
 definePageMeta({
   layout: 'member',

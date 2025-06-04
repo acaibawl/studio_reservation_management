@@ -51,7 +51,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     provide: {
       api,
       ownerApi,
-      memberApi
+      memberApi,
     },
   };
 });

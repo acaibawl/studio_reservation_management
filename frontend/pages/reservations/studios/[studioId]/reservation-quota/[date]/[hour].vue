@@ -63,7 +63,7 @@ const [usageHour, usageHourProps] = defineField<'usage_hour', number>('usage_hou
 const onSubmit = handleSubmit(async (values) => {
   try {
     loadingOverlayStore.setActive();
-    const { reservation_id } = await $memberApi<{ reservation_id: number }>(`/studios/${studioId}/reservations`, {
+    await $memberApi<unknown>(`/studios/${studioId}/reservations`, {
       method: 'POST',
       body: values,
     });

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import * as yup from "yup";
-import {useForm} from "vee-validate";
-import {yupFieldImmediateVuetifyConfig} from "~/utils/yupFieldVuetifyConfig";
+import * as yup from 'yup';
+import { useForm } from 'vee-validate';
+import { yupFieldImmediateVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
 
 const props = defineProps<{
   dateString: string;
@@ -17,7 +17,7 @@ const { defineField } = useForm({
 const [selectDate, selectDateProps] = defineField('selectDate', yupFieldImmediateVuetifyConfig);
 
 const showDateDialog = ref(false);
-const linkUrlPrefix = props.isOwner ? '/owner/reservations/date/' : '/reservations/availability/date/'
+const linkUrlPrefix = props.isOwner ? '/owner/reservations/date/' : '/reservations/availability/date/';
 </script>
 
 <template>

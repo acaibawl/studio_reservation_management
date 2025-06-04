@@ -1,4 +1,4 @@
-import {ReservationQuotaStatusEnum} from "~/types/reservation/ReservationQuotaStatusEnum";
+import type { ReservationQuotaStatusEnum } from '~/types/reservation/ReservationQuotaStatusEnum';
 
 export interface ReservationResponse {
   reservation: {

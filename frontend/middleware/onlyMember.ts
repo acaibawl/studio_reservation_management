@@ -1,4 +1,4 @@
-import {useAuthMemberStore} from "~/store/authMember";
+import { useAuthMemberStore } from '~/store/authMember';
 
 export default defineNuxtRouteMiddleware((to) => {
   const token = useCookie('member_token', {

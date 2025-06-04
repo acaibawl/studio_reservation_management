@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { isValidDateString } from '~/utils/isValidDateString';
 import { weekDays } from '~/utils/weekDay';
-import QuotaTable from "~/components/reservation/QuotaTable.vue";
-import SelectDate from "~/components/reservation/SelectDate.vue";
+import QuotaTable from '~/components/reservation/QuotaTable.vue';
+import SelectDate from '~/components/reservation/SelectDate.vue';
 
 definePageMeta({
   layout: 'owner',

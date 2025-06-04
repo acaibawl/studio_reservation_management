@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 import { useLoadingOverlayStore } from '~/store/loadingOverlay';
-import {ReservationQuotaStatusEnum} from "~/types/reservation/ReservationQuotaStatusEnum";
-import type {ReservationQuotasResponse} from "~/types/reservation/Reservation";
+import { ReservationQuotaStatusEnum } from '~/types/reservation/ReservationQuotaStatusEnum';
+import type { ReservationQuotasResponse } from '~/types/reservation/Reservation';
 
 const props = defineProps<{
   dateString: string;
@@ -14,8 +14,8 @@ const loadingOverlayStore = useLoadingOverlayStore();
 const { $ownerApi, $memberApi } = useNuxtApp();
 
 loadingOverlayStore.setActive();
-const { data: quotaResponse, error } = props.isOwner ?
-  await useAsyncData<ReservationQuotasResponse>(`/owner/reservations/get-quotas-by-date/${props.dateString}`, () => $ownerApi(`/owner/reservations/get-quotas-by-date/${props.dateString}`))
+const { data: quotaResponse, error } = props.isOwner
+  ? await useAsyncData<ReservationQuotasResponse>(`/owner/reservations/get-quotas-by-date/${props.dateString}`, () => $ownerApi(`/owner/reservations/get-quotas-by-date/${props.dateString}`))
   : await useAsyncData<ReservationQuotasResponse>(`/reservation_availability/date/${props.dateString}`, () => $memberApi(`/reservation_availability/date/${props.dateString}`));
 loadingOverlayStore.resetLoading();
 if (error.value) {
