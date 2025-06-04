@@ -49,7 +49,6 @@ startDate.setMinutes(fetchedReservationQuota.value!.studio_start_at);
 const schema = yup.object({
   start_at: yup.string().required().label('利用開始時間'),
   usage_hour: yup.number().required().min(1).max(6).label('利用時間'),
-  memo: yup.string().nullable().max(512).label('メモ'),
 });
 const { defineField, handleSubmit, setErrors } = useForm({
   validationSchema: schema,

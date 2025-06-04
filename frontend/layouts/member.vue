@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { useDisplay } from 'vuetify';
 import Default from '~/layouts/default.vue';
-import { useAuthOwnerStore } from '~/store/authOwner';
+import { useAuthMemberStore } from '~/store/authMember';
 import { useLoadingOverlayStore } from '~/store/loadingOverlay';
 import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 
 const loadingOverlayStore = useLoadingOverlayStore();
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
-const authOwnerStore = useAuthOwnerStore();
-const { $ownerApi } = useNuxtApp();
+const authMemberStore = useAuthMemberStore();
+const { $memberApi } = useNuxtApp();
 // サイドメニューはモバイルの場合はしまっておく
 const { mobile } = useDisplay();
 const isDrawerOpen = ref(!mobile.value);
@@ -19,15 +19,15 @@ const isCurrentUrlMatching = (url: string) => {
 };
 
 const menuItems = [
-  { title: '予約', icon: 'mdi-note-edit', path: `/owner/reservations/date/${new Date().toISOString().slice(0, 10)}`, activePath: '/owner/reservations' },
+  { title: '予約', icon: 'mdi-note-edit', path: `/reservations/availability/date/${new Date().toISOString().slice(0, 10)}`, activePath: '/reservations' },
   { title: 'スタジオ', icon: 'mdi-home-group', path: '/owner/studios', activePath: '/owner/studios' },
 ];
 
 const handleLogoutClick = async () => {
   try {
     loadingOverlayStore.setActive();
-    await $ownerApi<any>('/member-auth/logout', { method: 'POST' });
-    authOwnerStore.logout();
+    await $memberApi<any>('/member-auth/logout', { method: 'POST' });
+    authMemberStore.logout();
     navigateTo('/member/login');
   } catch (e: unknown) {
     notifyBottomSheetStore.handleFetchError(e);

@@ -41,7 +41,7 @@ const onSubmit = handleSubmit(async (values) => {
 
     loginAsMember(response.member_access_token);
     const redirectedFrom = route.query.redirectedFrom;
-    // リダイレクト先がない場合は当日の予約状況一覧に遷移
+    // リダイレクト先がない場合は当日の予約空き状況に遷移
     const date = new Date();
     const to = (redirectedFrom || `/reservations/availability/date/${date.toLocaleDateString('sv-SE')}`) as string;
     await navigateTo(to);

@@ -34,7 +34,7 @@ export interface Studio {
   id: number;
   name: string;
   start_at: number;
-  reservation_quotas: (ReservationQuotaNotReserved | ReservationQuotaReserved)[];
+  reservation_quotas: { [hour: number]: ReservationQuotaNotReserved | ReservationQuotaReserved };
 }
 
 export class Reservation {
