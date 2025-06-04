@@ -21,6 +21,7 @@ const isCurrentUrlMatching = (url: string) => {
 const menuItems = [
   { title: '予約空き状況', icon: 'mdi-note-edit', path: `/reservations/availability/date/${new Date().toISOString().slice(0, 10)}`, activePath: '/reservations' },
   { title: '予約済み', icon: 'mdi-guitar-acoustic', path: '/reserved', activePath: '/reserved' },
+  { title: '会員情報', icon: 'mdi-account', path: '/member/me', activePath: '/member/me' },
 ];
 
 const handleLogoutClick = async () => {
