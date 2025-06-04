@@ -48,7 +48,7 @@ export class Reservation {
     _startAt: string,
     _finishAt: string,
     public readonly maxUsageHour: number | undefined = undefined,
-    public readonly memberId: number,
+    public readonly memberId: number = 0,
     public readonly memberName: string = '',
     public readonly memo: string = '',
   ) {

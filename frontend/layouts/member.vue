@@ -19,8 +19,8 @@ const isCurrentUrlMatching = (url: string) => {
 };
 
 const menuItems = [
-  { title: '予約', icon: 'mdi-note-edit', path: `/reservations/availability/date/${new Date().toISOString().slice(0, 10)}`, activePath: '/reservations' },
-  { title: 'スタジオ', icon: 'mdi-home-group', path: '/owner/studios', activePath: '/owner/studios' },
+  { title: '予約空き状況', icon: 'mdi-note-edit', path: `/reservations/availability/date/${new Date().toISOString().slice(0, 10)}`, activePath: '/reservations' },
+  { title: '予約済み', icon: 'mdi-guitar-acoustic', path: '/reserved', activePath: '/reserved' },
 ];
 
 const handleLogoutClick = async () => {
