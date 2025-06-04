@@ -71,7 +71,7 @@ const showDateDialog = ref(false);
 
 <template>
   <div>
-    <v-row class="d-flex align-center justify-end justify-sm-center fill-height">
+    <v-row class="d-flex align-center justify-center fill-height">
       <h3 class="text-h3">予約状況確認</h3>
       <h5 class="text-h5">{{ date.getFullYear() }}年{{ date.getMonth() + 1 }}月{{ date.getDate() }}日({{ weekDays[date.getDay()] }})</h5>
       <v-btn
@@ -101,6 +101,7 @@ const showDateDialog = ref(false);
       </v-dialog>
     </v-row>
 
+    <div class="table-scroll-x">
     <v-table
       fixed-header
       height="70vh"
@@ -149,6 +150,7 @@ const showDateDialog = ref(false);
       </tr>
       </tbody>
     </v-table>
+    </div>
   </div>
 </template>
 
@@ -160,16 +162,11 @@ const showDateDialog = ref(false);
   border-left: 1px solid;
   border-color: rgba(0, 0, 0, 0.12);
 }
-.v-table__wrapper {
-  overflow-x: scroll;
+.table-scroll-x{
+  overflow-x:scroll;
+  max-width: 100vw;
 }
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-td {
-  width: auto;
-}
+
 @media (max-width: 600px) {
   th {
     padding: 0 !important;
