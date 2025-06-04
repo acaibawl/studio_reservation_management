@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { useDisplay } from 'vuetify';
 import Default from '~/layouts/default.vue';
-import { useAuthOwnerStore } from '~/store/authOwner';
+import { useAuthMemberStore } from '~/store/authMember';
 import { useLoadingOverlayStore } from '~/store/loadingOverlay';
 import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 
 const loadingOverlayStore = useLoadingOverlayStore();
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
-const authOwnerStore = useAuthOwnerStore();
-const { $ownerApi } = useNuxtApp();
+const authMemberStore = useAuthMemberStore();
+const { $memberApi } = useNuxtApp();
 // サイドメニューはモバイルの場合はしまっておく
 const { mobile } = useDisplay();
 const isDrawerOpen = ref(!mobile.value);
@@ -19,19 +19,16 @@ const isCurrentUrlMatching = (url: string) => {
 };
 
 const menuItems = [
-  { title: '予約', icon: 'mdi-note-edit', path: `/owner/reservations/date/${new Date().toISOString().slice(0, 10)}`, activePath: '/owner/reservations' },
+  { title: '予約', icon: 'mdi-note-edit', path: `/reservations/availability/date/${new Date().toISOString().slice(0, 10)}`, activePath: '/reservations' },
   { title: 'スタジオ', icon: 'mdi-home-group', path: '/owner/studios', activePath: '/owner/studios' },
-  { title: '会員', icon: 'mdi-account', path: '/owner/members', activePath: '/owner/members' },
-  { title: '営業時間・定休日', icon: 'mdi-clock', path: '/owner/business-day', activePath: '/owner/business-day' },
-  { title: '臨時休業日', icon: 'mdi-tent', path: '/owner/temporary-closing-days', activePath: '/owner/temporary-closing-days' },
 ];
 
 const handleLogoutClick = async () => {
   try {
     loadingOverlayStore.setActive();
-    await $ownerApi<unknown>('/owner-auth/logout', { method: 'POST' });
-    authOwnerStore.logout();
-    navigateTo('/owner/login');
+    await $memberApi<unknown>('/member-auth/logout', { method: 'POST' });
+    authMemberStore.logout();
+    navigateTo('/member/login');
   } catch (e: unknown) {
     notifyBottomSheetStore.handleFetchError(e);
   } finally {
@@ -45,7 +42,7 @@ const handleLogoutClick = async () => {
     <v-app-bar color="primary">
       <v-app-bar-nav-icon variant="text" @click.stop="isDrawerOpen = !isDrawerOpen"/>
       <v-app-bar-title>
-        スタジオ予約管理
+        スタジオ予約
       </v-app-bar-title>
       <v-menu>
         <template #activator="{ props }">
@@ -65,7 +62,7 @@ const handleLogoutClick = async () => {
       :location="$vuetify.display.mobile ? 'bottom' : undefined"
       :permanent="!mobile"
     >
-      <v-list-item title="オーナー"/>
+      <v-list-item title="会員"/>
       <v-divider/>
       <v-list-item
         v-for="item in menuItems"

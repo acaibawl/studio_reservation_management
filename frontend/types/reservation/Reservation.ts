@@ -1,3 +1,5 @@
+import type { ReservationQuotaStatusEnum } from '~/types/reservation/ReservationQuotaStatusEnum';
+
 export interface ReservationResponse {
   reservation: {
     id: number;
@@ -10,6 +12,29 @@ export interface ReservationResponse {
     member_name: string;
     memo: string;
   };
+}
+
+export interface ReservationQuotasResponse {
+  date: string;
+  studios: Studio[];
+}
+
+export interface ReservationQuotaNotReserved {
+  hour: number;
+  status: ReservationQuotaStatusEnum.NOT_AVAILABLE | ReservationQuotaStatusEnum.AVAILABLE;
+}
+
+export interface ReservationQuotaReserved {
+  hour: number;
+  status: ReservationQuotaStatusEnum.RESERVED;
+  reservation_id: number;
+}
+
+export interface Studio {
+  id: number;
+  name: string;
+  start_at: number;
+  reservation_quotas: { [hour: number]: ReservationQuotaNotReserved | ReservationQuotaReserved };
 }
 
 export class Reservation {
