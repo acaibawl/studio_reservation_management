@@ -26,7 +26,7 @@ const menuItems = [
 const handleLogoutClick = async () => {
   try {
     loadingOverlayStore.setActive();
-    await $memberApi<any>('/member-auth/logout', { method: 'POST' });
+    await $memberApi<unknown>('/member-auth/logout', { method: 'POST' });
     authMemberStore.logout();
     navigateTo('/member/login');
   } catch (e: unknown) {

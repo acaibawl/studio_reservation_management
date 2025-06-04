@@ -29,7 +29,7 @@ const menuItems = [
 const handleLogoutClick = async () => {
   try {
     loadingOverlayStore.setActive();
-    await $ownerApi<any>('/owner-auth/logout', { method: 'POST' });
+    await $ownerApi<unknown>('/owner-auth/logout', { method: 'POST' });
     authOwnerStore.logout();
     navigateTo('/owner/login');
   } catch (e: unknown) {
