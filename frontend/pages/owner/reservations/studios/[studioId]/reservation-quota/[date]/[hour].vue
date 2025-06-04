@@ -36,6 +36,10 @@ if (error.value) {
   console.error(error.value);
   notifyBottomSheetStore.setMessage(error.value.message);
 }
+// 予約不可能な枠を表示しようとした場合は予約状況確認に遷移する
+if (fetchedReservationQuota.value?.max_available_hour === 0) {
+  await navigateTo(`/owner/reservations/date/${dateString}`);
+}
 
 const startDate = new Date(dateString);
 startDate.setHours(parseInt(hourString));
