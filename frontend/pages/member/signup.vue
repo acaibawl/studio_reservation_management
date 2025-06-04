@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import { ErrorMessage, useForm } from 'vee-validate';
 import { yupFieldLazyVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
 
-const enum SingUpStep {
+const enum SignUpStep {
   EnterEmail = 1,
   EnterVerifiedCode = 2,
   EnterMemberInformation = 3,
@@ -16,7 +16,7 @@ const loadingOverlayStore = useLoadingOverlayStore();
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 
 const { $api } = useNuxtApp();
-const currentFormStep = ref(SingUpStep.EnterEmail);
+const currentFormStep = ref(SignUpStep.EnterEmail);
 const isPasswordVisible = ref(false);
 const isPasswordConfirmationVisible = ref(false);
 
@@ -47,14 +47,14 @@ const onSendVerifiedCodeSubmit = async () => {
       return;
     }
     loadingOverlayStore.setActive();
-    await $api<any>('/member-auth/sign-up-email-verified-code/send', {
+    await $api<unknown>('/member-auth/sign-up-email-verified-code/send', {
       method: 'POST',
       body: {
         email: email.value,
       },
     });
 
-    currentFormStep.value = SingUpStep.EnterVerifiedCode;
+    currentFormStep.value = SignUpStep.EnterVerifiedCode;
   } catch (e: unknown) {
     notifyBottomSheetStore.handleFetchError(e, setErrors);
   } finally {
@@ -70,7 +70,7 @@ const onVerifyVerifiedCodeSubmit = async () => {
       return;
     }
     loadingOverlayStore.setActive();
-    await $api<any>('/member-auth/sign-up-email-verified-code/verify', {
+    await $api<unknown>('/member-auth/sign-up-email-verified-code/verify', {
       method: 'POST',
       body: {
         email: email.value,
@@ -78,7 +78,7 @@ const onVerifyVerifiedCodeSubmit = async () => {
       },
     });
 
-    currentFormStep.value = SingUpStep.EnterMemberInformation;
+    currentFormStep.value = SignUpStep.EnterMemberInformation;
   } catch (e: unknown) {
     notifyBottomSheetStore.handleFetchError(e, setErrors);
   } finally {
@@ -90,8 +90,7 @@ const onVerifyVerifiedCodeSubmit = async () => {
 watch(
   code,
   () => {
-    const codeString = code.value as string;
-    if (codeString.length === 6) {
+    if (code.value && code.value.length === 6) {
       onVerifyVerifiedCodeSubmit();
     }
   },
@@ -100,12 +99,12 @@ watch(
 const onMemberInformationSubmit = handleSubmit(async (values) => {
   try {
     loadingOverlayStore.setActive();
-    await $api<any>('/member-auth/member', {
+    await $api<unknown>('/member-auth/member', {
       method: 'POST',
       body: values,
     });
 
-    currentFormStep.value = SingUpStep.Completed;
+    currentFormStep.value = SignUpStep.Completed;
   } catch (e: unknown) {
     notifyBottomSheetStore.handleFetchError(e, setErrors);
   } finally {
@@ -121,12 +120,12 @@ const onMemberInformationSubmit = handleSubmit(async (values) => {
         <v-card-title>
           <h3 class="text-h3">スタジオ予約システム</h3>
           <h4 class="text-h4">会員登録</h4>
-          <p>ステップ {{ `${currentFormStep}/${SingUpStep.Completed}` }}</p>
+          <p>ステップ {{ `${currentFormStep}/${SignUpStep.Completed}` }}</p>
         </v-card-title>
       </v-card-item>
 
       <!-- メールアドレス検証コード送信ステップ -->
-      <v-card-text v-if="currentFormStep === SingUpStep.EnterEmail">
+      <v-card-text v-if="currentFormStep === SignUpStep.EnterEmail">
         <v-form @submit.prevent="onSendVerifiedCodeSubmit">
         <v-row class="mt-5">
           <v-col cols="12">
@@ -144,7 +143,7 @@ const onMemberInformationSubmit = handleSubmit(async (values) => {
       </v-card-text>
 
       <!-- メールアドレス検証コード入力ステップ -->
-      <v-card-text v-if="currentFormStep === SingUpStep.EnterVerifiedCode">
+      <v-card-text v-if="currentFormStep === SignUpStep.EnterVerifiedCode">
         <v-form @submit.prevent="onVerifyVerifiedCodeSubmit">
           <v-row class="mt-5">
             <v-col cols="12">
@@ -175,7 +174,7 @@ const onMemberInformationSubmit = handleSubmit(async (values) => {
       </v-card-text>
 
       <!-- 会員情報入力ステップ -->
-      <v-card-text v-if="currentFormStep === SingUpStep.EnterMemberInformation">
+      <v-card-text v-if="currentFormStep === SignUpStep.EnterMemberInformation">
         <v-form @submit.prevent="onMemberInformationSubmit">
           <v-row class="mt-5">
             <v-col cols="12">
@@ -250,41 +249,39 @@ const onMemberInformationSubmit = handleSubmit(async (values) => {
       </v-card-text>
 
       <!-- 登録完了ステップ -->
-      <v-card-text v-if="currentFormStep === SingUpStep.Completed">
-        <v-form @submit.prevent="onMemberInformationSubmit">
-          <v-row class="mt-5">
-            <v-col cols="12">
-              <p>メールアドレス： {{ email }}</p>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <p>名前： {{ name }}様</p>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <p>住所：{{ address }}</p>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <p>電話番号：{{ tel }}</p>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <p>上記の内容で、登録が完了しました。</p>
-              <p>ログイン画面よりログイン後、スタジオの予約をご利用ください。</p>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <!-- TODO: ログイン画面に遷移させる -->
-              <v-btn color="primary" to="/">ログイン画面へ</v-btn>
-            </v-col>
-          </v-row>
-        </v-form>
+      <v-card-text v-if="currentFormStep === SignUpStep.Completed">
+        <v-row class="mt-5">
+          <v-col cols="12">
+            <p>メールアドレス： {{ email }}</p>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <p>名前： {{ name }}様</p>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <p>住所：{{ address }}</p>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <p>電話番号：{{ tel }}</p>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <p>上記の内容で、登録が完了しました。</p>
+            <p>ログイン画面よりログイン後、スタジオの予約をご利用ください。</p>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <!-- TODO: ログイン画面に遷移させる -->
+            <v-btn color="primary" to="/">ログイン画面へ</v-btn>
+          </v-col>
+        </v-row>
       </v-card-text>
 
     </v-card>
