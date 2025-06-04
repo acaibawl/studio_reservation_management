@@ -278,8 +278,7 @@ const onMemberInformationSubmit = handleSubmit(async (values) => {
         </v-row>
         <v-row>
           <v-col>
-            <!-- TODO: ログイン画面に遷移させる -->
-            <v-btn color="primary" to="/">ログイン画面へ</v-btn>
+            <v-btn color="primary" to="/member/login">ログイン画面へ</v-btn>
           </v-col>
         </v-row>
       </v-card-text>
