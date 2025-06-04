@@ -50,7 +50,7 @@ const { defineField, handleSubmit, setErrors } = useForm({
     memo: reservation.memo,
   },
 });
-const [usageHour, usageHourProps] = defineField('usage_hour', yupFieldLazyVuetifyConfig);
+const [usageHour, usageHourProps] = defineField<'usage_hour', number>('usage_hour', yupFieldLazyVuetifyConfig);
 const [memo, memoProps] = defineField('memo', yupFieldLazyVuetifyConfig);
 
 const onSubmit = handleSubmit(async (values) => {
@@ -77,7 +77,6 @@ const onSubmit = handleSubmit(async (values) => {
     <p class="text-body-1 mt-5">{{ reservation.startAtDateToJaLocale }}</p>
     <p class="text-body-1">{{ reservation.startAtTimeToJaLocale }}開始</p>
     <p class="text-body-1 mt-5">{{ reservation.studioName }}</p>
-    <!-- @vue-ignore -->
     <v-select
       v-model="usageHour"
       v-bind="usageHourProps"

@@ -54,7 +54,7 @@ const { defineField, handleSubmit, setErrors } = useForm({
     memo: '',
   },
 });
-const [usageHour, usageHourProps] = defineField('usage_hour', yupFieldLazyVuetifyConfig);
+const [usageHour, usageHourProps] = defineField<'usage_hour', number>('usage_hour', yupFieldLazyVuetifyConfig);
 const [memo, memoProps] = defineField('memo', yupFieldLazyVuetifyConfig);
 
 const onSubmit = handleSubmit(async (values) => {
@@ -90,7 +90,6 @@ const onSubmit = handleSubmit(async (values) => {
         startDate.getHours().toString().padStart(2, '0')
       }}時{{ startDate.getMinutes().toString().padStart(2, '0') }}分開始</p>
     <p class="text-body-1 mt-5">{{ fetchedReservationQuota?.studio_name }}</p>
-    <!-- @vue-ignore -->
     <v-select
       v-model="usageHour"
       v-bind="usageHourProps"
