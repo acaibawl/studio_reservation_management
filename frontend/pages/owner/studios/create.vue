@@ -10,6 +10,13 @@ definePageMeta({
   middleware: ['only-owner'],
 });
 
+useHead({
+  title: 'スタジオ登録',
+  meta: [
+    { name: 'description', content: '新しいスタジオを登録します。' },
+  ],
+});
+
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const loadingOverlayStore = useLoadingOverlayStore();
 const { $ownerApi } = useNuxtApp();

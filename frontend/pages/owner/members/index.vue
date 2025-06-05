@@ -9,6 +9,13 @@ definePageMeta({
   middleware: ['only-owner'],
 });
 
+useHead({
+  title: '会員一覧',
+  meta: [
+    { name: 'description', content: '会員の一覧を表示します。' },
+  ],
+});
+
 interface Members {
   members: {
     id: number;

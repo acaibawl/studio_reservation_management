@@ -5,6 +5,13 @@ import { useLoadingOverlayStore } from '~/store/loadingOverlay';
 import * as yup from 'yup';
 import { yupFieldLazyVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
 
+useHead({
+  title: 'パスワード再設定',
+  meta: [
+    { name: 'description', content: 'スタジオ予約管理システムのパスワード再設定ページです。' },
+  ],
+});
+
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const loadingOverlayStore = useLoadingOverlayStore();
 const { $api } = useNuxtApp();

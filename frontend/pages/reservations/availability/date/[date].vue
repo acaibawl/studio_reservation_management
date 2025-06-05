@@ -8,6 +8,13 @@ definePageMeta({
   middleware: ['only-member'],
 });
 
+useHead({
+  title: '予約空き状況確認',
+  meta: [
+    { name: 'description', content: 'スタジオの予約空き状況を確認します。' },
+  ],
+});
+
 const route = useRoute();
 const dateString = route.params.date as string;
 // パスパラメータdateが正しい日付じゃない場合は404とする

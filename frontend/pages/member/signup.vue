@@ -5,6 +5,12 @@ import * as yup from 'yup';
 import { ErrorMessage, useForm } from 'vee-validate';
 import { yupFieldLazyVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
 
+useHead({
+  title: '会員登録',
+  meta: [
+    { name: 'description', content: 'スタジオ予約管理システムの会員登録ページです。' },
+  ],
+});
 const enum SignUpStep {
   EnterEmail = 1,
   EnterVerifiedCode = 2,

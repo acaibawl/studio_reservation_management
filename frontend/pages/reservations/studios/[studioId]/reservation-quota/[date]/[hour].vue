@@ -9,6 +9,20 @@ definePageMeta({
   middleware: ['only-member'],
 });
 
+useHead({
+  title: 'スタジオ予約',
+  meta: [
+    { name: 'description', content: 'スタジオの予約を行うページです。' },
+  ],
+});
+
+useHead({
+  title: '予約空き状況確認',
+  meta: [
+    { name: 'description', content: 'スタジオの予約空き状況を確認します。' },
+  ],
+});
+
 interface ReservationQuota {
   date: string;
   hour: number;

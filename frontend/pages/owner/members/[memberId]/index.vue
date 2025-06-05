@@ -8,6 +8,13 @@ definePageMeta({
   middleware: ['only-owner'],
 });
 
+useHead({
+  title: '会員情報',
+  meta: [
+    { name: 'description', content: '会員の個人情報と予約状況を表示します。' },
+  ],
+});
+
 interface Member {
   member: {
     id: number;

@@ -8,6 +8,13 @@ definePageMeta({
   middleware: ['only-member'],
 });
 
+useHead({
+  title: '会員情報',
+  meta: [
+    { name: 'description', content: '会員の個人情報を表示します。' },
+  ],
+});
+
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const loadingOverlayStore = useLoadingOverlayStore();
 const { $memberApi } = useNuxtApp();

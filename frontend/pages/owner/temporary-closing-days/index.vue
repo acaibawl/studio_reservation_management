@@ -9,6 +9,13 @@ definePageMeta({
   middleware: ['only-owner'],
 });
 
+useHead({
+  title: '臨時休業日',
+  meta: [
+    { name: 'description', content: '臨時休業日を管理します。' },
+  ],
+});
+
 interface TemporaryClosingDay {
   date: string;
   id: number;

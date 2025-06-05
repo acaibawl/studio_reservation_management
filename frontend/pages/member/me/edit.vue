@@ -11,6 +11,13 @@ definePageMeta({
   middleware: ['only-member'],
 });
 
+useHead({
+  title: '会員情報修正',
+  meta: [
+    { name: 'description', content: '会員の個人情報を修正します。' },
+  ],
+});
+
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const loadingOverlayStore = useLoadingOverlayStore();
 const { $memberApi } = useNuxtApp();

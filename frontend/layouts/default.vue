@@ -1,4 +1,13 @@
 <script setup lang="ts">
+useHead({
+  titleTemplate: (titleChunk) => {
+    return titleChunk ? `${titleChunk} | スタジオ予約` : 'スタジオ予約';
+  },
+  meta: [
+    { name: 'description', content: 'スタジオの予約を管理するためのシステムです。' },
+    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+  ],
+});
 const date = new Date();
 </script>
 

@@ -6,6 +6,13 @@ import { useLoadingOverlayStore } from '~/store/loadingOverlay';
 import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 import { useAuthMemberStore } from '~/store/authMember';
 
+useHead({
+  title: 'ログイン',
+  meta: [
+    { name: 'description', content: 'スタジオ予約管理システムのログインページです。' },
+  ],
+});
+
 interface LoginResponse {
   expires_in: number;
   member_access_token: string;

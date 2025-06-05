@@ -10,6 +10,13 @@ definePageMeta({
   middleware: ['only-owner'],
 });
 
+useHead({
+  title: '営業時間・定休日',
+  meta: [
+    { name: 'description', content: '営業時間と定休日を表示します。' },
+  ],
+});
+
 const loadingOverlayStore = useLoadingOverlayStore();
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const { $ownerApi } = useNuxtApp();

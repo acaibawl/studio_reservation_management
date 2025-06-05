@@ -10,6 +10,13 @@ definePageMeta({
   middleware: ['only-owner'],
 });
 
+useHead({
+  title: '予約修正',
+  meta: [
+    { name: 'description', content: 'スタジオの予約を修正します。' },
+  ],
+});
+
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const loadingOverlayStore = useLoadingOverlayStore();
 const { $ownerApi } = useNuxtApp();
