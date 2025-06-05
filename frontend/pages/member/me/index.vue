@@ -47,7 +47,7 @@ if (error.value) {
       </v-card-item>
 
       <v-card-actions>
-        <v-btn to="/member/me/email-update" color="secondary" variant="text">
+        <v-btn to="/member/me/email/edit" color="secondary" variant="text">
           修正する
         </v-btn>
       </v-card-actions>
