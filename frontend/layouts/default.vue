@@ -1,11 +1,11 @@
 <script setup lang="ts">
-
+const date = new Date();
 </script>
 
 <template>
   <div>
     <v-system-bar color="secondary">
-      System Bar
+      <NuxtLink class="text-white text-decoration-none" :to="`/reservations/availability/date/${date.toLocaleDateString('sv-SE')}`">スタジオ予約管理システム</NuxtLink>
     </v-system-bar>
     <slot />
   </div>

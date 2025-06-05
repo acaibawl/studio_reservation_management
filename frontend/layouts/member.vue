@@ -87,11 +87,8 @@ const handleLogoutClick = async () => {
       </v-main>
     </v-responsive>
 
-    <v-bottom-navigation>
-      Button Navigation
-    </v-bottom-navigation>
-    <v-footer color="primary" app>
-      Footer
+    <v-footer class="text-center d-flex flex-column py-4" color="primary" app>
+      <span class="text-white text-caption">© {{ new Date().getFullYear() }} - スタジオ予約管理システム</span>
     </v-footer>
   </default>
 </template>
