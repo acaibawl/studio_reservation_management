@@ -41,7 +41,7 @@ class PasswordResetMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.member.auth.password_reset',
+            text: 'emails.member.auth.password_reset',
         );
     }
 
