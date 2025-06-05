@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useForm } from "vee-validate";
-import {useNotifyBottomSheetStore} from "~/store/notifyBottomSheet";
-import {useLoadingOverlayStore} from "~/store/loadingOverlay";
-import * as yup from "yup";
-import {yupFieldLazyVuetifyConfig} from "~/utils/yupFieldVuetifyConfig";
+import { useForm } from 'vee-validate';
+import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
+import { useLoadingOverlayStore } from '~/store/loadingOverlay';
+import * as yup from 'yup';
+import { yupFieldLazyVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
 
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const loadingOverlayStore = useLoadingOverlayStore();
@@ -66,7 +66,8 @@ const onSubmit = handleSubmit(async (values) => {
     </v-card-text>
 
     <v-card-text v-else class="mt-5">
-      <p>パスワード再設定のメールを送信しました。</p>
+      <p>メールアドレス：{{ email }}</p>
+      <p class="mt-5">パスワード再設定のメールを送信しました。</p>
       <p>メールに記載されているリンクからパスワードを再設定してください。</p>
       <v-btn class="mt-5" to="/member/login">ログイン画面へ</v-btn>
     </v-card-text>
