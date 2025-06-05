@@ -58,7 +58,7 @@ const onSubmit = handleSubmit(async (values) => {
         </v-row>
         <v-row>
           <v-col>
-            <v-btn to="/member/me">戻る</v-btn>
+            <v-btn to="/member/login">戻る</v-btn>
             <v-btn color="primary" class="ml-5" type="submit">送信</v-btn>
           </v-col>
         </v-row>
