@@ -1,4 +1,9 @@
 <script setup lang="ts">
+useHead({
+  titleTemplate: (titleChunk) => {
+    return titleChunk ? `${titleChunk} | スタジオ予約` : 'スタジオ予約';
+  },
+});
 const date = new Date();
 </script>
 

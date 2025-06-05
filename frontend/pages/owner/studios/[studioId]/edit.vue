@@ -11,6 +11,13 @@ definePageMeta({
   middleware: ['only-owner'],
 });
 
+useHead({
+  title: 'スタジオ修正',
+  meta: [
+    { name: 'description', content: 'スタジオの情報を修正します。' },
+  ],
+});
+
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const loadingOverlayStore = useLoadingOverlayStore();
 const { $ownerApi } = useNuxtApp();

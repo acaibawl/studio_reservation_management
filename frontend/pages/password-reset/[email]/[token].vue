@@ -5,6 +5,13 @@ import * as yup from 'yup';
 import { useForm } from 'vee-validate';
 import { yupFieldLazyVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
 
+useHead({
+  title: 'パスワード再設定',
+  meta: [
+    { name: 'description', content: 'スタジオ予約管理システムのパスワード再設定ページです。' },
+  ],
+});
+
 const loadingOverlayStore = useLoadingOverlayStore();
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const { $api } = useNuxtApp();

@@ -10,6 +10,13 @@ definePageMeta({
   middleware: ['only-member'],
 });
 
+useHead({
+  title: 'メールアドレス修正',
+  meta: [
+    { name: 'description', content: '会員のメールアドレスを修正します。' },
+  ],
+});
+
 const enum UpdateEmailStep {
   EnterEmail = 1,
   EnterVerifiedCode = 2,

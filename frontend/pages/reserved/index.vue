@@ -8,6 +8,13 @@ definePageMeta({
   middleware: ['only-member'],
 });
 
+useHead({
+  title: '予約済み',
+  meta: [
+    { name: 'description', content: '予約済みのスタジオ情報を表示します。' },
+  ],
+});
+
 interface ReservationFetchData {
   id: number;
   studio_id: number;

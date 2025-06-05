@@ -8,6 +8,13 @@ definePageMeta({
   middleware: ['only-owner'],
 });
 
+useHead({
+  title: 'スタジオ一覧',
+  meta: [
+    { name: 'description', content: '登録されているスタジオの一覧を表示します。' },
+  ],
+});
+
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
 const loadingOverlayStore = useLoadingOverlayStore();
 const { $ownerApi } = useNuxtApp();

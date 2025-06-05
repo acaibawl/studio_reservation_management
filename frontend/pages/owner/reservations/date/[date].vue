@@ -9,6 +9,13 @@ definePageMeta({
   middleware: ['only-owner'],
 });
 
+useHead({
+  title: '予約状況確認',
+  meta: [
+    { name: 'description', content: '特定の日付の予約状況を確認します。' },
+  ],
+});
+
 const route = useRoute();
 const dateString = route.params.date as string;
 // パスパラメータdateが正しい日付じゃない場合は404とする

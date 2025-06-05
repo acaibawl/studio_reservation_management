@@ -6,6 +6,13 @@ import { yupFieldLazyVuetifyConfig } from '~/utils/yupFieldVuetifyConfig';
 import { useLoadingOverlayStore } from '~/store/loadingOverlay';
 import { useNotifyBottomSheetStore } from '~/store/notifyBottomSheet';
 
+useHead({
+  title: 'オーナーログイン',
+  meta: [
+    { name: 'description', content: 'スタジオ予約管理システムのオーナーログインページです。' },
+  ],
+});
+
 interface LoginResponse {
   expires_in: number;
   owner_access_token: string;
