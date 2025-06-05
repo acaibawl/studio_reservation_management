@@ -3,13 +3,3 @@
 const date = new Date();
 navigateTo(`/reservations/availability/date/${date.toLocaleDateString('sv-SE')}`);
 </script>
-
-<template>
-  <div>
-    index
-  </div>
-</template>
-
-<style scoped>
-
-</style>
