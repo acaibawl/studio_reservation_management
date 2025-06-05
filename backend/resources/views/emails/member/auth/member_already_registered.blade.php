@@ -3,4 +3,5 @@
 ご入力いただきましたメールアドレスは既には既にアカウントが存在しています。
 
 パスワードをお忘れですか？再設定はこちらから可能です。
-https://studio-reservation.com/password/reset
+
+{{ config('app.front_base_url') }}/forgot-password

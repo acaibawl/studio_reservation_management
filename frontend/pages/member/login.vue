@@ -56,7 +56,7 @@ const onSubmit = handleSubmit(async (values) => {
 <template>
   <v-card class="mx-auto px-6 py-8 mt-10 d-flex align-center justify-center fill-height" max-width="640px">
     <v-form @submit="onSubmit">
-      <h3 class="text-h3">スタジオ予約システム</h3>
+      <h3 class="text-h3">スタジオ予約管理システム</h3>
       <h4 class="text-h4">ログイン</h4>
       <v-row class="mt-5">
         <v-col cols="12">
