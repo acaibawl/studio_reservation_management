@@ -25,6 +25,11 @@ export default defineNuxtConfig({
         { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
         { rel: 'icon', type: 'image/png', sizes: '192x192', href: '/android-touch-icon.png' },
       ],
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1',
+      meta: [
+        { name: 'description', content: 'スタジオの予約を管理するためのシステムです。' },
+      ],
     },
   },
 });
