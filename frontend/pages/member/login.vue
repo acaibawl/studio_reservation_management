@@ -82,7 +82,12 @@ const onSubmit = handleSubmit(async (values) => {
           />
         </v-col>
       </v-row>
-      <v-btn color="primary" type="submit">ログイン</v-btn>
+      <v-row>
+        <v-btn color="primary" type="submit">ログイン</v-btn>
+      </v-row>
+      <v-row class="justify-end">
+        <NuxtLink to="/forgot-password" class="text-decoration-none text-overline text-secondary">パスワードを忘れた方はこちら</NuxtLink>
+      </v-row>
     </v-form>
   </v-card>
 </template>
