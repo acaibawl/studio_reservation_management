@@ -104,7 +104,7 @@ const onSubmit = handleSubmit(async (values) => {
       class="mt-5"
     />
     <v-row class="mt-5">
-      <v-btn :to="`/owner/studios/${studioId}/reservations/${reservationId}`">戻る</v-btn>
+      <v-btn :to="`/owner/reservations/${reservationId}/studios/${studioId}`">戻る</v-btn>
       <v-btn type="submit" class="ml-5" color="primary">修正</v-btn>
     </v-row>
   </v-form>
