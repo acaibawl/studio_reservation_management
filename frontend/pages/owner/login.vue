@@ -21,7 +21,7 @@ interface LoginResponse {
 
 const loadingOverlayStore = useLoadingOverlayStore();
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
-const { loginAsOwner } = useAuthOwnerStore();
+const { loginAsOwnerWithToken } = useAuthOwnerStore();
 
 const { $api } = useNuxtApp();
 const route = useRoute();
@@ -46,7 +46,7 @@ const onSubmit = handleSubmit(async (values) => {
       body: values,
     });
 
-    loginAsOwner(response.owner_access_token, response.expires_in);
+    loginAsOwnerWithToken(response.owner_access_token, response.expires_in);
     const redirectedFrom = route.query.redirectedFrom;
     // リダイレクト先がない場合は当日の予約状況一覧に遷移
     const date = new Date();

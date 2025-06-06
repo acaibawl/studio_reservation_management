@@ -21,7 +21,7 @@ interface LoginResponse {
 
 const loadingOverlayStore = useLoadingOverlayStore();
 const notifyBottomSheetStore = useNotifyBottomSheetStore();
-const { loginAsMember } = useAuthMemberStore();
+const { loginAsMemberWithToken } = useAuthMemberStore();
 
 const { $api } = useNuxtApp();
 const route = useRoute();
@@ -46,7 +46,7 @@ const onSubmit = handleSubmit(async (values) => {
       body: values,
     });
 
-    loginAsMember(response.member_access_token, response.expires_in);
+    loginAsMemberWithToken(response.member_access_token, response.expires_in);
     const redirectedFrom = route.query.redirectedFrom;
     // リダイレクト先がない場合は当日の予約空き状況に遷移
     const date = new Date();

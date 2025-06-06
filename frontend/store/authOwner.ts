@@ -19,7 +19,7 @@ export const useAuthOwnerStore = defineStore('auth_owner', {
     };
   },
   actions: {
-    loginAsOwner(tokenValue: string, expiresIn: number) {
+    loginAsOwnerWithToken(tokenValue: string, expiresIn: number) {
       const token = useCookie('owner_token', {
         maxAge: expiresIn * 60, // expiresInは分単位で渡ってくるので、60を掛けて秒に変換
         secure: true,
