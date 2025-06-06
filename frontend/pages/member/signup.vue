@@ -133,18 +133,20 @@ const onMemberInformationSubmit = handleSubmit(async (values) => {
       <!-- メールアドレス検証コード送信ステップ -->
       <v-card-text v-if="currentFormStep === SignUpStep.EnterEmail">
         <v-form @submit.prevent="onSendVerifiedCodeSubmit">
-        <v-row class="mt-5">
-          <v-col cols="12">
-            <v-text-field
-              v-model="email"
-              v-bind="emailProps"
-              label="メールアドレス"
-              type="email"
-              prepend-inner-icon="mdi-email-outline"
-            />
-          </v-col>
-          <v-btn color="primary" type="submit">認証コードを送る</v-btn>
-        </v-row>
+          <v-row class="mt-5">
+            <v-col cols="12">
+              <v-text-field
+                v-model="email"
+                v-bind="emailProps"
+                label="メールアドレス"
+                type="email"
+                prepend-inner-icon="mdi-email-outline"
+              />
+            </v-col>
+          </v-row>
+          <v-row class="justify-center">
+            <v-btn color="primary" type="submit">認証コードを送る</v-btn>
+          </v-row>
         </v-form>
       </v-card-text>
 
@@ -172,7 +174,7 @@ const onMemberInformationSubmit = handleSubmit(async (values) => {
             </v-col>
           </v-row>
           <v-row>
-            <v-col>
+            <v-col class="text-center">
               <v-btn color="primary" type="submit">認証コードを検証</v-btn>
             </v-col>
           </v-row>
@@ -247,7 +249,7 @@ const onMemberInformationSubmit = handleSubmit(async (values) => {
             </v-col>
           </v-row>
           <v-row>
-            <v-col>
+            <v-col class="text-center">
               <v-btn color="primary" type="submit">登録</v-btn>
             </v-col>
           </v-row>
@@ -283,7 +285,7 @@ const onMemberInformationSubmit = handleSubmit(async (values) => {
           </v-col>
         </v-row>
         <v-row>
-          <v-col>
+          <v-col class="text-center">
             <v-btn color="primary" to="/member/login">ログイン画面へ</v-btn>
           </v-col>
         </v-row>
