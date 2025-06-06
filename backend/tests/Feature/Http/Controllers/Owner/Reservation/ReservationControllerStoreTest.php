@@ -6,11 +6,13 @@ namespace Tests\Feature\Http\Controllers\Owner\Reservation;
 
 use App\Enums\Studio\StartAt;
 use App\Exceptions\Reservation\AvailableHourExceededException;
+use App\Mail\Member\Reservation\ReservationApplicationHaveBeenReceivedMail;
 use App\Models\BusinessTime;
 use App\Models\Studio;
 use Database\Seeders\Prod\MemberSeeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Exceptions;
+use Mail;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -26,6 +28,7 @@ class ReservationControllerStoreTest extends TestCase
     public function test_store_success(): void
     {
         Carbon::setTestNow('2025-05-17 18:00:00');
+        Mail::fake();
         $this->seed(MemberSeeder::class);
 
         BusinessTime::factory()->create([
@@ -51,6 +54,12 @@ class ReservationControllerStoreTest extends TestCase
             'finish_at' => '2025-05-18 22:29:59',
             'memo' => str_repeat('a', 512),
         ]);
+        // 指定のメールが指定のアドレスに送信されていること
+        Mail::assertSent(ReservationApplicationHaveBeenReceivedMail::class, function ($mail) {
+            return $mail->hasTo(config('app.owner_email'));
+        });
+        // 指定のメールが1回送信されていること
+        Mail::assertSent(ReservationApplicationHaveBeenReceivedMail::class, 1);
     }
 
     /**
@@ -61,6 +70,7 @@ class ReservationControllerStoreTest extends TestCase
     {
         Carbon::setTestNow('2025-05-17 18:00:00');
         Exceptions::fake();
+        Mail::fake();
         $this->seed(MemberSeeder::class);
 
         BusinessTime::factory()->create([
@@ -85,6 +95,8 @@ class ReservationControllerStoreTest extends TestCase
             'start_at' => '2025-05-18 18:30:00',
             'memo' => 'メモ本文',
         ]);
+        // 予約申請受付メールが送信されていないこと
+        Mail::assertNotSent(ReservationApplicationHaveBeenReceivedMail::class);
     }
 
     /**
@@ -95,6 +107,7 @@ class ReservationControllerStoreTest extends TestCase
     {
         Carbon::setTestNow('2025-05-17 18:00:00');
         Exceptions::fake();
+        Mail::fake();
         $this->seed(MemberSeeder::class);
 
         BusinessTime::factory()->create([
@@ -120,6 +133,8 @@ class ReservationControllerStoreTest extends TestCase
             'start_at' => '2025-05-18 22:30:00',
             'memo' => 'メモ本文',
         ]);
+        // 予約申請受付メールが送信されていないこと
+        Mail::assertNotSent(ReservationApplicationHaveBeenReceivedMail::class);
     }
 
     /**

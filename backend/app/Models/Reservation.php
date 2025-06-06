@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string|null $memo メモ
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read float $usage_hour
  * @property-read \App\Models\Member $member
  * @property-read \App\Models\Studio $studio
  * @method static \Database\Factories\ReservationFactory factory($count = null, $state = [])
@@ -56,6 +57,12 @@ class Reservation extends Model
     public function scopeNotFinished(Builder $query): Builder
     {
         return $query->where('finish_at', '>=', now());
+    }
+
+    public function getUsageHourAttribute(): float
+    {
+        // 開始日時から終了日時に1秒加えた時間までの時間を計算
+        return $this->start_at->diffInHours($this->finish_at->addSecond());
     }
 
     /**
