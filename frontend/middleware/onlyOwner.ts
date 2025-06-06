@@ -1,17 +1,15 @@
 import { useAuthOwnerStore } from '~/store/authOwner';
 
 export default defineNuxtRouteMiddleware((to) => {
-  const token = useCookie('owner_token', {
-    maxAge: 60 * 60,
-  });
+  const token = useCookie('owner_token');
 
   if (!token.value) {
     return navigateTo(`/owner/login?redirectedFrom=${to.fullPath}`);
   }
 
-  const { isLogin, loginAsOwner } = useAuthOwnerStore();
+  const { isLogin, loggedIn } = useAuthOwnerStore();
   if (isLogin) {
     return;
   }
-  loginAsOwner(token.value);
+  loggedIn();
 });
