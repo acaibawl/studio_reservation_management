@@ -39,7 +39,7 @@ phpコンテナで実施
 
 ```bash
 composer install
-copy .env.example .env
+cp .env.example .env
 php artisan key:generate
 php artisan jwt:secret
 php artisan migrate
@@ -56,7 +56,7 @@ composer helper:models
 nuxtコンテナで実施
 
 ```bash
-copy .env.example .env
+cp .env.example .env
 npm i
 ```
 
