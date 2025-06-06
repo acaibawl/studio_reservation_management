@@ -89,11 +89,12 @@ const onSubmit = handleSubmit(async (values) => {
           />
         </v-col>
       </v-row>
-      <v-row>
+      <v-row class="justify-center">
         <v-btn color="primary" type="submit">ログイン</v-btn>
+        <v-btn color="secondary" class="ml-5" to="/member/signup">会員登録</v-btn>
       </v-row>
-      <v-row class="justify-end">
-        <NuxtLink to="/forgot-password" class="text-decoration-none text-overline text-secondary">パスワードを忘れた方はこちら</NuxtLink>
+      <v-row class="justify-center">
+        <NuxtLink to="/forgot-password" class="mt-5 text-decoration-none text-overline text-secondary">パスワードを忘れた方はこちら</NuxtLink>
       </v-row>
     </v-form>
   </v-card>
