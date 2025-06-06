@@ -127,4 +127,5 @@ return [
 
     // オリジナルの環境変数
     'front_base_url' => env('FRONT_BASE_URL', 'https://front.local'),
+    'owner_email' => env('OWNER_EMAIL', ''),
 ];

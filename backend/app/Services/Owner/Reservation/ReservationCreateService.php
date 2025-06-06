@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Owner\Reservation;
 
 use App\Exceptions\Reservation\AvailableHourExceededException;
+use App\Mail\Member\Reservation\ReservationApplicationHaveBeenReceivedMail;
 use App\Models\Member;
 use App\Models\Reservation;
 use App\Models\Studio;
@@ -12,6 +13,7 @@ use App\Services\GenerateReservationFinishAtService;
 use App\Services\Reservation\EnsureCanReserve;
 use Arr;
 use Carbon\CarbonImmutable;
+use Mail;
 
 readonly class ReservationCreateService
 {
@@ -33,7 +35,7 @@ readonly class ReservationCreateService
             $usageHour
         );
 
-        return Reservation::create([
+        $reservation = Reservation::create([
             'member_id' => $member->id,
             'studio_id' => $studio->id,
             'start_at' => $attributes['start_at'],
@@ -43,5 +45,9 @@ readonly class ReservationCreateService
             ),
             'memo' => Arr::get($attributes, 'memo', null),
         ]);
+
+        Mail::send(new ReservationApplicationHaveBeenReceivedMail($member, $reservation));
+
+        return $reservation;
     }
 }
