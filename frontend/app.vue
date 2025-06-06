@@ -28,7 +28,7 @@ html {
   }
 }
 body {
-  font-family: "Noto Sans JP", Meiryo, serif !important;
+  font-family: "Noto Sans JP", Meiryo, serif;
 }
 
 .v-application [class*='text-'] {

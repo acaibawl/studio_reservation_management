@@ -16,7 +16,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiBaseUrl: '',
-      baseUrl: ''
+      baseUrl: '',
     },
   },
   app: {
@@ -35,10 +35,6 @@ export default defineNuxtConfig({
         },
         {
           rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Philosopher&display=swap',
-        },
-        {
-          rel: 'stylesheet',
           href: 'https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Noto+Sans+JP:wght@100..900&family=Philosopher&display=swap',
         },
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -54,12 +50,12 @@ export default defineNuxtConfig({
         { property: 'og:locale', content: 'ja_JP' },
         { property: 'og:title', content: 'スタジオ予約管理システム' },
         { property: 'og:description', content: 'スタジオの予約を管理するためのシステムです。' },
-        { property: 'og:image', content: '/android-touch-icon.png' },
+        { property: 'og:image', content: '/ogp.jpg' },
         { property: 'og:url', content: process.env.NUXT_PUBLIC_BASE_URL },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: 'スタジオ予約管理システム' },
         { name: 'twitter:description', content: 'スタジオの予約を管理するためのシステムです。' },
-        { name: 'twitter:image', content: '/android-touch-icon.png' },
+        { name: 'twitter:image', content: '/ogp.jpg' },
       ],
     },
   },
