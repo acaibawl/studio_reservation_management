@@ -17,11 +17,65 @@ docker/nginx/certs/studio_reservation_management.local.crt
 
 ブラウザを立ち上げ直す
 
-# laravelの.envファイル用意
+# Dockerコンテナへの入り方
 
-backend/.env.example をコピーして.envファイルを作成  
-APP_KEY変数の生成
+## バックエンド
 
+```bash
+docker compose exec php bash
 ```
+
+## フロントエンド
+
+```bash
+docker compose exec nuxt bash
+```
+
+# 開発環境のセットアップ
+
+## バックエンドのセットアップ
+
+phpコンテナで実施
+
+```bash
+composer install
+copy .env.example .env
 php artisan key:generate
+php artisan jwt:secret
+php artisan migrate
+php artisan db:seed --class=Database\\Seeders\\Prod\\ProdDatabaseSeeder
+php artisan db:seed --class=Database\\Seeders\\Dev\\DevDatabaseSeeder
+php artisan storage:link
+php artisan ide-helper:generate
+php artisan ide-helper:meta
+composer helper:models
+```
+
+## フロントエンドのセットアップ
+
+nuxtコンテナで実施
+
+```bash
+copy .env.example .env
+npm i
+```
+
+# 静的解析・テストの実施等
+
+## バックエンドの静的解析・フォーマット・テスト
+
+phpコンテナで実施
+
+```bash
+composer analyse
+vendor/bin/pint -v
+php artisan test
+```
+
+## フロントエンドのフォーマット
+
+nuxtコンテナで実施
+
+```bash
+npm run format
 ```
