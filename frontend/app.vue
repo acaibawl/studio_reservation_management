@@ -27,4 +27,11 @@ html {
     font-size: 100%;
   }
 }
+body {
+  font-family: "Noto Sans JP", Meiryo, serif !important;
+}
+
+.v-application [class*='text-'] {
+  font-family: "Noto Sans JP", Meiryo, serif !important;
+}
 </style>
