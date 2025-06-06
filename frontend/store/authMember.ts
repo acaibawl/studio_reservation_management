@@ -19,9 +19,9 @@ export const useAuthMemberStore = defineStore('auth_member', {
     };
   },
   actions: {
-    loginAsMember(tokenValue: string) {
+    loginAsMember(tokenValue: string, expiresIn: number) {
       const token = useCookie('member_token', {
-        maxAge: 60 * 60, // 1時間
+        maxAge: expiresIn * 60, // expiresInは分単位で渡ってくるので、60を掛けて秒に変換
         secure: true,
         sameSite: 'strict',
       });
