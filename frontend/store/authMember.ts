@@ -33,5 +33,8 @@ export const useAuthMemberStore = defineStore('auth_member', {
       token.value = null;
       this.isLogin = false;
     },
+    loggedIn() {
+      this.isLogin = true;
+    },
   },
 });

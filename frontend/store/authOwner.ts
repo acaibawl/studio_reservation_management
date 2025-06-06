@@ -33,5 +33,8 @@ export const useAuthOwnerStore = defineStore('auth_owner', {
       token.value = null;
       this.isLogin = false;
     },
+    loggedIn() {
+      this.isLogin = true;
+    },
   },
 });

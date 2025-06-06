@@ -7,9 +7,9 @@ export default defineNuxtRouteMiddleware((to) => {
     return navigateTo(`/member/login?redirectedFrom=${to.fullPath}`);
   }
 
-  const { isLogin, loginAsMember } = useAuthMemberStore();
+  const { isLogin, loggedIn } = useAuthMemberStore();
   if (isLogin) {
     return;
   }
-  loginAsMember(token.value);
+  loggedIn();
 });

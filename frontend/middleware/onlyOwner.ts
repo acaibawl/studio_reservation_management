@@ -7,9 +7,9 @@ export default defineNuxtRouteMiddleware((to) => {
     return navigateTo(`/owner/login?redirectedFrom=${to.fullPath}`);
   }
 
-  const { isLogin, loginAsOwner } = useAuthOwnerStore();
+  const { isLogin, loggedIn } = useAuthOwnerStore();
   if (isLogin) {
     return;
   }
-  loginAsOwner(token.value);
+  loggedIn();
 });
