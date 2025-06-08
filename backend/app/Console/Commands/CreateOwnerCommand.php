@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Owner;
+use Hash;
 use Illuminate\Console\Command;
 use Illuminate\Validation\Rule;
 use Symfony\Component\Console\Command\Command as CommandAlias;
@@ -45,7 +46,7 @@ class CreateOwnerCommand extends Command
         // オーナーの作成処理
         Owner::create([
             'email' => $email,
-            'password' => bcrypt($password),
+            'password' => Hash::make($password),
         ]);
 
         $this->info("オーナーが作成されました: {$email}");
