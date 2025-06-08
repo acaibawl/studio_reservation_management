@@ -44,7 +44,10 @@ php artisan key:generate
 php artisan jwt:secret
 php artisan migrate
 php artisan db:seed --class=Database\\Seeders\\Prod\\ProdDatabaseSeeder
-php artisan db:seed --class=Database\\Seeders\\Dev\\DevDatabaseSeeder
+// ログイン用のオーナーを用意
+php artisan app:create-owner-command {email} {password}
+# もし開発環境のデータを入れたい場合は下記を実行
+# php artisan db:seed --class=Database\\Seeders\\Dev\\DevDatabaseSeeder
 php artisan storage:link
 php artisan ide-helper:generate
 php artisan ide-helper:meta
