@@ -64,16 +64,12 @@ class ReservationController extends Controller
      */
     public function update(Studio $studio, Reservation $reservation, UpdatePatch $request): JsonResponse
     {
-        DB::beginTransaction();
         try {
             $this->reservationUpdateService->update($studio, $reservation, $request->validated());
-            DB::commit();
         } catch (UserDisplayableException $e) {
-            DB::rollBack();
             throw $e;
         } catch (\Exception $e) {
             \Log::error($e->getMessage(), $e->getTrace());
-            DB::rollBack();
             throw $e;
         }
 
@@ -121,20 +117,16 @@ class ReservationController extends Controller
      */
     public function store(Studio $studio, StorePost $request): JsonResponse
     {
-        DB::beginTransaction();
         try {
             $reservation = $this->reservationCreateService->create(
                 Member::findOrFail(self::OWNER_MEMBER_ID),
                 $studio,
                 $request->validated()
             );
-            DB::commit();
         } catch (UserDisplayableException $e) {
-            DB::rollBack();
             throw $e;
         } catch (\Exception $e) {
             \Log::error($e->getMessage(), $e->getTrace());
-            DB::rollBack();
             throw $e;
         }
 

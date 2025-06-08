@@ -8,6 +8,7 @@ use App\Exceptions\Reservation\AvailableHourExceededException;
 use App\Models\Reservation;
 use App\Models\Studio;
 use App\Services\GenerateReservationFinishAtService;
+use DB;
 
 readonly class ReservationUpdateService
 {
@@ -22,6 +23,8 @@ readonly class ReservationUpdateService
     public function update(Studio $studio, Reservation $reservation, array $attributes): bool
     {
         $usageHour = $attributes['usage_hour'];
+        // テーブルをテーブルロックする
+        DB::unprepared('LOCK TABLES reservations WRITE, business_times READ, regular_holidays READ, temporary_closing_days READ, studios READ');
         if ($this->studioMaxUsageHourService->getByReservation($studio, $reservation) < $usageHour) {
             throw new AvailableHourExceededException();
         }
