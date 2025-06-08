@@ -19,7 +19,6 @@ use App\Services\Owner\Reservation\StudioMaxAvailableHourService;
 use App\ViewModels\Reservation\DailyQuotasStatus;
 use App\ViewModels\Reservation\MaxAvailableHourViewModel;
 use Carbon\CarbonImmutable;
-use DB;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Symfony\Component\HttpFoundation\Response;
@@ -64,7 +63,6 @@ class ReservationController extends Controller
             /** @var Member $member */
             $member = auth()->user();
             $this->reservationCreateService->create($member, $studio, $request->validated());
-            DB::commit();
         } catch (UserDisplayableException $e) {
             throw $e;
         } catch (\Exception $e) {

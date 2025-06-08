@@ -7,13 +7,14 @@ namespace Tests;
 use App\Models\Member;
 use App\Models\Owner;
 use Illuminate\Foundation\Console\CliDumper;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\Schema;
 
 abstract class TestCase extends BaseTestCase
 {
-    use DatabaseTransactions;
+    // 予約の作成・更新処理でトランザクションではなくテーブルロックを使う為、DatabaseTransactionsではなくRefreshDatabaseを使う
+    use RefreshDatabase;
 
     /**
      * DB のテーブルに入っているデータを出力します
