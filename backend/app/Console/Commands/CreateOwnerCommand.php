@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Models\Owner;
@@ -38,6 +40,7 @@ class CreateOwnerCommand extends Command
             foreach ($validator->errors()->all() as $error) {
                 $this->error($error);
             }
+
             return CommandAlias::FAILURE;
         }
 
@@ -50,6 +53,7 @@ class CreateOwnerCommand extends Command
         ]);
 
         $this->info("オーナーが作成されました: {$email}");
+
         return CommandAlias::SUCCESS;
     }
 }
