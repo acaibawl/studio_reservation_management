@@ -4,6 +4,9 @@ namespace App\Console\Commands;
 
 use App\Models\Owner;
 use Illuminate\Console\Command;
+use Illuminate\Validation\Rule;
+use Symfony\Component\Console\Command\Command as CommandAlias;
+use Validator;
 
 class CreateOwnerCommand extends Command
 {
@@ -24,16 +27,21 @@ class CreateOwnerCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle(): void
+    public function handle(): int
     {
-        $email = $this->argument('email');
-        $password = $this->argument('password');
-        // passwordは8文字以上32文字以下であることを確認
-        if (strlen($password) < 8 || strlen($password) > 32) {
-            $this->error('パスワードは8文字以上32文字以下である必要があります。');
-            return;
+        $validator = Validator::make($this->arguments(), [
+            'email' => ['required', 'email', 'max:255', Rule::unique('owners', 'email')],
+            'password' => ['required', 'string', 'between:8,32'],
+        ]);
+        if ($validator->fails()) {
+            foreach ($validator->errors()->all() as $error) {
+                $this->error($error);
+            }
+            return CommandAlias::FAILURE;
         }
 
+        $email = $this->argument('email');
+        $password = $this->argument('password');
         // オーナーの作成処理
         Owner::create([
             'email' => $email,
@@ -41,5 +49,6 @@ class CreateOwnerCommand extends Command
         ]);
 
         $this->info("オーナーが作成されました: {$email}");
+        return CommandAlias::SUCCESS;
     }
 }
