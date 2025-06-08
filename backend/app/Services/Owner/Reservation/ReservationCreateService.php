@@ -13,6 +13,7 @@ use App\Services\GenerateReservationFinishAtService;
 use App\Services\Reservation\EnsureCanReserve;
 use Arr;
 use Carbon\CarbonImmutable;
+use DB;
 use Mail;
 
 readonly class ReservationCreateService
@@ -29,6 +30,8 @@ readonly class ReservationCreateService
     {
         $usageHour = $attributes['usage_hour'];
         $startAt = CarbonImmutable::parse($attributes['start_at']);
+        // テーブルをテーブルロックする
+        DB::unprepared('LOCK TABLES reservations WRITE, business_times READ, regular_holidays READ, temporary_closing_days READ, studios READ');
         $this->ensureCanReserve->handle(
             $studio,
             $startAt,
